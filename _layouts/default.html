@@ -9,11 +9,13 @@ layout: compress
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{{ page.title }}</title>
     <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
   </head>
   <body>
     <div id="wrap">
       <header id="header">
         <h1 class="logo"><a href="/">{{ site.title }}</a></h1>
+        <button class="btn-menu-toggle"><span>전체메뉴</span></button>
         <nav class="gnb">
           <ul style="padding-left: 20px;">
             {% assign sort_categories = site.categories | sort %}
