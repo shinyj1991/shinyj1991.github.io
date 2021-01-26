@@ -2,7 +2,10 @@
 layout: default
 ---
 
-<div class="post">
+<div class="post-wrap">
+  <aside id="post-aside" class="post-aside">
+    {% toc %}
+  </aside>
   <div class="post-content">
     {{ content }}
   </div>
