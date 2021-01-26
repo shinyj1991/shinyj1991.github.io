@@ -2,6 +2,8 @@
 layout: default
 ---
 
+{% assign offset = paginator.page | minus: 1 | times: paginator.per_page %}
+
 <div class="home">
   <ul class="post-list">
     {% for post in site.posts %}
@@ -14,3 +16,7 @@ layout: default
     {% endfor %}
   </ul>
 </div>
+
+{% if paginator.total_pages > 0 %}
+  {% include post-paginator.html %}
+{% endif %}
