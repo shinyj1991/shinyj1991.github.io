@@ -34,7 +34,7 @@ permalink: /categories/
           {% assign sub_categories = sub_categories | sort %}
           {% assign sub_categories_size = sub_categories | size %}
 
-          <li><a href="/categories/{{ category | first }}">{{category | first}}</a>
+          <li><a href="/categories/{{ category_name | slugify | url_encode }}">{{ category | first }}</a>
             <!-- Sub-categories -->
             {% if sub_categories_size > 0 %}
             <div style="padding-left: 30px;">
