@@ -1,0 +1,14 @@
+---
+layout: default
+---
+
+<ul class="post-list">
+  {% for post in page.posts %}
+    <li>
+      <span class="post-meta">{{ post.date | date: "%-m %-d, %Y" }}</span>
+      <h2>
+        <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+      </h2>
+    </li>
+  {% endfor %}
+</ul>

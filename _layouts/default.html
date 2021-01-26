@@ -11,6 +11,22 @@ layout: compress
     <link rel="stylesheet" href="/assets/css/style.css">
   </head>
   <body>
-    {{ content }}
+    <div id="wrap">
+      <header id="header">
+        <h1 class="logo"><a href="/">{{ site.title }}</a></h1>
+        <nav class="gnb">
+          <a href="/">Home</a>
+          <a href="/categories/">Categories</a>
+        </nav>
+      </header>
+
+      <main id="container">
+        {{ content }}
+      </main>
+
+      <footer id="footer">
+        &copy; to me
+      </footer>
+    </div>
   </body>
 </html>
