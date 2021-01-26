@@ -33,7 +33,7 @@ github_username:  shinyj1991
 theme: minima
 
 # 한 페이지당 노출되는 포스트 개수
-paginate: 10
+# paginate: 10
 
 plugins:
   - jekyll-feed
@@ -41,12 +41,10 @@ plugins:
 permalink: /:categories/:title/
 
 jekyll-archives:
-  enabled: [categories, tags]
+  enabled: [categories]
   layouts:
     category: category
-    tag: tag
   permalinks:
-    tag: /tags/:name/
     category: /categories/:name/
 
 # Exclude from processing.
