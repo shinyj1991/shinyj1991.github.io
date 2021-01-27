@@ -72,7 +72,7 @@ img {border: none;}
 
 body {background: #111111; color: #ffffff; font-family: 'Noto Sans KR', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5;}
 
-#wrap {width: 1280px; min-height: 100vh; padding: 80px 0; margin: 0 auto; position: relative;
+#wrap {width: 1024px; min-height: 100vh; padding: 80px 0; margin: 0 auto; position: relative;
   &.open-gnb .btn-menu-toggle {
     &:before {top: 11px; transform: rotate(45deg);}
     span {opacity: 0;}
@@ -92,7 +92,7 @@ body {background: #111111; color: #ffffff; font-family: 'Noto Sans KR', sans-ser
     &:after {display: block; content: ''; position: absolute; top: 22px; left: 0; width: 100%; height: 2px; background: #ffffff; transition: all 300ms;}
   }
   .gnb {overflow-x: hidden; overflow-y: auto; position: fixed; top: 0; left: 0; width: 100vw; height: 0; background: rgba(0, 0, 0, 0.7); z-index: 100; opacity: 0;
-    > ul {max-width: 1280px; min-height: 100vh; padding: 100px 30px; margin: 0 auto; text-align: right;
+    > ul {max-width: 1024px; min-height: 100vh; padding: 100px 30px; margin: 0 auto; text-align: right;
       > li {
         &:not(:first-child) {margin-top: 36px;}
         > a {display: inline-block; font-family: 'Roboto'; font-weight: 700; font-size: 32px;}
@@ -124,8 +124,9 @@ body {background: #111111; color: #ffffff; font-family: 'Noto Sans KR', sans-ser
   h1 {font-weight: 700; font-size: 2rem;}
 }
 
-.post-list {
-  li {
+.post-list {width: 768px;
+  li {position: relative; padding-left: 12px;
+    &:before {display: block; content: ''; position: absolute; top: 12px; left: 0; bottom: 0; width: 3px; background: #cccccc;}
     &:not(:first-child) {margin-top: 2rem;}
     a {display: block; padding: 12px; transition: all 100ms;
       .tit {font-size: 20px; margin-bottom: 6px;}
