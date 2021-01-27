@@ -32,21 +32,27 @@ github_username:  shinyj1991
 # Build settings
 theme: minima
 
-# 한 페이지당 노출되는 포스트 개수
-# paginate: 10
+gems: [jekyll-paginate, jekyll-paginate-category]
+
+paginate: 5
+paginate_path: "page:num"
+
+category_dir: "category"
+category_layout: "index.html"
 
 plugins:
   - jekyll-feed
   - jekyll-toc
+  - jekyll-paginate
 
-permalink: /:categories/:title/
+permalink: /:categories/:year:month:day-:title:output_ext
 
 jekyll-archives:
-  enabled: [categories]
+  enabled: [category]
   layouts:
     category: category
   permalinks:
-    category: /categories/:name/
+    category: /category/:title/
 
 # Exclude from processing.
 # The following items will not be processed, by default.

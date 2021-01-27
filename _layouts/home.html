@@ -2,21 +2,53 @@
 layout: default
 ---
 
-{% assign offset = paginator.page | minus: 1 | times: paginator.per_page %}
+<!-- home layout 은 category와 home 페이지를 공유합니다. -->
 
-<div class="home">
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <span class="post-meta">{{ post.date | date: "%-m %-d, %Y" }}</span>
-        <h2>
-          <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
-        </h2>
-      </li>
-    {% endfor %}
-  </ul>
+{% if page.paginator %}
+{% assign paginator = page.paginator %}
+{% endif %}
+
+{% if page.name == 'index.html' %}
+  <!-- Home prev, next 페이지 링크 -->
+  {% assign prev_link = paginator.previous_page_path %}
+  {% assign next_link = paginator.next_page_path %}
+{% else %}
+  <!-- Category prev, next 페이지 링크 -->
+  {% assign prev_link = '/category/' | append: page.title | append: paginator.previous_page_path %}
+  {% assign next_link = '/category/' | append: page.title | append: paginator.next_page_path %}
+{% endif %}
+
+<div class="page-head">
+  {% if page.name == 'index.html' %}
+  <h1>Home</h1>
+  {% else %}
+  <h1>{{ page.title }} ({{ page.paginator.total_posts }})</h1>
+  {% endif %}
 </div>
 
-{% if paginator.total_pages > 0 %}
-  {% include post-paginator.html %}
-{% endif %}
+<ul class="post-list">
+  {% for post in paginator.posts %}
+    <li>
+      <a href="{{ post.url | relative_url }}">
+        <div class="tit">{{ post.title | escape }}</div>
+        <div class="txt">{{ post.content | markdownify | strip_html | truncate: 300 }}</div>
+      </a>
+      <div class="date">{{ post.date | date: "%Y-%m-%d %H:%M" }}</div>
+    </li>
+  {% endfor %}
+</ul>
+
+<!-- Pagination links -->
+<div class="pagination">
+  {% if paginator.previous_page %}
+    <a href="{{ prev_link }}" class="previous">Previous</a>
+  {% else %}
+    <span class="previous">Previous</span>
+  {% endif %}
+  <span class="page_number ">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
+  {% if paginator.next_page %}
+    <a href="{{ next_link }}" class="next">Next</a>
+  {% else %}
+    <span class="next">Next</span>
+  {% endif %}
+</div>

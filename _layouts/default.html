@@ -15,21 +15,16 @@ layout: compress
     <div id="wrap">
       <header id="header">
         <h1 class="logo"><a href="/">{{ site.title }}</a></h1>
-        <button class="btn-menu-toggle"><span>전체메뉴</span></button>
+        <button class="btn-menu-toggle" onclick="$('#wrap').toggleClass('open-gnb');"><span>전체메뉴</span></button>
         <nav class="gnb">
-          <ul style="padding-left: 20px;">
+          <ul>
             {% assign sort_categories = site.categories | sort %}
-      
             {% for category in sort_categories %}
-      
               {% assign category_name = category | first %}
               {% assign posts_of_category = category | last %}
               {% assign first_post = posts_of_category | first %}
-      
               {% if category_name == first_post.categories[0] %}
-      
                 {% assign sub_categories = "" | split: "" %}
-      
                 {% for post in posts_of_category %}
                   {% assign second_category = post.categories[1] %}
                   {% if second_category %}
@@ -38,35 +33,26 @@ layout: compress
                     {% endunless %}
                   {% endif %}
                 {% endfor %}
-            
                 {% assign sub_categories = sub_categories | sort %}
                 {% assign sub_categories_size = sub_categories | size %}
-      
-                <li><a href="/categories/{{ category_name | slugify | url_encode }}">{{ category | first }}
-                  <!-- content count -->
+                <li><a href="/category/{{ category | first }}">{{ category | first }}
                   {% assign top_posts_size = site.categories[category_name] | size %}
-                  <span class="text-muted small font-weight-light">({{ top_posts_size }})</span>
+                  <span class="count">({{ top_posts_size }})</span>
                 </a>
-
-
-                  <!-- Sub-categories -->
                   {% if sub_categories_size > 0 %}
-                  <div style="padding-left: 30px;">
-                    <ul class="list-group">
-                      {% for sub_category in sub_categories %}
-                      <li class="list-group-item">
-                        <a href="/categories/{{ sub_category | slugify | url_encode }}/"
-                          class="ml-1 mr-2">{{ sub_category }}</a>
+                  <ul>
+                    {% for sub_category in sub_categories %}
+                    <li>
+                      <a href="/category/{{ sub_category }}/">{{ sub_category }}
                         {% assign posts_size = site.categories[sub_category] | size %}
-                        <span class="text-muted small font-weight-light">({{ posts_size }})</span>
-                      </li>
-                      {% endfor %}
-                    </ul>
-                  </div>
+                        <span>({{ posts_size }})</span>
+                      </a>
+                    </li>
+                    {% endfor %}
+                  </ul>
                   {% endif %}
                 </li>
               {% endif %}
-      
             {% endfor %}
           </ul>
         </nav>
@@ -77,7 +63,12 @@ layout: compress
       </main>
 
       <footer id="footer">
-        &copy; to me
+        <ul class="sns">
+          <li><a href="#self">Github</a></li>
+          <li><a href="#self">Instagram</a></li>
+          <li><a href="#self">Tistory</a></li>
+        </ul>
+        <p class="copyright">&copy; 2020. ShinyJ. Powered by Jekyll.</p>
       </footer>
     </div>
   </body>

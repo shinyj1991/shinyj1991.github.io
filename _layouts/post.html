@@ -2,11 +2,42 @@
 layout: default
 ---
 
-<div class="post-wrap">
+<article class="post-wrap">
   <aside id="post-aside" class="post-aside">
-    {% toc %}
+    <div class="toc-outer">{% toc %}</div>
   </aside>
-  <div class="post-content">
-    {{ content }}
+  <div id="post-content" class="post-content">
+    <div class="post-head">
+      <h1 data-toc-skip>{{ page.title }}</h1>
+    </div>
+    <div class="post-meta">
+      <div>
+        {{ page.date | date: "%Y-%m-%d %H:%M" }}
+        {{ page.author | default: site.author }}
+      </div>
+    </div>
+    <div class="post-body">{{ content }}</div>
   </div>
-</div>
+</article>
+
+<script>
+  let arrHeaderPos = [];
+  let arrHeaderId = [];
+
+  $('#post-content :header').each(function(i, o) {
+    arrHeaderPos.push(o.offsetTop);
+    arrHeaderId.push(o.id);
+  });
+
+  $(window).on('load scroll', function() {
+    for (let i = 0; i < arrHeaderPos.length; i++) {
+      if (window.scrollY < arrHeaderPos[i]) {
+        $('#toc').find('a').removeClass('active');
+        if (arrHeaderId[i - 1]) {
+          $(`a[href="#${arrHeaderId[i - 1]}"]`).addClass('active').focus();
+        }
+        break;
+      }
+    }
+  });
+</script>
