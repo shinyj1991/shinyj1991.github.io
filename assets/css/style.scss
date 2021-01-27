@@ -72,7 +72,7 @@ img {border: none;}
 
 body {background: #111111; color: #ffffff; font-family: 'Noto Sans KR', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5;}
 
-#wrap {width: 1024px; min-height: 100vh; padding: 80px 0; margin: 0 auto; position: relative;
+#wrap {max-width: 1024px; min-height: 100vh; padding: 80px 0; margin: 0 auto; position: relative;
   &.open-gnb .btn-menu-toggle {
     &:before {top: 11px; transform: rotate(45deg);}
     span {opacity: 0;}
@@ -120,14 +120,14 @@ body {background: #111111; color: #ffffff; font-family: 'Noto Sans KR', sans-ser
 
 #container {padding: 30px;}
 
-.page-head {padding-top: 2rem; margin-bottom: 2rem;
-  h1 {font-weight: 700; font-size: 2rem;}
+.page-head {padding-top: 2em; margin-bottom: 2em;
+  h1 {font-weight: 700; font-size: 2em;}
 }
 
-.post-list {width: 768px;
+.post-list {max-width: 768px;
   li {position: relative; padding-left: 12px;
     &:before {display: block; content: ''; position: absolute; top: 12px; left: 0; bottom: 0; width: 3px; background: #cccccc;}
-    &:not(:first-child) {margin-top: 2rem;}
+    &:not(:first-child) {margin-top: 2em;}
     a {display: block; padding: 12px; transition: all 100ms;
       .tit {font-size: 20px; margin-bottom: 6px;}
       .txt {@include ellipsis2(24); font-size: 14px; line-height: 24px; opacity: 0.7;}
@@ -137,7 +137,7 @@ body {background: #111111; color: #ffffff; font-family: 'Noto Sans KR', sans-ser
   }
 }
 
-.pagination {margin-top: 5rem;}
+.pagination {margin-top: 5em;}
 
 .post-wrap {display: flex;
   .post-aside {flex: 0 0 200px;
@@ -154,54 +154,56 @@ body {background: #111111; color: #ffffff; font-family: 'Noto Sans KR', sans-ser
     }
   }
   .post-content {flex: 1 1 auto; word-break: break-all; margin-left: 24px;
-    .post-head {margin-bottom: 1rem;
-      h1 {font-weight: 700; font-size: 1.8rem;}
+    .post-head {margin-bottom: 1em;
+      h1 {font-weight: 700; font-size: 1.8em;}
     }
-    .post-meta {margin-bottom: 4rem; font-weight: 300; font-size: 0.8rem; opacity: 0.7; letter-spacing: 0.08rem;}
-    .post-body {color: rgba(255, 255, 255, 1); font-weight: 300; font-size: 14px; line-height: 1.5rem;
-      hr {margin-bottom: 2rem; border-width: 0 0 1px; border-color: rgba(255, 255, 255, 0.7);}
-      h2 {font-size: 1.4rem;}
-      h3 {font-size: 1.25rem;}
-      h4 {font-size: 1.15rem;}
-      h5 {font-size: 1.1rem;}
-      h6 {font-size: 1rem;}
+    .post-meta {margin-bottom: 4em; font-weight: 300; font-size: 0.8em; opacity: 0.7; letter-spacing: 0.08em;}
+    .post-body {color: rgba(255, 255, 255, 1); font-weight: 300; font-size: 14px; line-height: 1.5em;
+      hr {margin-bottom: 2em; border-width: 0 0 1px; border-color: rgba(255, 255, 255, 0.7);}
+      h2 {font-size: 1.4em;}
+      h3 {font-size: 1.25em;}
+      h4 {font-size: 1.15em;}
+      h5 {font-size: 1.1em;}
+      h6 {font-size: 1em;}
 
       p, li {white-space: pre-wrap;}
 
       h2, h3, h4, h5, h6 {font-weight: 500;}
 
       >h2, >h3, >h4, >h5, >h6, >p, >ul, >ol, >table,
-      >.highlighter-rouge {margin-bottom: 1rem;}
+      >.highlighter-rouge {margin-bottom: 1em;}
 
-      h2 {margin-top: 5rem; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 255, 255, 0.7);}
-      h3 {margin-top: 4rem; margin-bottom: 1.5rem;}
+      h2 {margin-top: 5em; margin-bottom: 2em; padding-bottom: 1em; border-bottom: 1px solid rgba(255, 255, 255, 0.7);}
+      h3 {margin-top: 4em; margin-bottom: 1.5em;}
 
-      .highlighter-rouge {font-family: Consolas, 'Noto Sans KR', sans-serif;}
+      h2 + h3 {margin-top: 2em;}
+
+      .highlighter-rouge {overflow-x: auto; font-family: Consolas, 'Noto Sans KR', sans-serif;}
 
       a {text-decoration: underline; color: #e6db74;}
 
       table {width: 100%; border-spacing: 0; border-collapse: collapse;
         thead {
           tr {
-            th {border: 1px solid #cccccc; padding: 0.5rem;}
+            th {border: 1px solid #cccccc; padding: 0.5em;}
           }
         }
         tbody {
           tr {
-            th {border: 1px solid #cccccc; padding: 0.5rem;}
-            td {border: 1px solid #cccccc; padding: 0.5rem;}
+            th {border: 1px solid #cccccc; padding: 0.5em;}
+            td {border: 1px solid #cccccc; padding: 0.5em;}
           }
         }
       }
 
-      ul {margin-left: 1rem;
+      ul {margin-left: 1em;
         li {list-style: circle;
-          &:not(:first-child) {margin-top: 0.2rem;}
+          &:not(:first-child) {margin-top: 0.2em;}
         }
       }
-      ol {margin-left: 1rem;
+      ol {margin-left: 1em;
         li {list-style: decimal;
-          &:not(:first-child) {margin-top: 0.2rem;}
+          &:not(:first-child) {margin-top: 0.2em;}
         }
       }
 
@@ -214,7 +216,14 @@ body {background: #111111; color: #ffffff; font-family: 'Noto Sans KR', sans-ser
   }
 }
 
-#disqus_thread {margin: 10rem 0 0; padding: 1rem; background: #222222;}
+@media screen and (max-width: 768px) {
+  .post-wrap {display: block;
+    .post-aside {display: none;}
+    .post-content {margin-left: 0;}
+  }
+}
+
+#disqus_thread {margin: 10rem 0 0; padding: 1em; background: #222222;}
 
 .highlight {
   .gp { color: #818c96; }
