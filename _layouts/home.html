@@ -10,20 +10,18 @@ layout: default
 
 {% if page.name == 'index.html' %}
   <!-- Home prev, next 페이지 링크 -->
+  {% assign page_title = 'Home' %}
   {% assign prev_link = paginator.previous_page_path %}
   {% assign next_link = paginator.next_page_path %}
 {% else %}
   <!-- Category prev, next 페이지 링크 -->
+  {% assign page_title = page.title %}
   {% assign prev_link = '/category/' | append: page.title | append: paginator.previous_page_path %}
   {% assign next_link = '/category/' | append: page.title | append: paginator.next_page_path %}
 {% endif %}
 
 <div class="page-head">
-  {% if page.name == 'index.html' %}
-  <h1>Home</h1>
-  {% else %}
-  <h1>{{ page.title }} ({{ page.paginator.total_posts }})</h1>
-  {% endif %}
+  <h1>{{ page_title }} ({{ paginator.total_posts }})</h1>
 </div>
 
 <ul class="post-list">

@@ -144,7 +144,7 @@ body {background: #111111; color: #ffffff; font-family: 'Noto Sans KR', sans-ser
     .toc-outer {position: sticky; top: 0; max-height: 100vh; overflow-y: auto; scrollbar-width: none;
       ul {padding-left: 12px;
         li {margin-top: 12px;
-          a {opacity: 0.7; font-weight: 300; font-size: 14px; word-break: keep-all; transition: all 100ms;
+          a {opacity: 0.7; font-weight: 300; font-size: 14px; word-break: keep-all;
             &.active {font-weight: 500; font-size: 16px; opacity: 1;}
           }
         }
@@ -205,7 +205,11 @@ body {background: #111111; color: #ffffff; font-family: 'Noto Sans KR', sans-ser
         }
       }
 
-      blockquote p {border: 1px solid #cccccc; padding: 12px;}
+      blockquote {border: 1px solid #e6db74; padding: 6px 12px;
+        p {color: #e6db74;
+          &:before {display: inline; content: '※ '; color: #e6db74;}
+        }
+      }
     }
   }
 }
