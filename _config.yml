@@ -45,7 +45,7 @@ plugins:
   - jekyll-toc
   - jekyll-paginate
 
-permalink: /:categories/:year:month:day-:title:output_ext
+permalink: /post/:title
 
 jekyll-archives:
   enabled: [category]

@@ -16,7 +16,7 @@ layout: default
         {{ page.author | default: site.author }}
       </div>
     </div>
-    <div class="post-body">{{ content }}</div>
+    <div id="post-body" class="post-body">{{ content }}</div>
   </div>
 </article>
 
@@ -24,16 +24,21 @@ layout: default
   let arrHeaderPos = [];
   let arrHeaderId = [];
 
-  $('#post-content :header').each(function(i, o) {
+  $('#post-body :header').each(function(i, o) {
     arrHeaderPos.push(o.offsetTop);
     arrHeaderId.push(o.id);
   });
+
+  arrHeaderPos.push(99999);
+  arrHeaderId.push('');
 
   $(window).on('load scroll', function() {
     for (let i = 0; i < arrHeaderPos.length; i++) {
       if (window.scrollY < arrHeaderPos[i]) {
         $('#toc').find('a').removeClass('active');
+        console.log(i);
         if (arrHeaderId[i - 1]) {
+          console.log(arrHeaderId[i - 1])
           $(`a[href="#${arrHeaderId[i - 1]}"]`).addClass('active').focus();
         }
         break;

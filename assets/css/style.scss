@@ -70,9 +70,9 @@ img {border: none;}
 
 @include inputTypeButton {border: none; background: none; border-radius: 0; cursor: pointer; -webkit-appearance: none; appearance: none;}
 
-body {background: #000000; color: #ffffff;}
+body {background: #111111; color: #ffffff; font-family: 'Noto Sans KR', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5;}
 
-#wrap {max-width: 1024px; min-height: 100vh; padding: 80px 0; margin: 0 auto; position: relative;
+#wrap {width: 1280px; min-height: 100vh; padding: 80px 0; margin: 0 auto; position: relative;
   &.open-gnb .btn-menu-toggle {
     &:before {top: 11px; transform: rotate(45deg);}
     span {opacity: 0;}
@@ -83,8 +83,8 @@ body {background: #000000; color: #ffffff;}
 
 #header {position: absolute; top: 0; left: 0; width: 100%; height: 80px;
   &:before {display: block; content: ''; position: absolute; right: 0; bottom: 0; left: 0; height: 1px; background: rgba(255, 255, 255, 0.7);}
-  .logo {position: absolute; top: 21px; left: 24px;
-    a {display: block; font-family: Roboto; font-weight: 700; font-size: 32px;}
+  .logo {position: absolute; top: 16px; left: 24px;
+    a {display: block; font-family: 'Roboto'; font-weight: 700; font-size: 32px;}
   }
   .btn-menu-toggle {position: absolute; top: 28px; right: 24px; width: 36px; height: 24px; z-index: 101;
     &:before {display: block; content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: #ffffff; transition: all 300ms;}
@@ -92,14 +92,14 @@ body {background: #000000; color: #ffffff;}
     &:after {display: block; content: ''; position: absolute; top: 22px; left: 0; width: 100%; height: 2px; background: #ffffff; transition: all 300ms;}
   }
   .gnb {overflow-x: hidden; overflow-y: auto; position: fixed; top: 0; left: 0; width: 100vw; height: 0; background: rgba(0, 0, 0, 0.7); z-index: 100; opacity: 0;
-    > ul {max-width: 1024px; min-height: 100vh; padding: 100px 30px; margin: 0 auto; text-align: right;
+    > ul {max-width: 1280px; min-height: 100vh; padding: 100px 30px; margin: 0 auto; text-align: right;
       > li {
         &:not(:first-child) {margin-top: 36px;}
-        > a {display: inline-block; font-family: Roboto; font-weight: 700; font-size: 32px;}
+        > a {display: inline-block; font-family: 'Roboto'; font-weight: 700; font-size: 32px;}
         > ul {margin-top: 12px;
           > li {
             &:not(:first-child) {margin-top: 12px;}
-            > a {display: inline-block; font-family: Roboto; font-weight: 400; font-size: 16px; opacity: 0.8;}
+            > a {display: inline-block; font-family: 'Roboto'; font-weight: 400; font-size: 16px; opacity: 0.8;}
           }
         }
       }
@@ -112,7 +112,7 @@ body {background: #000000; color: #ffffff;}
   .sns {overflow: hidden;
     li {float: left;
       &:not(:first-child) {margin-left: 12px;}
-      a {display: block;}
+      a {display: block; font-size: 14px;}
     }
   }
   .copyright {margin-top: 12px; font-size: 12px; opacity: 0.7;}
@@ -143,8 +143,8 @@ body {background: #000000; color: #ffffff;}
     .toc-outer {position: sticky; top: 0; max-height: 100vh; overflow-y: auto; scrollbar-width: none;
       ul {padding-left: 12px;
         li {margin-top: 12px;
-          a {opacity: 0.7;
-            &.active {font-weight: 700; opacity: 1;}
+          a {opacity: 0.7; font-weight: 300; font-size: 14px; word-break: keep-all; transition: all 100ms;
+            &.active {font-weight: 500; font-size: 16px; opacity: 1;}
           }
         }
       }
@@ -152,7 +152,7 @@ body {background: #000000; color: #ffffff;}
       &::-webkit-scrollbar {display: none;}
     }
   }
-  .post-content {flex: 1 1 auto; word-break: break-all;
+  .post-content {flex: 1 1 auto; word-break: break-all; margin-left: 24px;
     .post-head {margin-bottom: 1rem;
       h1 {font-weight: 700; font-size: 1.8rem;}
     }
@@ -164,14 +164,13 @@ body {background: #000000; color: #ffffff;}
       h4 {font-size: 1.15rem;}
       h5 {font-size: 1.1rem;}
       h6 {font-size: 1rem;}
-      p {color: rgba(255, 255, 255, 0.9);}
 
-      h2, h3, h4, h5, h6 {font-weight: 400; padding-top: 1rem;}
+      h2, h3, h4, h5, h6 {font-weight: 500; padding-top: 1rem;}
 
       >h2, >h3, >h4, >h5, >h6, >p, >ul, >ol, >table,
       >.highlighter-rouge {margin-bottom: 1rem;}
 
-      .highlighter-rouge {font-family: Consolas, Noto Sans KR;}
+      .highlighter-rouge {font-family: Consolas, 'Noto Sans KR', sans-serif;}
 
       a {text-decoration: underline; color: #e6db74;}
 
@@ -191,12 +190,12 @@ body {background: #000000; color: #ffffff;}
 
       ul {margin-left: 1rem;
         li {list-style: circle;
-          &:not(:first-child) {margin-top: 0.5rem;}
+          &:not(:first-child) {margin-top: 0.2rem;}
         }
       }
       ol {margin-left: 1rem;
         li {list-style: decimal;
-          &:not(:first-child) {margin-top: 0.5rem;}
+          &:not(:first-child) {margin-top: 0.2rem;}
         }
       }
 
