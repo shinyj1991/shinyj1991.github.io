@@ -43,22 +43,37 @@ layout: default
 <script>
   let arrHeaderPos = [];
   let arrHeaderId = [];
+  
+  const getHeaderAttr = () => {
+    arrHeaderPos = [];
+    arrHeaderId = [];
 
-  $('#post-body :header').each(function(i, o) {
-    arrHeaderPos.push(o.offsetTop);
-    arrHeaderId.push(o.id);
+    $('#post-body :header').each(function(i, o) {
+      arrHeaderPos.push(o.offsetTop);
+      arrHeaderId.push(o.id);
+    });
+
+    arrHeaderPos.push(999999);
+    arrHeaderId.push('');
+
+    console.log(arrHeaderPos);
+  }
+
+  const resizeObserver = new ResizeObserver(entries => {
+    getHeaderAttr();
   });
 
-  arrHeaderPos.push(99999);
-  arrHeaderId.push('');
+  resizeObserver.observe(document.body);
+
+  $(document).ready(() => {
+    getHeaderAttr();
+  });
 
   $(window).on('load scroll', function() {
     for (let i = 0; i < arrHeaderPos.length; i++) {
       if (window.scrollY < arrHeaderPos[i]) {
         $('#toc').find('a').removeClass('active');
-        console.log(i);
         if (arrHeaderId[i - 1]) {
-          console.log(arrHeaderId[i - 1])
           $(`a[href="#${arrHeaderId[i - 1]}"]`).addClass('active').focus();
         }
         break;
