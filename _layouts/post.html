@@ -4,11 +4,18 @@ layout: default
 
 <article class="post-wrap">
   <aside id="post-aside" class="post-aside">
-    <div class="toc-outer">{% toc %}</div>
+    <div class="toc-outer">
+      <ul>
+        <li>
+          <a href="#{{ page.title }}">{{ page.title }}</a>
+          {% toc %}
+        </li>
+      </ul>
+    </div>
   </aside>
   <div id="post-content" class="post-content">
     <div class="post-head">
-      <h1 data-toc-skip>{{ page.title }}</h1>
+      <h1 id="{{ page.title }}">{{ page.title }}</h1>
     </div>
     <div class="post-meta">
       <div>
@@ -48,7 +55,7 @@ layout: default
     arrHeaderPos = [];
     arrHeaderId = [];
 
-    $('#post-body :header').each(function(i, o) {
+    $('#post-content :header').each(function(i, o) {
       arrHeaderPos.push(o.offsetTop);
       arrHeaderId.push(o.id);
     });
@@ -72,7 +79,7 @@ layout: default
   $(window).on('load scroll', function() {
     for (let i = 0; i < arrHeaderPos.length; i++) {
       if (window.scrollY < arrHeaderPos[i]) {
-        $('#toc').find('a').removeClass('active');
+        $('#post-aside').find('a').removeClass('active');
         if (arrHeaderId[i - 1]) {
           $(`a[href="#${arrHeaderId[i - 1]}"]`).addClass('active').focus();
         }
