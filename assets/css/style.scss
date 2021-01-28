@@ -129,11 +129,18 @@ body {background: #111111; color: #ffffff; font-family: 'Noto Sans KR', sans-ser
     &:before {display: block; content: ''; position: absolute; top: 12px; left: 0; bottom: 0; width: 3px; background: #cccccc;}
     &:not(:first-child) {margin-top: 2em;}
     a {display: block; padding: 12px; transition: all 100ms;
+      .cate {overflow: hidden; font-size: 12px; color: #e6db74;
+        span {float: left;
+          &:before {content: '#'; margin-right: 3px;}
+          &:not(:first-child) {margin-left: 10px;
+          }
+        }
+      }
       .tit {font-size: 20px; margin-bottom: 6px;}
-      .txt {@include ellipsis2(24); font-size: 14px; line-height: 24px; opacity: 0.7;}
+      .txt {@include ellipsis2(24); font-weight: 300; font-size: 14px; line-height: 24px; opacity: 0.5;}
       &:hover {background: #222222;}
     }
-    .date {padding: 0 12px; font-size: 14px; line-height: 24px; opacity: 0.4;}
+    .date {padding: 0 12px; font-weight: 300; font-size: 12px; line-height: 24px; opacity: 0.5;}
   }
 }
 
@@ -158,7 +165,13 @@ body {background: #111111; color: #ffffff; font-family: 'Noto Sans KR', sans-ser
       h1 {font-weight: 700; font-size: 1.8em;}
     }
     .post-meta {margin-bottom: 4em; font-weight: 300; font-size: 0.8em; opacity: 0.7; letter-spacing: 0.08em;}
-    .post-body {color: rgba(255, 255, 255, 1); font-weight: 300; font-size: 14px; line-height: 1.5em;
+    .post-body {color: rgba(255, 255, 255, 1); font-weight: 300; font-size: 14px; line-height: 1.8em;
+      img {max-width: 100%;}
+
+      em {color: #e6db74;}
+      strong {font-weight: 500; color: #e6db74;}
+
+
       hr {margin-bottom: 2em; border-width: 0 0 1px; border-color: rgba(255, 255, 255, 0.7);}
       h2 {font-size: 1.4em;}
       h3 {font-size: 1.25em;}
@@ -166,19 +179,17 @@ body {background: #111111; color: #ffffff; font-family: 'Noto Sans KR', sans-ser
       h5 {font-size: 1.1em;}
       h6 {font-size: 1em;}
 
-      p, li {white-space: pre-wrap;}
+      p, li {white-space: pre-wrap; word-break: keep-all;}
 
-      h2, h3, h4, h5, h6 {font-weight: 500;}
+      h2, h3, h4, h5, h6 {font-weight: 500; padding-top: 1em;}
 
       >h2, >h3, >h4, >h5, >h6, >p, >ul, >ol, >table,
       >.highlighter-rouge {margin-bottom: 1em;}
 
-      h2 {margin-top: 5em; margin-bottom: 2em; padding-bottom: 1em; border-bottom: 1px solid rgba(255, 255, 255, 0.7);}
-      h3 {margin-top: 4em; margin-bottom: 1.5em;}
+      h2 {margin-top: 4em; margin-bottom: 2em; padding-bottom: 1em; border-bottom: 1px solid rgba(255, 255, 255, 0.7);}
+      h3 {margin-top: 3em; margin-bottom: 1.5em;}
 
-      h2 + h3 {margin-top: 2em;}
-
-      .highlighter-rouge {overflow-x: auto; font-family: Consolas, 'Noto Sans KR', sans-serif;}
+      .highlighter-rouge {overflow-x: auto; font-family: Consolas, 'Noto Sans KR', sans-serif; line-height: 1.5em;}
 
       a {text-decoration: underline; color: #e6db74;}
 

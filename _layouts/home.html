@@ -28,6 +28,7 @@ layout: default
   {% for post in paginator.posts %}
     <li>
       <a href="{{ post.url | relative_url }}">
+        <div class="cate">{% for cate in post.categories %}<span>{{ cate }}</span>{% endfor %}</div>
         <div class="tit">{{ post.title | escape }}</div>
         <div class="txt">{{ post.content | markdownify | strip_html | truncate: 300 }}</div>
       </a>
