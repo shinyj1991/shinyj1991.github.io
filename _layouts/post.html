@@ -56,7 +56,7 @@ layout: default
     arrHeaderId = [];
 
     $('#post-content :header').each(function(i, o) {
-      arrHeaderPos.push(o.offsetTop);
+      arrHeaderPos.push(o.offsetTop - 10);
       arrHeaderId.push(o.id);
     });
 
