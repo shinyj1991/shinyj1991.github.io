@@ -73,6 +73,7 @@ img {border: none;}
 body {background: #111111; color: #ffffff; font-family: 'Noto Sans KR', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5;}
 
 #wrap {max-width: 1024px; min-height: 100vh; padding: 80px 0; margin: 0 auto; position: relative;
+  &.open-gnb {overflow: hidden; height: 100vh;}
   &.open-gnb .btn-menu-toggle {
     &:before {top: 11px; transform: rotate(45deg);}
     span {opacity: 0;}
