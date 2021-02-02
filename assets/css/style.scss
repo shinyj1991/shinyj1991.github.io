@@ -111,6 +111,26 @@ body {background: #111111; color: #ffffff; font-family: 'Noto Sans KR', sans-ser
   }
 }
 
+@media screen and (max-width: 768px) {
+  #wrap {padding-top: 60px;}
+
+  #header {height: 60px;
+    .logo {top: 12px;
+      a {font-size: 24px;}
+    }
+    .btn-menu-toggle {width: 24px; height: 16px; top: 22px;
+      &:before {}
+      span {top: 7px;}
+      &:after {top: 14px;}
+    }
+  }
+
+  body.open-gnb #header .btn-menu-toggle {
+    &:before {top: 7px;}
+    &:after {top: 7px;}
+  }
+}
+
 #footer {position: absolute; right: 0; bottom: 0; width: 100%; height: 80px; padding: 12px 24px;
   &:before {display: block; content: ''; position: absolute; right: 0; top: 0; left: 0; height: 1px; background: rgba(255, 255, 255, 0.7);}
   .sns {overflow: hidden;
@@ -126,6 +146,14 @@ body {background: #111111; color: #ffffff; font-family: 'Noto Sans KR', sans-ser
 
 .page-head {padding-top: 2em; margin-bottom: 2em;
   h1 {font-weight: 700; font-size: 2em;}
+}
+
+@media screen and (max-width: 768px) {
+  #container {padding: 20px;}
+
+  .page-head {padding-top: 1em;
+    h1 {font-size: 1.6em;}
+  }
 }
 
 .post-list {max-width: 768px;
@@ -166,7 +194,7 @@ body {background: #111111; color: #ffffff; font-family: 'Noto Sans KR', sans-ser
   }
   .post-content {flex: 1 1 auto; word-break: break-all; margin-left: 24px;
     .post-head {margin-bottom: 1em;
-      h1 {font-weight: 700; font-size: 1.8em;}
+      h1 {font-weight: 700; font-size: 1.7em;}
     }
     .post-meta {margin-bottom: 4em; font-weight: 300; font-size: 0.8em; opacity: 0.7; letter-spacing: 0.08em;}
     .post-body {color: rgba(255, 255, 255, 1); font-weight: 300; font-size: 14px; line-height: 1.8em;
