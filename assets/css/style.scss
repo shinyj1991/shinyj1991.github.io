@@ -70,17 +70,20 @@ img {border: none;}
 
 @include inputTypeButton {border: none; background: none; border-radius: 0; cursor: pointer; -webkit-appearance: none; appearance: none;}
 
-body {background: #111111; color: #ffffff; font-family: 'Noto Sans KR', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5;}
-
-#wrap {max-width: 1024px; min-height: 100vh; padding: 80px 0; margin: 0 auto; position: relative;
-  &.open-gnb {overflow: hidden; height: 100vh;}
-  &.open-gnb .btn-menu-toggle {
-    &:before {top: 11px; transform: rotate(45deg);}
-    span {opacity: 0;}
-    &:after {top: 11px; transform: rotate(-45deg);}
+body {background: #111111; color: #ffffff; font-family: 'Noto Sans KR', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5;
+  &.open-gnb {overflow: hidden; height: 100vh;
+    #header {
+      .btn-menu-toggle {
+        &:before {top: 11px; transform: rotate(45deg);}
+        span {opacity: 0;}
+        &:after {top: 11px; transform: rotate(-45deg);}
+      }
+      .gnb {height: 100vh; opacity: 1; transition: opacity 300ms;}
+    }
   }
-  &.open-gnb .gnb {height: 100vh; opacity: 1; transition: opacity 300ms;}
 }
+
+#wrap {max-width: 1024px; min-height: 100vh; padding: 80px 0; margin: 0 auto; position: relative;}
 
 #header {position: absolute; top: 0; left: 0; width: 100%; height: 80px;
   &:before {display: block; content: ''; position: absolute; right: 0; bottom: 0; left: 0; height: 1px; background: rgba(255, 255, 255, 0.7);}

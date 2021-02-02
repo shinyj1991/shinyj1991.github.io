@@ -15,7 +15,7 @@ layout: compress
     <div id="wrap">
       <header id="header">
         <h1 class="logo"><a href="/">{{ site.title }}</a></h1>
-        <button class="btn-menu-toggle" onclick="$('#wrap').toggleClass('open-gnb');"><span>전체메뉴</span></button>
+        <button class="btn-menu-toggle" onclick="$('body').toggleClass('open-gnb');"><span>전체메뉴</span></button>
         <nav class="gnb">
           <ul>
             {% assign sort_categories = site.categories | sort %}
