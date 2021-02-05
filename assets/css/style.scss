@@ -211,7 +211,11 @@ body {background: #111111; color: #ffffff; font-family: 'Noto Sans KR', sans-ser
       h5 {font-size: 1.1em;}
       h6 {font-size: 1em;}
 
-      p {white-space: pre-wrap; word-break: break-all;}
+      p {white-space: pre-wrap; word-break: keep-all;
+        .highlighter-rouge {padding: 3px; vertical-align: top; position: relative; top: 2px; color: #e6db74;}
+      }
+
+      li {word-break: keep-all;}
 
       h2, h3, h4, h5, h6 {font-weight: 500; padding-top: 1em;}
 
