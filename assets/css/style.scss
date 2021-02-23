@@ -142,14 +142,14 @@ body {background: #111111; color: #ffffff; font-family: 'Noto Sans KR', sans-ser
   .copyright {margin-top: 12px; font-size: 12px; opacity: 0.7;}
 }
 
-#container {padding: 30px;}
+#container {padding: 30px 30px 200px;}
 
 .page-head {padding-top: 2em; margin-bottom: 2em;
   h1 {font-weight: 700; font-size: 2em;}
 }
 
 @media screen and (max-width: 768px) {
-  #container {padding: 20px;}
+  #container {padding: 20px 20px 150px;}
 
   .page-head {padding-top: 1em;
     h1 {font-size: 1.6em;}
