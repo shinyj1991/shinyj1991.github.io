@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
+    <title>[Next.js] Sass 적용</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="wrap">
+      <header id="header">
+        <h1 class="logo"><a href="/">SIMPLIZM</a></h1>
+        <button class="btn-menu-toggle" onclick="$('body').toggleClass('open-gnb');"><span>전체메뉴</span></button>
+        <nav class="gnb">
+          <ul>
+            <!--  -->
+            
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Language">Language
+                  
+                  <span class="count">(13)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Java/">Java
+                        
+                        <span>(6)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Javascript/">Javascript
+                        
+                        <span>(7)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Library">Library
+                  
+                  <span class="count">(16)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Etc/">Etc
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/React/">React
+                        
+                        <span>(15)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Framework">Framework
+                  
+                  <span class="count">(6)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Codeigniter/">Codeigniter
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Next.js/">Next.js
+                        
+                        <span>(5)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Web Standards">Web Standards
+                  
+                  <span class="count">(1)</span>
+                </a>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+          </ul>
+        </nav>
+      </header>
+
+      <main id="container">
+        <article class="post-wrap">
+  <aside id="post-aside" class="post-aside">
+    <div class="toc-outer">
+      <ul>
+        <li>
+          <a href="#[Next.js] Sass 적용">[Next.js] Sass 적용</a>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#sass란">Sass란?</a></li>
+<li class="toc-entry toc-h2"><a href="#nextjs에-sass적용하기">Next.js에 Sass적용하기.</a></li>
+</ul>
+        </li>
+      </ul>
+    </div>
+  </aside>
+  <div id="post-content" class="post-content">
+    <div class="post-head">
+      <h1 id="[Next.js] Sass 적용">[Next.js] Sass 적용</h1>
+    </div>
+    <div class="post-meta">
+      <div>
+        2021-02-22 16:06
+        ShinyJ
+      </div>
+    </div>
+    <div id="post-body" class="post-body"><h2 id="sass란">Sass란?</h2>
+
+<p>CSS의 단점을 보완하기 위해 만든 CSS 전처리기입니다. 보통 CSS를 사용하다보면 단순 반복되는 부분이 많은 등, 불편함이 느껴지기 마련인데, SASS는 이 부분을 거의 완전히 해소시켜주는 프로그래밍 언어입니다. SASS에는 SASS와 SCSS가 있습니다.</p>
+
+<p>또한 CSS의 확장팩 같은 언어이기 때문에 CSS 파일 그 자체를 SCSS로 확장자만 바꾸어주어도 정상적으로 작동합니다. 다만 SASS 자체는 개발자용 언어이기 때문에 웹브라우저가 읽을 수 없습니다. 따라서 중간에 컴파일러를 거쳐서 CSS로 변환하여 HTML에 연결합니다.</p>
+
+<p>비슷한 CSS 전처리기 언어로는 LESS, Stylus 등이 있습니다.</p>
+
+<p>이 형식을 사용한 파일의 확장자는 .sass, .scss입니다. SASS는 SCSS에서 중괄호를 없애서 용량을 줄일 수 있지만 실수로 인해 컴파일 에러가 뜰 확률이 꽤 큽니다. 따라서 일반적인 교육 사이트에서는 SCSS를 기준으로 설명합니다.</p>
+
+<h2 id="nextjs에-sass적용하기">Next.js에 Sass적용하기.</h2>
+
+<ol>
+  <li>Sass를 설치해줍니다 <code class="language-plaintext highlighter-rouge">npm install sass</code></li>
+  <li>next.config.js파일에 아래 코드를 심어줍니다. (next.config.js파일이 없다면 ‘/’경로에 만들어 줍시다. 해당 파일이 있다면 next.js는 자동으로 이 파일을 바라봅니다.)</li>
+  <li>실행하면 next.js는 ‘/styles’ 경로에 있는 <em>.scss</em> 파일을 컴파일하게 됩니다.</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// next.config.js</span>
+<span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">path</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">sassOptions</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">includePaths</span><span class="p">:</span> <span class="p">[</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">styles</span><span class="dl">'</span><span class="p">)],</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>아래 이해를 돕기위한 프로젝트 폴더구조와 디펜던시를 첨부하겠습니다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/63823237/108674670-fd13b180-7528-11eb-8083-2ffdc5d9ec58.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/63823237/108674796-2cc2b980-7529-11eb-8473-5d44f94627fa.png" alt="image" /></p>
+
+<p>끝.</p>
+</div>
+  </div>
+</article>
+
+<!-- DISQUS 광고가 개쩔어서 주석처리
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function() {
+      this.page.url = 'https://shinyj1991.github.io/framework/next.js/4';
+      this.page.identifier = '/framework/next.js/4';
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://simplizm.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
+
+<script>
+  let arrHeaderPos = [];
+  let arrHeaderId = [];
+
+  const getHeaderAttr = () => {
+    arrHeaderPos = [];
+    arrHeaderId = [];
+
+    $('#post-content :header').each(function (i, o) {
+      arrHeaderPos.push(o.offsetTop - 10);
+      arrHeaderId.push(o.id);
+    });
+
+    arrHeaderPos.push(999999);
+    arrHeaderId.push('');
+  }
+
+  const resizeObserver = new ResizeObserver(entries => {
+    getHeaderAttr();
+  });
+
+  resizeObserver.observe(document.body);
+
+  $(document).ready(() => {
+    getHeaderAttr();
+  });
+
+  $(window).on('load scroll', function () {
+    for (let i = 0; i < arrHeaderPos.length; i++) {
+      if (window.scrollY < arrHeaderPos[i]) {
+        $('#post-aside').find('a').removeClass('active');
+        if (arrHeaderId[i - 1]) {
+          $(`a[href="#${arrHeaderId[i - 1]}"]`).addClass('active').focus();
+        }
+        break;
+      }
+    }
+  });
+</script>
+      </main>
+
+      <footer id="footer">
+        <ul class="sns">
+          <li><a href="https://github.com/shinyj1991" target="_blank">Github</a></li>
+          <li><a href="https://www.instagram.com/shinyj_/" target="_blank">Instagram</a></li>
+          <li><a href="https://simplizm.tistory.com/" target="_blank">Tistory</a></li>
+        </ul>
+        <p class="copyright">&copy; 2020. ShinyJ. Powered by Jekyll.</p>
+      </footer>
+    </div>
+  </body>
+</html>

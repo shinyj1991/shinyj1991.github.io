@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
+    <title>[Codeigniter] Cafe24 호스팅에 Codeigniter4 적용하기</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="wrap">
+      <header id="header">
+        <h1 class="logo"><a href="/">SIMPLIZM</a></h1>
+        <button class="btn-menu-toggle" onclick="$('body').toggleClass('open-gnb');"><span>전체메뉴</span></button>
+        <nav class="gnb">
+          <ul>
+            <!--  -->
+            
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Language">Language
+                  
+                  <span class="count">(13)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Java/">Java
+                        
+                        <span>(6)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Javascript/">Javascript
+                        
+                        <span>(7)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Library">Library
+                  
+                  <span class="count">(16)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Etc/">Etc
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/React/">React
+                        
+                        <span>(15)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Framework">Framework
+                  
+                  <span class="count">(6)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Codeigniter/">Codeigniter
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Next.js/">Next.js
+                        
+                        <span>(5)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Web Standards">Web Standards
+                  
+                  <span class="count">(1)</span>
+                </a>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+          </ul>
+        </nav>
+      </header>
+
+      <main id="container">
+        <article class="post-wrap">
+  <aside id="post-aside" class="post-aside">
+    <div class="toc-outer">
+      <ul>
+        <li>
+          <a href="#[Codeigniter] Cafe24 호스팅에 Codeigniter4 적용하기">[Codeigniter] Cafe24 호스팅에 Codeigniter4 적용하기</a>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#cafe24-호스팅-구매">Cafe24 호스팅 구매</a></li>
+<li class="toc-entry toc-h2"><a href="#ssl-인증서-설치">SSL 인증서 설치</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#내부인증서">내부인증서</a></li>
+<li class="toc-entry toc-h3"><a href="#외부인증서">외부인증서</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#코드이그나이터-설치">코드이그나이터 설치</a></li>
+<li class="toc-entry toc-h2"><a href="#cafe24-호스팅-ftp에-업로드">Cafe24 호스팅 FTP에 업로드</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#htaccess-설정">.htaccess 설정</a></li>
+<li class="toc-entry toc-h3"><a href="#appconfigappphp-수정">/app/Config/App.php 수정</a></li>
+</ul>
+</li>
+</ul>
+        </li>
+      </ul>
+    </div>
+  </aside>
+  <div id="post-content" class="post-content">
+    <div class="post-head">
+      <h1 id="[Codeigniter] Cafe24 호스팅에 Codeigniter4 적용하기">[Codeigniter] Cafe24 호스팅에 Codeigniter4 적용하기</h1>
+    </div>
+    <div class="post-meta">
+      <div>
+        2021-03-16 15:54
+        ShinyJ
+      </div>
+    </div>
+    <div id="post-body" class="post-body"><h2 id="cafe24-호스팅-구매">Cafe24 호스팅 구매</h2>
+
+<p>과정 생략</p>
+
+<h2 id="ssl-인증서-설치">SSL 인증서 설치</h2>
+
+<h3 id="내부인증서">내부인증서</h3>
+
+<p>카페24 내부인증서는 유료임 1년에 35,000원 ~ 500,000원</p>
+
+<h3 id="외부인증서">외부인증서</h3>
+
+<p>외부 인증서 설치방법
+<a href="https://app.zerossl.com/" target="_blank">https://app.zerossl.com/</a>
+접속 후 회원가입 &gt; 로그인
+New Certificate 버튼 클릭 후 절차에 따라 실행
+이메일로 인증해서 파일 받은 후</p>
+
+<p>카페24 &gt; 인증서 관리 &gt; 외부인증서 관리</p>
+
+<p>인증서 : certificate.crt
+개인키 : private.key
+각 파일을 넣어주어야 함. (메모장으로 파일 실행 후 복잡한 암호 복사 붙여넣기)</p>
+
+<p>무료인 대신 3개월마다 갱신해줘야하는 번거로움이 있음</p>
+
+<h2 id="코드이그나이터-설치">코드이그나이터 설치</h2>
+
+<p>아래 url에서 Codeigniter version 4 를 다운로드 후 압축 해제.</p>
+
+<p><a href="https://codeigniter.com/download" target="_blank">https://codeigniter.com/download</a></p>
+
+<h2 id="cafe24-호스팅-ftp에-업로드">Cafe24 호스팅 FTP에 업로드</h2>
+
+<p>구매한 호스팅 FTP에 접속 후 /www/ 경로에 Codeigniter를 업로드해준다.</p>
+
+<h3 id="htaccess-설정">.htaccess 설정</h3>
+
+<ol>
+  <li>/www/.htaccess 파일 생성</li>
+  <li>아래 코드 입력</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;IfModule mod_rewrite.c&gt;
+    RewriteEngine On
+    RewriteRule ^(.*)$ public/$1 [L]
+&lt;/IfModule&gt;
+</code></pre></div></div>
+
+<ol>
+  <li>/www/public/.htaccess 파일 생성 (이미 존재할수도 있음)</li>
+  <li>아래 코드로 입력 또는 변경</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;IfModule mod_rewrite.c&gt;
+    RewriteEngine On
+    RewriteCond $1 !^(index\.php)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php/$1 [L]
+&lt;/IfModule&gt;
+</code></pre></div></div>
+
+<h3 id="appconfigappphp-수정">/app/Config/App.php 수정</h3>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="nv">$baseURL</span> <span class="o">=</span> <span class="s1">'https://example.com/'</span><span class="p">;</span>
+<span class="k">public</span> <span class="nv">$defaultLocale</span> <span class="o">=</span> <span class="s1">'ko'</span><span class="p">;</span>
+<span class="k">public</span> <span class="nv">$supportedLocales</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'ko'</span><span class="p">];</span>
+<span class="k">public</span> <span class="nv">$appTimezone</span> <span class="o">=</span> <span class="s1">'Asia/Seoul'</span><span class="p">;</span>
+</code></pre></div></div>
+</div>
+  </div>
+</article>
+
+<!-- DISQUS 광고가 개쩔어서 주석처리
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function() {
+      this.page.url = 'https://shinyj1991.github.io/framework/codeigniter/1';
+      this.page.identifier = '/framework/codeigniter/1';
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://simplizm.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
+
+<script>
+  let arrHeaderPos = [];
+  let arrHeaderId = [];
+
+  const getHeaderAttr = () => {
+    arrHeaderPos = [];
+    arrHeaderId = [];
+
+    $('#post-content :header').each(function (i, o) {
+      arrHeaderPos.push(o.offsetTop - 10);
+      arrHeaderId.push(o.id);
+    });
+
+    arrHeaderPos.push(999999);
+    arrHeaderId.push('');
+  }
+
+  const resizeObserver = new ResizeObserver(entries => {
+    getHeaderAttr();
+  });
+
+  resizeObserver.observe(document.body);
+
+  $(document).ready(() => {
+    getHeaderAttr();
+  });
+
+  $(window).on('load scroll', function () {
+    for (let i = 0; i < arrHeaderPos.length; i++) {
+      if (window.scrollY < arrHeaderPos[i]) {
+        $('#post-aside').find('a').removeClass('active');
+        if (arrHeaderId[i - 1]) {
+          $(`a[href="#${arrHeaderId[i - 1]}"]`).addClass('active').focus();
+        }
+        break;
+      }
+    }
+  });
+</script>
+      </main>
+
+      <footer id="footer">
+        <ul class="sns">
+          <li><a href="https://github.com/shinyj1991" target="_blank">Github</a></li>
+          <li><a href="https://www.instagram.com/shinyj_/" target="_blank">Instagram</a></li>
+          <li><a href="https://simplizm.tistory.com/" target="_blank">Tistory</a></li>
+        </ul>
+        <p class="copyright">&copy; 2020. ShinyJ. Powered by Jekyll.</p>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://shinyj1991.github.io//feed.xml" rel="self" type="application/atom+xml" /><link href="https://shinyj1991.github.io//" rel="alternate" type="text/html" /><updated>2021-03-16T16:14:57+09:00</updated><id>https://shinyj1991.github.io//feed.xml</id><title type="html">SIMPLIZM</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">[Codeigniter] Cafe24 호스팅에 Codeigniter4 적용하기</title><link href="https://shinyj1991.github.io//framework/codeigniter/1" rel="alternate" type="text/html" title="[Codeigniter] Cafe24 호스팅에 Codeigniter4 적용하기" /><published>2021-03-16T15:54:05+09:00</published><updated>2021-03-16T15:54:05+09:00</updated><id>https://shinyj1991.github.io//framework/codeigniter/1</id><content type="html" xml:base="https://shinyj1991.github.io//framework/codeigniter/1">&lt;h2 id=&quot;cafe24-호스팅-구매&quot;&gt;Cafe24 호스팅 구매&lt;/h2&gt;
+
+&lt;p&gt;과정 생략&lt;/p&gt;
+
+&lt;h2 id=&quot;ssl-인증서-설치&quot;&gt;SSL 인증서 설치&lt;/h2&gt;
+
+&lt;h3 id=&quot;내부인증서&quot;&gt;내부인증서&lt;/h3&gt;
+
+&lt;p&gt;카페24 내부인증서는 유료임 1년에 35,000원 ~ 500,000원&lt;/p&gt;
+
+&lt;h3 id=&quot;외부인증서&quot;&gt;외부인증서&lt;/h3&gt;
+
+&lt;p&gt;외부 인증서 설치방법
+&lt;a href=&quot;https://app.zerossl.com/&quot; target=&quot;_blank&quot;&gt;https://app.zerossl.com/&lt;/a&gt;
+접속 후 회원가입 &amp;gt; 로그인
+New Certificate 버튼 클릭 후 절차에 따라 실행
+이메일로 인증해서 파일 받은 후&lt;/p&gt;
+
+&lt;p&gt;카페24 &amp;gt; 인증서 관리 &amp;gt; 외부인증서 관리&lt;/p&gt;
+
+&lt;p&gt;인증서 : certificate.crt
+개인키 : private.key
+각 파일을 넣어주어야 함. (메모장으로 파일 실행 후 복잡한 암호 복사 붙여넣기)&lt;/p&gt;
+
+&lt;p&gt;무료인 대신 3개월마다 갱신해줘야하는 번거로움이 있음&lt;/p&gt;
+
+&lt;h2 id=&quot;코드이그나이터-설치&quot;&gt;코드이그나이터 설치&lt;/h2&gt;
+
+&lt;p&gt;아래 url에서 Codeigniter version 4 를 다운로드 후 압축 해제.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://codeigniter.com/download&quot; target=&quot;_blank&quot;&gt;https://codeigniter.com/download&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;cafe24-호스팅-ftp에-업로드&quot;&gt;Cafe24 호스팅 FTP에 업로드&lt;/h2&gt;
+
+&lt;p&gt;구매한 호스팅 FTP에 접속 후 /www/ 경로에 Codeigniter를 업로드해준다.&lt;/p&gt;
+
+&lt;h3 id=&quot;htaccess-설정&quot;&gt;.htaccess 설정&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;/www/.htaccess 파일 생성&lt;/li&gt;
+  &lt;li&gt;아래 코드 입력&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;IfModule mod_rewrite.c&amp;gt;
+    RewriteEngine On
+    RewriteRule ^(.*)$ public/$1 [L]
+&amp;lt;/IfModule&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;/www/public/.htaccess 파일 생성 (이미 존재할수도 있음)&lt;/li&gt;
+  &lt;li&gt;아래 코드로 입력 또는 변경&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;IfModule mod_rewrite.c&amp;gt;
+    RewriteEngine On
+    RewriteCond $1 !^(index\.php)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php/$1 [L]
+&amp;lt;/IfModule&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;appconfigappphp-수정&quot;&gt;/app/Config/App.php 수정&lt;/h3&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$baseURL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'https://example.com/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$defaultLocale&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'ko'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$supportedLocales&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'ko'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$appTimezone&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Asia/Seoul'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>ShinyJ</name></author><category term="Framework" /><category term="Codeigniter" /><summary type="html">Cafe24 호스팅 구매</summary></entry><entry><title type="html">[Next.js] Prettier 적용</title><link href="https://shinyj1991.github.io//framework/next.js/5" rel="alternate" type="text/html" title="[Next.js] Prettier 적용" /><published>2021-02-23T09:14:05+09:00</published><updated>2021-02-23T09:14:05+09:00</updated><id>https://shinyj1991.github.io//framework/next.js/5</id><content type="html" xml:base="https://shinyj1991.github.io//framework/next.js/5">&lt;h2 id=&quot;prettier란&quot;&gt;Prettier란?&lt;/h2&gt;
+
+&lt;p&gt;정해진 규칙에 따라 자동으로 코드 스타일을 정리 해주는 도구입니다. 옵션을 바꿔가며 쉽게 커스터마이징이 가능합니다.
+코드 규칙을 정해놓기 때문에 협업시 코딩 스타일이 다양해지는 것을 방지합니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;prettier-적용하기&quot;&gt;Prettier 적용하기&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Root경로에 &lt;em&gt;.prettierrc.js&lt;/em&gt; 파일을 생성합니다.&lt;/li&gt;
+  &lt;li&gt;아래 코드를 삽입합니다.&lt;/li&gt;
+  &lt;li&gt;vscode 설정에서 Editor: Format On Save 옵션을 true로 바꿔줍니다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// .prettierrc.js&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;printWidth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;parser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;typescript&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;singleQuote&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;useTabs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;printWidth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;80&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;tabWidth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;trailingComma&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;es5&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;vscode &amp;gt; 파일 &amp;gt; 기본 설정 &amp;gt; 설정
+검색에서 Format On Save를 검색한 후 체크해주면 됩니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/63823237/108787280-c4bbb400-75b8-11eb-9584-3c0b2f396f2e.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이제 파일 저장을 하면 정해진 규칙에 따라 띄어쓰기 등이 자동으로 맞춰진다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/63823237/108787803-d487c800-75b9-11eb-91cf-ba90e94a650c.gif&quot; alt=&quot;ezgif-2-42894e51a4f6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;끝.&lt;/p&gt;</content><author><name>ShinyJ</name></author><category term="Framework" /><category term="Next.js" /><summary type="html">Prettier란?</summary></entry><entry><title type="html">[Next.js] Sass 적용</title><link href="https://shinyj1991.github.io//framework/next.js/4" rel="alternate" type="text/html" title="[Next.js] Sass 적용" /><published>2021-02-22T16:06:11+09:00</published><updated>2021-02-22T16:06:11+09:00</updated><id>https://shinyj1991.github.io//framework/next.js/4</id><content type="html" xml:base="https://shinyj1991.github.io//framework/next.js/4">&lt;h2 id=&quot;sass란&quot;&gt;Sass란?&lt;/h2&gt;
+
+&lt;p&gt;CSS의 단점을 보완하기 위해 만든 CSS 전처리기입니다. 보통 CSS를 사용하다보면 단순 반복되는 부분이 많은 등, 불편함이 느껴지기 마련인데, SASS는 이 부분을 거의 완전히 해소시켜주는 프로그래밍 언어입니다. SASS에는 SASS와 SCSS가 있습니다.&lt;/p&gt;
+
+&lt;p&gt;또한 CSS의 확장팩 같은 언어이기 때문에 CSS 파일 그 자체를 SCSS로 확장자만 바꾸어주어도 정상적으로 작동합니다. 다만 SASS 자체는 개발자용 언어이기 때문에 웹브라우저가 읽을 수 없습니다. 따라서 중간에 컴파일러를 거쳐서 CSS로 변환하여 HTML에 연결합니다.&lt;/p&gt;
+
+&lt;p&gt;비슷한 CSS 전처리기 언어로는 LESS, Stylus 등이 있습니다.&lt;/p&gt;
+
+&lt;p&gt;이 형식을 사용한 파일의 확장자는 .sass, .scss입니다. SASS는 SCSS에서 중괄호를 없애서 용량을 줄일 수 있지만 실수로 인해 컴파일 에러가 뜰 확률이 꽤 큽니다. 따라서 일반적인 교육 사이트에서는 SCSS를 기준으로 설명합니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;nextjs에-sass적용하기&quot;&gt;Next.js에 Sass적용하기.&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Sass를 설치해줍니다 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm install sass&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;next.config.js파일에 아래 코드를 심어줍니다. (next.config.js파일이 없다면 ‘/’경로에 만들어 줍시다. 해당 파일이 있다면 next.js는 자동으로 이 파일을 바라봅니다.)&lt;/li&gt;
+  &lt;li&gt;실행하면 next.js는 ‘/styles’ 경로에 있는 &lt;em&gt;.scss&lt;/em&gt; 파일을 컴파일하게 됩니다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// next.config.js&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;sassOptions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;includePaths&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__dirname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;styles&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)],&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;아래 이해를 돕기위한 프로젝트 폴더구조와 디펜던시를 첨부하겠습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/63823237/108674670-fd13b180-7528-11eb-8083-2ffdc5d9ec58.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/63823237/108674796-2cc2b980-7529-11eb-8473-5d44f94627fa.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;끝.&lt;/p&gt;</content><author><name>ShinyJ</name></author><category term="Framework" /><category term="Next.js" /><summary type="html">Sass란?</summary></entry><entry><title type="html">[Next.js] Typescript 적용 + 절대경로 설정</title><link href="https://shinyj1991.github.io//framework/next.js/3" rel="alternate" type="text/html" title="[Next.js] Typescript 적용 + 절대경로 설정" /><published>2021-02-22T15:28:37+09:00</published><updated>2021-02-22T15:28:37+09:00</updated><id>https://shinyj1991.github.io//framework/next.js/3</id><content type="html" xml:base="https://shinyj1991.github.io//framework/next.js/3">&lt;h2 id=&quot;typescript란&quot;&gt;Typescript란?&lt;/h2&gt;
+
+&lt;p&gt;마이크로소프트에서 구현한 Javascript의 슈퍼셋(Superset) 프로그래밍 언어. 확장자로는 &lt;em&gt;.ts&lt;/em&gt;를 사용하며, 컴파일의 결과물로 Javascript파일인 &lt;em&gt;.js&lt;/em&gt;를 출력합니다. 최종적으로 런타임에서는 이렇게 출력된 Javascript 코드를 구동시키게 됩니다.&lt;/p&gt;
+
+&lt;p&gt;Typescript라는 이름답게 정적 타입을 명시할 수 있다는 것이 순수한 Javascript와의 가장 큰 차이점입니다. 덕분에 개발 도구에게 개발자가 의도한 변수나 함수 등의 목적을 더욱 명확하게 전달할 수 있고, 그렇게 전달된 정보를 기반으로 코드 자동 완성이나 잘못된 변수/함수 사용에 대한 에러 알림 같은 풍부한 피드백을 받을 수 있게 되므로 순수 자바스크립트에 비해 어마어마한 생산성 향상을 꾀할 수 있습니다. 즉, ‘Javascript를 실제로 사용하기 전에 있을만한 타입 에러들을 미리 잡는 것’이 Typescript의 사용 목적입니다.&lt;/p&gt;
+
+&lt;p&gt;개발자와 도구 간의 상호작용에서 뿐만 아니라 개발자 간의 상호작용에서도 상당한 이점이 있는데, API를 구현하고 사용함에 있어 해당 API의 인풋과 아웃풋이 무엇인지 명확하게 표현할 수 있으므로, API 하나 쓰는데에도 일일이 매뉴얼을 찾아봐야 하거나 심하면 해당 API의 코드까지 뒤적거려봐야 하는 Javascript에 비해 효율적입니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;nextjs에-typescript-적용하기&quot;&gt;Next.js에 Typescript 적용하기&lt;/h2&gt;
+
+&lt;p&gt;Next.js는 9버전으로 올라오면서 부터 Typescript를 자체적으로 내장하고 있습니다.
+따라서 Next.js에 Typescript를 적용하는 방법은 아주 쉽습니다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;’/’ 경로에 tsconfig.json 파일 생성&lt;/li&gt;
+  &lt;li&gt;typescript 설치 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm install --save-dev typescript @types/react @types/node&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;실행 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm run dev&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;절대경로-설정&quot;&gt;절대경로 설정&lt;/h2&gt;
+
+&lt;p&gt;프로젝트가 커지고 파일의 경로가 깊어질수록 다른 경로에 있는 컴포넌트나 파일등을 import하기가 힘들어 집니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SomeComponent&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;../../../../../someDirectory/SomeComponent&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;절대 경로가 있으면 이런 문제를 해결할 수 있습니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SomeComponent&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;@src/component/someDirectory/SomeComponent&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위와 같은 절대경로를 사용하기 위해서는 아주 간단한 설정이 필요합니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// tsconfig.json&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;compilerOptions&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;baseUrl&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;paths&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;@src/*&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+        &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;src/*&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;tsconfig.json 파일에 해당 옵션을 추가해 주면 절대경로를 사용할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;끝.&lt;/p&gt;</content><author><name>ShinyJ</name></author><category term="Framework" /><category term="Next.js" /><summary type="html">Typescript란?</summary></entry><entry><title type="html">[Next.js] src 폴더 생성</title><link href="https://shinyj1991.github.io//framework/next.js/2" rel="alternate" type="text/html" title="[Next.js] src 폴더 생성" /><published>2021-02-22T15:04:21+09:00</published><updated>2021-02-22T15:04:21+09:00</updated><id>https://shinyj1991.github.io//framework/next.js/2</id><content type="html" xml:base="https://shinyj1991.github.io//framework/next.js/2">&lt;p&gt;next.js는 src 폴더를 만들면 기본적으로 root 경로로 인식하는 듯 하다.
+node_module 폴더 및 그 외 설정 파일들과 구분을 짓기 위해
+실제 개발 소스들을 src폴더로 묶어 관리하는게 좋아보인다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/63823237/108669049-9f2e9c00-751f-11eb-877f-8d7da7a4cef3.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;끝.&lt;/p&gt;</content><author><name>ShinyJ</name></author><category term="Framework" /><category term="Next.js" /><summary type="html">next.js는 src 폴더를 만들면 기본적으로 root 경로로 인식하는 듯 하다. node_module 폴더 및 그 외 설정 파일들과 구분을 짓기 위해 실제 개발 소스들을 src폴더로 묶어 관리하는게 좋아보인다.</summary></entry><entry><title type="html">HTTP 쿠키</title><link href="https://shinyj1991.github.io//web%20standards/1" rel="alternate" type="text/html" title="HTTP 쿠키" /><published>2021-02-16T13:37:36+09:00</published><updated>2021-02-16T13:37:36+09:00</updated><id>https://shinyj1991.github.io//web%20standards/1</id><content type="html" xml:base="https://shinyj1991.github.io//web%20standards/1">&lt;p&gt;쿠키(cookie)란 하이퍼 텍스트의 기록서(HTTP)의 일종으로서 인터넷 사용자가 어떠한 웹사이트를 방문할 경우 그 사이트가 사용하고 있는 서버를 통해 인터넷 사용자의 컴퓨터에 설치되는 작은 기록 정보 파일을 일컫는다. HTTP 쿠키, 웹 쿠키, 브라우저 쿠키라고도 한다. 이 기록 파일에 담긴 정보는 인터넷 사용자가 같은 웹사이트를 방문할 때마다 읽히고 수시로 새로운 정보로 바뀐다. 이 수단은 넷스케이프의 프로그램 개발자였던 루 몬툴리가 고안한 뒤로 오늘날 많은 서버 및 웹사이트들이 브라우저의 신속성을 위해 즐겨 쓰고 있다.&lt;/p&gt;
+
+&lt;p&gt;쿠키는 소프트웨어가 아니다. 쿠키는 컴퓨터 내에서 프로그램처럼 실행될 수 없으며 바이러스를 옮길 수도, 악성코드를 설치할 수도 없다. 하지만 스파이웨어를 통해 유저의 브라우징 행동을 추적하는데에 사용될 수 있고, 누군가의 쿠키를 훔쳐서 해당 사용자의 웹 계정 접근권한을 획득할 수도 없다.&lt;/p&gt;
+
+&lt;h2 id=&quot;배경&quot;&gt;배경&lt;/h2&gt;
+
+&lt;h3 id=&quot;이름의-기원&quot;&gt;이름의 기원&lt;/h3&gt;
+
+&lt;p&gt;“쿠키”라는 용어는 웹 브라우저 프로그래머 루 몬툴리가 만들어냈다. 이는 유닉스 프로그래머들이 사용한, 프로그램이 수신 후 변경하지 않은 채로 반환하는 데이터의 패킷을 의미하는 매직 쿠키라는 용어에서 비롯된 것이다.&lt;/p&gt;
+
+&lt;h3 id=&quot;역사&quot;&gt;역사&lt;/h3&gt;
+
+&lt;p&gt;매직 쿠키는 루 몬툴리가 1994년 6월 웹 통신에서 이것들을 사용하겠다는 생각을 했을 때 컴퓨팅에 이미 사용되고 있었다. 당시 그는 넷스케이프 커뮤니케이션스의 직원이었으며 MCI를 위한 전자 상거래 애플리케이션을 개발하고 있었다. 빈트 서프와 존 클렌신은 넷스케이프 커뮤니케이션스와의 기술 토론에서 MCI를 제시했다. MCI는 서버가 부분적인 트랜잭션 상태를 보유하는 것을 원치 않았으나 이러한 이유로 이들은 넷스케이프에게 각 사용자의 컴퓨터의 상태를 저장하는 방법을 강구할 것을 대신 요청하였다. 쿠키는 가상 쇼핑 카트를 신뢰성있게 구현할 때의 문제의 해결책을 제공하였다.&lt;/p&gt;
+
+&lt;h2 id=&quot;구조&quot;&gt;구조&lt;/h2&gt;
+
+&lt;p&gt;쿠키는 다음의 요소로 구성된다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;이름&lt;/li&gt;
+  &lt;li&gt;값&lt;/li&gt;
+  &lt;li&gt;0개 이상의 속성 (이름/값 쌍). 속성은 쿠키의 만료 기간, 도메인, 플래그(예: Secure 및 HttpOnly)등의 정보를 저장한다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;구현&quot;&gt;구현&lt;/h2&gt;
+
+&lt;p&gt;쿠키는 임의 조각의 데이터로서, 웹 브라우저에 의해 선별되어 처음 송신되며 웹 브라우저에 의해 클라이언트 컴퓨터에 저장된다. 이후 브라우저는 상태(이전 이벤트 긱억)를 무상태 HTTP 트랜잭션으로 유입시키면서 모든 요청을 서버로 되돌려 보낸다. 쿠키가 없으면 웹 페이지의 각각의 검색 또는 웹 페이지의 구성 요소가, 대체적으로 웹사이트상에서 사용자가 만드는 다른 모든 페이지와 무관한 별개의 이벤트로 취급된다. 쿠키가 일반적으로 웹 서버에 의해 설정되지만 자바스크립트와 같은 스크립트 언어를 사용하여 클라이언트에 의해 설정이 가능하다. (스크립트 언어에 의해 쿠키를 수정하지 못하게 하는 쿠키의 HttpOnly 플래그가 설정되어 있지 않는 경우에 한해) 쿠키 사양은 쿠키 지원을 위해 브라우저가 다음의 요건을 충족할 것을 명시한다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;4,096바이트 크기의 쿠키를 지원할 것&lt;/li&gt;
+  &lt;li&gt;한 도메인 당 최소 50개 쿠키를 지원할 것(예: 각 웹사이트 당)&lt;/li&gt;
+  &lt;li&gt;총 최소 3,000개의 쿠키를 지원할 것.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;쿠키-설정&quot;&gt;쿠키 설정&lt;/h3&gt;
+
+&lt;p&gt;쿠키는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Set-Cookie&lt;/code&gt; &lt;em&gt;HTTP 헤더&lt;/em&gt;를 사용하여 설정되며 이는 웹 서버의 HTTP 응답을 통해 송신된다. 이 헤더는 웹 브라우저가 쿠키를 저장하고 이를 차기 서버 요청 시 송신할지를 지시한다. (브라우저는 쿠키가 미지원이거나 비활성화되어 있을 경우 이 헤더를 무시한다)
+한 예로 브라우저는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;www.example.ort&lt;/code&gt; 웹사이트 홈페이지의 최초 요청을 송신한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;GET /index.html HTTP/1.1
+Host: www.example.org
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;서버는 2개의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Set-Cookie&lt;/code&gt; 헤더와 함께 응답한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;HTTP/1.0 200 OK
+Content-type: text/html
+Set-Cookie: theme=light
+Set-Cookie: sessionToken=abc123; Expires=Web, 09 Jun 2021 10:18:14 GMT
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;서버의 HTTP 응답에는 웹사이트의 홈페이지 내용이 포함된다. 그러나 이는 브라우저가 2개의 쿠키를 설정할 것 또한 지시한다. 처음 theme은 세션 쿠키로 간주되는데 이는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Expires&lt;/code&gt; 또는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Max-Age&lt;/code&gt; 속성이 존재하지 않기 때문이다. 세션 쿠키는 브라우저가 닫힐 때 브라우저에 의해 삭제되는 구조이다. 두 번째 sessionToken은 영구 쿠키로 간주되는데 브라우저가 특정 날짜와 시간에 삭제하도록 지시하는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Expires&lt;/code&gt; 속성을 포함하기 때문이다.&lt;/p&gt;
+
+&lt;p&gt;그 다음 브라우저는 웹사이트에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spec.html&lt;/code&gt;를 방문하기 위해 다른 요청을 보낸다. 이 요청은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cookie&lt;/code&gt; HTTP 헤더가 포함되어 있으며 이는 서버가 브라우저에 설정을 지시하는 2개의 쿠키를 담고 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;GET /spec.html HTTP/1.1
+Host: www.example.org
+Cookie: theme=light; sessionToken=abc123
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이러한 방식으로, 서버는 이 요청이 이전 것과 관련되어 있는지를 인지하게 된다. 서버는 요청된 페이지를 송신함으로써 응답하며 여기에는 새 쿠키 추가, 기존 쿠키 수정, 쿠키 삭제를 위해 응답에 더 많은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Set-Cookie&lt;/code&gt; 헤더를 포함할 수 있다. 쿠키 값은 페이지 요청에 응답하여 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Set-Cookie&lt;/code&gt; 헤더를 포함시킴으로써 서버에 의해 수정이 가능하다. 브라우저는 이후 오래된 값을 새로운 값으로 치환한다.
+쿠키의 값은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;,&lt;/code&gt;와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;;&lt;/code&gt;, 공백 문자를 제외한 인쇄 가능한 모든 ASCII 문자(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!&lt;/code&gt;에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~&lt;/code&gt;까지, 유니코드 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\u0021&lt;/code&gt;에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\u007E&lt;/code&gt; 까지)로 구성될 수 있다. 쿠키의 이름은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;=&lt;/code&gt;및 동일 문자를 제외하는데, 그 이유는 이름과 값 사이를 구별하는 구분자 역할을 하기 때문인다. 쿠키 표준 RFC 2965는 더 제약이 있으나 브라우저에 의해 구현되지는 않는다.
+쿠키 크럼(cookie crumb)이라는 용어는 쿠키의 이름-값 쌍을 의미하기 위해 사용되기도 한다.
+쿠키는 브라우저 내에서 실행되는 자바스크립트와 같은 스크립트 언어에 읜해 설정할 수도 있다. 자바스크립트에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;document.cookie&lt;/code&gt; 객체는 이 목적을 위해 사용된다. 이를테면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;document.cookie = &quot;temperature=20&quot;&lt;/code&gt;는 temperature의 쿠키 이름과 값 20을 만든다.&lt;/p&gt;
+
+&lt;p&gt;출처 : &lt;a href=&quot;https://ko.wikipedia.org/wiki/HTTP_%EC%BF%A0%ED%82%A4&quot; target=&quot;_blank&quot;&gt;https://ko.wikipedia.org/wiki/HTTP_%EC%BF%A0%ED%82%A4&lt;/a&gt;&lt;/p&gt;</content><author><name>ShinyJ</name></author><category term="Web Standards" /><summary type="html">쿠키(cookie)란 하이퍼 텍스트의 기록서(HTTP)의 일종으로서 인터넷 사용자가 어떠한 웹사이트를 방문할 경우 그 사이트가 사용하고 있는 서버를 통해 인터넷 사용자의 컴퓨터에 설치되는 작은 기록 정보 파일을 일컫는다. HTTP 쿠키, 웹 쿠키, 브라우저 쿠키라고도 한다. 이 기록 파일에 담긴 정보는 인터넷 사용자가 같은 웹사이트를 방문할 때마다 읽히고 수시로 새로운 정보로 바뀐다. 이 수단은 넷스케이프의 프로그램 개발자였던 루 몬툴리가 고안한 뒤로 오늘날 많은 서버 및 웹사이트들이 브라우저의 신속성을 위해 즐겨 쓰고 있다.</summary></entry><entry><title type="html">[nprogress] 간편한 로딩 표시줄 라이브러리</title><link href="https://shinyj1991.github.io//library/etc/1" rel="alternate" type="text/html" title="[nprogress] 간편한 로딩 표시줄 라이브러리" /><published>2021-02-08T08:26:14+09:00</published><updated>2021-02-08T08:26:14+09:00</updated><id>https://shinyj1991.github.io//library/etc/1</id><content type="html" xml:base="https://shinyj1991.github.io//library/etc/1">&lt;p&gt;nprogress 라이브러리는 모던 프론트엔드 프레임워크에서 유용하게 사용할 수 있는 로딩 표시줄 라이브러리 입니다.
+공식 사이트에 Google, Youtube 및 Midium에서 영감을 받아 제작되었다고 나와있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/63823237/107162596-d19cad00-69e7-11eb-9e51-d19b57554d0b.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;아래는 React 기반의 SSR 프레임워크인 Next.js에 적용한 코드 예제입니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-react highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;React&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;react&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Router&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;next/router&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;NProgress&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;nprogress&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;nprogress/nprogress.css&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;Router&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onRouteChangeStart&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;NProgress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;Router&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onRouteChangeComplete&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;NProgress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;done&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;Router&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onRouteChangeError&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;NProgress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;done&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;MyApp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;pageProps&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Component&lt;/span&gt; &lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;pageProps&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;MyApp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>ShinyJ</name></author><category term="Library" /><category term="Etc" /><summary type="html">nprogress 라이브러리는 모던 프론트엔드 프레임워크에서 유용하게 사용할 수 있는 로딩 표시줄 라이브러리 입니다. 공식 사이트에 Google, Youtube 및 Midium에서 영감을 받아 제작되었다고 나와있습니다.</summary></entry><entry><title type="html">[Next.js] Pages</title><link href="https://shinyj1991.github.io//framework/next.js/1" rel="alternate" type="text/html" title="[Next.js] Pages" /><published>2021-02-06T08:57:59+09:00</published><updated>2021-02-06T08:57:59+09:00</updated><id>https://shinyj1991.github.io//framework/next.js/1</id><content type="html" xml:base="https://shinyj1991.github.io//framework/next.js/1">&lt;p&gt;Next.js에서 페이지는 &lt;em&gt;/pages&lt;/em&gt; 경로에서 내보낸 ‘.js’, ‘.jsx’, ‘.ts’, ‘.tsx’파일들입니다.
+&lt;em&gt;/pages/about.js&lt;/em&gt; 파일을 생성한 경우 &lt;em&gt;/about&lt;/em&gt; 경로에서 접속할 수 있습니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-react highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;About&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;About&lt;span class=&quot;p&quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;About&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;동적-라우팅-페이지&quot;&gt;동적 라우팅 페이지&lt;/h2&gt;
+
+&lt;p&gt;Next.js의 &lt;em&gt;/pages&lt;/em&gt; 폴더는 동적 라우팅 페이지를 지원합니다.
+&lt;em&gt;/pages/posts/[id].js&lt;/em&gt; 라는 파일을 만들었다면 &lt;em&gt;/posts/1&lt;/em&gt;, &lt;em&gt;/posts/2&lt;/em&gt; 경로에서 접속할 수 있습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;사전-렌더링&quot;&gt;사전 렌더링&lt;/h2&gt;
+
+&lt;p&gt;기본적으로 Next.js는 모든 페이지를 미리 렌더링 합니다. 즉, Next.js는 클라이언트 측 Javascript에서 모든 작업을 수행하는 대신 각 페이지에 대해 미리 HTML을 생성합니다. 사전 렌더링은 더 나은 성능과 SEO를 가져올 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;생성 된 각 HTML은 해당 페이지에 필요한 최소한의 Javascript 코드와 연결됩니다. 브라우저에서 페이지를로드하면 해당 Javascript 코드가 실행되고 페이지가 상호 작용하게됩니다.&lt;/p&gt;</content><author><name>ShinyJ</name></author><category term="Framework" /><category term="Next.js" /><summary type="html">Next.js에서 페이지는 /pages 경로에서 내보낸 ‘.js’, ‘.jsx’, ‘.ts’, ‘.tsx’파일들입니다. /pages/about.js 파일을 생성한 경우 /about 경로에서 접속할 수 있습니다.</summary></entry><entry><title type="html">[Javascript] 모듈</title><link href="https://shinyj1991.github.io//language/javascript/7" rel="alternate" type="text/html" title="[Javascript] 모듈" /><published>2021-02-05T08:10:52+09:00</published><updated>2021-02-05T08:10:52+09:00</updated><id>https://shinyj1991.github.io//language/javascript/7</id><content type="html" xml:base="https://shinyj1991.github.io//language/javascript/7">&lt;p&gt;개발하는 애플리케이션의 크기가 커지면 언젠간 파일을 여러 개로 분리해야 하는 시점이 옵니다. 이때 분리된 파일 각각을 ‘모듈(module)’이라고 부르는데, 모듈은 대개 클래스 하나 혹은 특정한 목적을 가진 복수의 함수로 구성된 라이브러리 하나로 구성됩니다.&lt;/p&gt;
+
+&lt;p&gt;초기 스크립트는 크기도 작고 기능도 단순했기 때문에 자바스크립트는 긴 세월 동안 모듈 관련 표준 문법 없이 성장할 수 있었습니다. 새로운 문법을 만들 필요가 없었던 것이죠.&lt;/p&gt;
+
+&lt;p&gt;그런데 스크립트의 크기가 점차 커지고 기능도 복잡해지자 자바스크립트 커뮤니티는 특별한 라이브러리를 만들어 필요한 모듈을 언제든지 불러올 수 있게 해준다거나 코드를 모듈 단위로 구성해 주는 방법을 만드는 등 다양한 시도를 하게 됩니다.&lt;/p&gt;
+
+&lt;p&gt;그 시도는 다음과 같은 모듈 시스템으로 이어졌습니다&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;AMD : 가장 오래된 모듈 시스템 중 하나로 require.js라는 라이브러리를 통해 처음 개발되었습니다.&lt;/li&gt;
+  &lt;li&gt;CommonJS : Node.js 서버를 위해 만들어진 모듈 시스템입니다.&lt;/li&gt;
+  &lt;li&gt;UMD : AMD와 CommonJS와 같은 다양한 모듈 시스템을 함께 사용하기 위해 만들어졌습니다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이런 모듈 시스템은 오래된 스크립트에서 여전히 발견할 수 있는데, 이제는 역사의 뒤안길로 사라져가고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;모듈 시스템은 2015년에 표준으로 등재되었습니다. 이 이후로 관련 문법은 진화를 거듭해 이제는 대부분의 주요 브라우저와 Node.js가 모듈 시스템을 지원하고 있습니다. 이제 본격적으로 모던 자바스크립트에서 쓰이는 모듈에 대해 알아봅시다.&lt;/p&gt;
+
+&lt;h2 id=&quot;모듈이란&quot;&gt;모듈이란?&lt;/h2&gt;
+
+&lt;p&gt;모듈은 단지 파일 하나에 불과합니다. 스크립트 하나는 모듈 하나입니다.&lt;/p&gt;
+
+&lt;p&gt;모듈에 특수한 지시자 &lt;em&gt;export&lt;/em&gt;와 &lt;em&gt;import&lt;/em&gt;를 적용하면 다른 모듈을 불러와 불러온 모듈에 있는 함수를 호출하는것과 같은 기능 공유가 가능합니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;export&lt;/em&gt; 지시자를 변수나 함수 앞에 붙이면 외부 모듈에서 해당 변수나 함수에 접근할 수 있습니다. (모듈 내보내기)&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;import&lt;/em&gt; 지시자를 사용하면 외부 모듈의 기능을 가져올 수 있습니다. (모듈 가져오기)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;export&lt;/em&gt; 지시자를 사용해 파일 sayHi.js 내부의 함수 sayHi 를 외부로 내보내 봅시다.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// sayHi.js&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sayHi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`Hello, &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;!`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이제 &lt;em&gt;import&lt;/em&gt; 지시자를 사용해 main.js에서 함수 sayHi를 사용할 수 있게 해봅시다.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// mina.js&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sayHi&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;./sayHi.js&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sayHi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 함수&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;sayHi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;John&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Hello, John!&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위 예시에서 &lt;em&gt;import&lt;/em&gt; 지시자는 상대 경로(./sayHi.js)를 이용해 모듈을 가져오고 sayHi.js에서 내보낸 함수 sayHi를 상응하는 변수에 할당합니다.&lt;/p&gt;
+
+&lt;p&gt;모듈은 특수한 키워드나 기능과 함께 사용되므로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;script type=&quot;module&quot;&amp;gt;&lt;/code&gt;같은 속성을 설정해 해당 스크립트가 모듈이란 걸 브라우저가 알 수 있게 해줘야 합니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;모듈의-핵심-기능&quot;&gt;모듈의 핵심 기능&lt;/h2&gt;
+
+&lt;p&gt;‘일반’ 스크립트와 모듈의 차이는 무엇일까요?
+모든 호스트 환경에 공통으로 적용되는 모듈의 핵심 기능에 대해 알아봅시다.&lt;/p&gt;
+
+&lt;h3 id=&quot;엄격-모드로-실행됨&quot;&gt;‘엄격 모드’로 실행됨&lt;/h3&gt;
+
+&lt;p&gt;모듈은 항상 엄격 모드(use strict)로 실행됩니다. 선언되지 않은 변수에 값을 할당하는 등의 코드는 에러를 발생시킵니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;module&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// error&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;모듈-레벨-스코프&quot;&gt;모듈 레벨 스코프&lt;/h3&gt;
+
+&lt;p&gt;모듈은 자신만의 스코프가 있습니다. 따라서 모듈 내부에서 정의한 변수나 함수는 다른 스크립트에서 접근할 수 없습니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// hello.js&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// user.js&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;John&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!doctype html&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;module&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;user.js&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;module&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hello.js&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Error : Uncaught ReferenceError: user is not defined
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;외부에 공개하려는 모듈은 &lt;em&gt;export&lt;/em&gt; 해야 하고, 내보내진 모듈을 가져와 사용하려면 &lt;em&gt;import&lt;/em&gt; 해줘야 합니다.
+전역변수를 대신하여 hello.js에 user.js를 가져와 필요한 기능을 얻을 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;아래와 같이 코드를 수정하면 정상적으로 동작합니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// hello.js&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;./user.js&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// John&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// user.js&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;John&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!doctype html&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;module&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hello.js&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;브라우저 환경에서도 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;script type=&quot;module&quot;&amp;gt;&lt;/code&gt;을 사용해 모듈을 만들면 독립적인 스코프가 만들어집니다.&lt;/p&gt;
+
+&lt;p&gt;참고로, 브라우저 환경에서 부득이하게 window 객체에 변수를 명시적으로 할당하고 window.user와 같이 접근하는 방식을 취하시면 됩니다. 그런데 이 방법은 정말 필요한 경우에만 사용하길 권유합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;단-한-번만-평가됨&quot;&gt;단 한 번만 평가됨&lt;/h3&gt;
+
+&lt;p&gt;동일한 모듈이 여러 곳에서 사용되더라도 모듈은 최초 호출 시 단 한 번만 실행됩니다. 실행 후 결과는 이 모듈을 가져가려는 모든 모듈에 내보내 집니다.&lt;/p&gt;
+
+&lt;p&gt;이런 작동방식은 중요한 결과를 초래합니다. 예시를 통해 이에 대해 알아봅시다.&lt;/p&gt;
+
+&lt;p&gt;alert 함수가 있는 모듈(alert.js)을 여러 모듈에서 가져오기로 해봅시다. alert 창은 단 한 번만 나타납니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// alert.js&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;모듈이 평가되었습니다!&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 동일한 모듈을 여러 모듈에서 가져오기&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 1.js&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;./alert.js&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 얼럿창에 '모듈이 평가되었습니다!'가 출력됩니다.&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 2.js&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;./alert.js&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 아무 일도 발생하지 않습니다.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;실무에선 최상위 레벨 모듈을 대개 초기화나 내부 데이터 구조를 만들 때 사용합니다. 이것들을 내보내 재사용하는 것이죠.&lt;/p&gt;
+
+&lt;p&gt;이제 좀 더 어려운 예시를 살펴보겠습니다.
+객체를 내보내는 모듈을 만들어봅시다.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// admin.js&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;admin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;John&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이 모듈을 가져오는 모듈이 여러 개이더라도 앞서 설명한 것 처럼 모듈은 최초 호출 시 단 한 번만 평가됩니다. 이때 admin 객체가 만들어지고 이 모듈을 가져오는 모든 모듈에 admin 객체가 전달됩니다.&lt;/p&gt;
+
+&lt;p&gt;각 모듈에 동일한 admin 객체가 전달되는 것이죠.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 1.js&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;admin&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;./admin.js&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;admin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Pete&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 2.js&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;admin&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;./admin.js&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;admin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Pete&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;자, 다시 한번 말씀드리겠습니다. 모듈은 단 한 번만 실행되고 실행된 모듈은 필요한 곳에 공유되므로 어느 한 모듈에서 admin 객체를 수정하면 다른 모듈에서도 변경사항을 확인할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;이런 특징을 이용하면 모듈 설정을 쉽게 할 수 있습니다. 최초로 실행되는 모듈의 객체 프로퍼티를 원하는 대로 설정하면 다른 모듈에서 이 설정을 그대로 사용할 수 있기 때문이죠.&lt;/p&gt;
+
+&lt;p&gt;예시를 통해 이에 대해 자세히 알아봅시다. 아래 admin.js 모듈은 어떤 특정한 기능을 제공해주는데, 이 기능을 사용하려면 외부에서 admin 객체와 관련된 인증 정보를 받아와야 한다고 가정해봅시다.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// admin.js&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;admin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{};&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sayHi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;admin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;님, 안녕하세요!`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;최초로 실행되는 슼느립트인 init.js에서 admin.name을 설정해주겠습니다. 이렇게 하면 admin.js를 포함한 외부 스크립트에서 admin.name에 저장된 정보를 볼 수 있습니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// init.js&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;admin&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;./admin.js&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;admin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Pete&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;또 다른 모듈에서도 admin.name에 저장된 정보를 볼 수 있다는 걸 확인해 봅시다.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// other.js&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;admin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sayHi&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;./admin.js&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;admin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Pete&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;sayHi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Pete님, 안녕하세요!&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;importmeta&quot;&gt;import.meta&lt;/h3&gt;
+
+&lt;p&gt;import.meta 객체는 현재 모듈에 대한 정보를 제공해줍니다.&lt;/p&gt;
+
+&lt;p&gt;호스트 환경에 따라 제공하는 정보의 내용은 다른데, 브라우저 환경에선 스크립트의 url 정보를 얻을 수 있습니다. HTML 안에 있는 모듈이라면, 현재 실행 중인 웹페이지의 url 정보를 얻을 수 있습니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;module&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;meta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// script URL (인라인 스크립트가 위치해 있는 html 페이지의 URL)&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;this는-undefined&quot;&gt;‘this’는 undefined&lt;/h3&gt;
+
+&lt;p&gt;모듈 최상위 레벨의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;this&lt;/code&gt;는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;undefined&lt;/code&gt;입니다.&lt;/p&gt;
+
+&lt;p&gt;모듈이 아닌 일반 스크립트의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;this&lt;/code&gt;는 전역 객체인 것과 대조됩니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;script&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// window&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;module&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// undefined&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;빌드-툴&quot;&gt;빌드 툴&lt;/h2&gt;
+
+&lt;p&gt;브라우저 환경에서 모듈을 ‘단독’으로 사용하는 경우는 흔치 않습니다. 대개 웹팩(Webpack)과 같은 특별한 툴을 사용해 모듈을 한 데 묶어(번들링) 프로덕션 서버에 올리는 방식을 사용합니다.&lt;/p&gt;
+
+&lt;p&gt;번들러를 사용하면 모듈 분해를 통제할 수 있습니다. 여기에 더하여 경로가 없는 모듈이나 CSS, HTML 포맷의 모듈을 사용할 수 있게 해준다는 장점이 있습니다.&lt;/p&gt;
+
+&lt;p&gt;빌드 툴의 역할은 아래와 같습니다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;HTML의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;script type=&quot;module&quot;&amp;gt;&lt;/code&gt;에 넣을 ‘주요’ 모듈(‘진입점’ 역할을 하는 모듈)을 선택합니다.&lt;/li&gt;
+  &lt;li&gt;‘주요’ 모듈에 의존하고 있는 모듈 분석을 시작으로 모듈 간의 의존 관계를 파악합니다.&lt;/li&gt;
+  &lt;li&gt;모듈 전체를 한데 모아 하나의 큰 파일을 만듭니다(설정에 따라 여러 개의 파일을 만드는 것도 가능합니다). 이 과정에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;import&lt;/code&gt;문이 번들러 내 함수로 대체되므로 기존 기능은 그대로 유지됩니다.&lt;/li&gt;
+  &lt;li&gt;이런 과정 중에 변형이나 최적화도 함께 수행됩니다.
+    &lt;ul&gt;
+      &lt;li&gt;도달 가능하지 않은 코드는 삭제됩니다.&lt;/li&gt;
+      &lt;li&gt;내보내진 모듈 중 쓰임처가 없는 모듈을 삭제합니다(‘가지치기(tree-shaking)’).&lt;/li&gt;
+      &lt;li&gt;console, debugger 같은 개발 관련 코드가 삭제됩니다.&lt;/li&gt;
+      &lt;li&gt;최신 자바스크립트 문법이 사용된 경우 바벨(Babel)을 사용하여 같은 기능을 하는 낮은 버전의 스크립트로 변환합니다.&lt;/li&gt;
+      &lt;li&gt;공백 제거, 변수 이름 줄이기 등으로 산출물의 크기를 줄입니다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;번들링 툴을 사용하면 슼느립트들은 하나 혹은 여러 개의 파일로 번들링 됩니다. 이때 번들링 전 스크립트에 있던 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;import/export&lt;/code&gt;문은 특별한 번들러 함수로 대체됩니다. 번들링 과정이 끝나면 기존 스크립트에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;import/export&lt;/code&gt;가 사라지기 때문에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;type=&quot;module&quot;&lt;/code&gt;이 필요 없어집니다. 따라서 아래와 같이 번들링 과정을 거친 스크립트는 일반 스크립트처럼 취급할 수 있습니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;&amp;lt;!-- 웹팩과 같은 툴로 번들링 과정을 거친 스크립트인 bundle.js --&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;bundle.js&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;출처 : &lt;a href=&quot;https://ko.javascript.info/modules-intro&quot; target=&quot;_blank&quot;&gt;https://ko.javascript.info/modules-intro&lt;/a&gt;&lt;/p&gt;</content><author><name>ShinyJ</name></author><category term="Language" /><category term="Javascript" /><summary type="html">개발하는 애플리케이션의 크기가 커지면 언젠간 파일을 여러 개로 분리해야 하는 시점이 옵니다. 이때 분리된 파일 각각을 ‘모듈(module)’이라고 부르는데, 모듈은 대개 클래스 하나 혹은 특정한 목적을 가진 복수의 함수로 구성된 라이브러리 하나로 구성됩니다.</summary></entry><entry><title type="html">[Javascript] try…catch 문법</title><link href="https://shinyj1991.github.io//language/javascript/6" rel="alternate" type="text/html" title="[Javascript] try…catch 문법" /><published>2021-02-04T11:24:09+09:00</published><updated>2021-02-04T11:24:09+09:00</updated><id>https://shinyj1991.github.io//language/javascript/6</id><content type="html" xml:base="https://shinyj1991.github.io//language/javascript/6">&lt;p&gt;tray…catch 를 이용하면 런타임 에러를 처리할 수 있습니다. try에선 코드를 실행하고, 에러가 발생하면 catch에서 잡아냅니다.&lt;/p&gt;
+
+&lt;p&gt;문법은 다음과 같습니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// 이곳의 코드를 실행&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// 에러가 발생하면, 여기부터 실행됨&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// err는 에러 객체&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;finally&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// 에러 발생 여부와 상관없이 try/catch 이후에 실행됨&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;try…catch, try…catch…finally 이외에도 try…finally를 사용할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;에러 객체엔 다음과 같은 프로퍼티가 있습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;message : 사람이 읽을 수 있는 형태의 에러 메시지&lt;/li&gt;
+  &lt;li&gt;name : 에러 이름을 담은 문자열 (에러 생성자 이름)&lt;/li&gt;
+  &lt;li&gt;stack : 표준이 아니지만 대부분의 호스트 환경이 지원하는 프로퍼티로 에러가 발생한 순간의 스택을 나타냄&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;에러 객체가 필요 없으면 catch(err) { 대신 catch { 를 쓸 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;throw 연산자를 사용하면 에러를 직접 만들 수 있습니다. 이론상으론, throw 인수에 모든 것을 넘길 수 있지만, 대개 내장 Error 클래스를 상속받은 에러 객체를 인수에 넘깁니다. 에러 상속에 대해선 다음 챕터에서 다룰 예정 입니다.&lt;/p&gt;
+
+&lt;p&gt;다시 던지기는 에러 처리 시 사용되는 중요한 패턴입니다. catch 블록에선 대개 예상하였거나 어떻게 다룰지 알고 있는 에러를 다루고, 예상치 못한 에러는 다시 던지기 합니다.&lt;/p&gt;
+
+&lt;p&gt;try…catch 가 없어도 대부분의 호스트 환경이 ‘전역’ 에러 핸들러를 지원하기 때문에 ‘떨어져 나온’ 에러를 잡을 수 있습니다. window.onerror는 브라우저 환경의 전역 에러 핸들러입니다.&lt;/p&gt;
+
+&lt;p&gt;출처 : &lt;a href=&quot;https://ko.javascript.info/try-catch&quot; target=&quot;_blank&quot;&gt;https://ko.javascript.info/try-catch&lt;/a&gt;&lt;/p&gt;</content><author><name>ShinyJ</name></author><category term="Language" /><category term="Javascript" /><summary type="html">tray…catch 를 이용하면 런타임 에러를 처리할 수 있습니다. try에선 코드를 실행하고, 에러가 발생하면 catch에서 잡아냅니다.</summary></entry></feed>

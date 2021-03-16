@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
+    <title>[React] State Hook 사용하기</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="wrap">
+      <header id="header">
+        <h1 class="logo"><a href="/">SIMPLIZM</a></h1>
+        <button class="btn-menu-toggle" onclick="$('body').toggleClass('open-gnb');"><span>전체메뉴</span></button>
+        <nav class="gnb">
+          <ul>
+            <!--  -->
+            
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Language">Language
+                  
+                  <span class="count">(13)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Java/">Java
+                        
+                        <span>(6)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Javascript/">Javascript
+                        
+                        <span>(7)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Library">Library
+                  
+                  <span class="count">(16)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Etc/">Etc
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/React/">React
+                        
+                        <span>(15)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Framework">Framework
+                  
+                  <span class="count">(6)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Codeigniter/">Codeigniter
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Next.js/">Next.js
+                        
+                        <span>(5)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Web Standards">Web Standards
+                  
+                  <span class="count">(1)</span>
+                </a>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+          </ul>
+        </nav>
+      </header>
+
+      <main id="container">
+        <article class="post-wrap">
+  <aside id="post-aside" class="post-aside">
+    <div class="toc-outer">
+      <ul>
+        <li>
+          <a href="#[React] State Hook 사용하기">[React] State Hook 사용하기</a>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#hook과-같은-기능을-하는-클래스-예시">Hook과 같은 기능을 하는 클래스 예시</a></li>
+<li class="toc-entry toc-h2"><a href="#hook과-함수-컴포넌트">Hook과 함수 컴포넌트</a></li>
+<li class="toc-entry toc-h2"><a href="#hook이란">Hook이란?</a></li>
+<li class="toc-entry toc-h2"><a href="#state-변수-선언하기">state 변수 선언하기</a></li>
+<li class="toc-entry toc-h2"><a href="#state-가져오기">state 가져오기</a></li>
+<li class="toc-entry toc-h2"><a href="#state-갱신하기">state 갱신하기</a></li>
+</ul>
+        </li>
+      </ul>
+    </div>
+  </aside>
+  <div id="post-content" class="post-content">
+    <div class="post-head">
+      <h1 id="[React] State Hook 사용하기">[React] State Hook 사용하기</h1>
+    </div>
+    <div class="post-meta">
+      <div>
+        2021-02-01 12:50
+        ShinyJ
+      </div>
+    </div>
+    <div id="post-body" class="post-body"><h2 id="hook과-같은-기능을-하는-클래스-예시">Hook과 같은 기능을 하는 클래스 예시</h2>
+
+<p>React에서 클래스를 사용해봤다면, 아래의 코드는 익숙할 겁니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Example</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="na">count</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>You clicked <span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">count</span><span class="si">}</span> times<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="na">count</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">count</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">})</span><span class="si">}</span><span class="p">&gt;</span>
+          Click me
+        <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>위 코드에서 state는 { count: 0 } 이며 사용자가 this.setState() 를 호출하는 버튼을 클릭했을 때 state.count를 증가시킵니다. 위의 클래스 예시를 해당 페이지에서 계속 사용할 예정입니다.</p>
+
+<h2 id="hook과-함수-컴포넌트">Hook과 함수 컴포넌트</h2>
+
+<p>React의 함수 컴포넌트는 이렇게 생겼습니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">Example</span> <span class="o">=</span> <span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// 여기서 Hook을 사용할 수 있습니다</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">div</span> <span class="p">/&gt;;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>또는 이렇게 생겼습니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">Example</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// 여기서 Hook을 사용할 수 있습니다</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">div</span> <span class="p">/&gt;;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>함수 컴포넌트를 “state가 없는 컴포넌트”로 알고 있었을 겁니다. 하지만 Hook은 React state를 함수 안에서 사용할 수 있게 해줍니다.</p>
+
+<p>Hook은 클래스 안에서 동작하지 않습니다. 하지만 클래스를 작성하지 않고 사용할 수 있습니다.</p>
+
+<h2 id="hook이란">Hook이란?</h2>
+
+<p>React의 useState Hook을 사용해봅시다!</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useState</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">Example</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Hook이란? Hook은 특별한 함수입니다. 예를 들어 useState는 state를 함수 컴포넌트 안에서 사용할 수 있게 해줍니다. 다른 Hook들은 나중에 살펴봅시다!</p>
+
+<p>언제 Hook을 사용할까? 함수 컴포넌트를 사용하던 중 state를 추가하고 싶을 때 클래스 컴포넌트로 바꾸곤 했을 겁니다. 하지만 이제 함수 컴포넌트 안에서 Hook을 이용하여 state를 사용할 수 있습니다.</p>
+
+<h2 id="state-변수-선언하기">state 변수 선언하기</h2>
+
+<p>클래스를 사용할 때, constructor 안에서 this.state를 { count: 0 }로 설정함으로써 count를 0으로 초기화했습니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Example</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="na">count</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>함수 컴포넌트는 this를 가질 수 없기 때문에 this.state를 할당하거나 읽을 수 없습니다. 대신, useState Hook을 직접 컴포넌트에 호출합니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useState</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">Example</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// 새로운 state 변수를 선언하고, 이것을 count라 부르겠습니다.</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">count</span><span class="p">,</span> <span class="nx">setCount</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>useState를 호출하는 것은 무엇을 하는 걸까요? “state 변수”를 선언할 수 있습니다. 위에 선언한 변수는 count라고 부르지만 banana처럼 아무 이름으로 지어도 됩니다. useState는 클래스 컴포넌트의 this.state가 제공하는 기능과 똑같습니다. 일반적으로 일반 변수는 함수가 끝날 때 사라지지만, state 변수는 React에 의해 사라지지 않습니다.</p>
+
+<p>useState의 인자로 무엇을 넘겨주어야 할까요? useState() Hook의 인자로 넘겨주는 값은 state의 초기 값입니다. 함수 컴포넌트의 state는 클래스와 달리 객체일 필요는 없고, 숫자 타입과 문자 타입을 가질 수 있습니다. 위의 예시는 사용자가 버튼을 얼마나 많이 클릭했는지 알기를 원하므로 0을 해당 state의 초기 값으로 선언했습니다. (2개의 다른 변수를 저장하기를 원한다면 useState()를 두 번 호출해야 합니다.)</p>
+
+<p>useState는 무엇을 반환할까요? state 변수, 해당 변수를 갱신할 수 있는 함수 이 두 가지 쌍을 반환합니다. 이것이 바로 const [count, setCount] = useState() 라고 쓰는 이유입니다. 클래스 컴포넌트의 this.state.count 와 this.setState 와 유사합니다.</p>
+
+<p>이제 useState를 이용하여 많은 것을 만들 수 있습니다.</p>
+
+<p>count라고 부르는 state 변수를 선언하고 0으로 초기화합니다. React는 해당 변수를 리렌더링할 때 기억하고, 가장 최근에 갱신된 값을 제공합니다. count 변수의 값을 갱신하려고 setCount를 호출하면 됩니다.</p>
+
+<h2 id="state-가져오기">state 가져오기</h2>
+
+<p>클래스 컴포넌트는 count를 보여주기 위해 this.state.count를 사용합니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>You clicked <span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">count</span><span class="si">}</span> times<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div></div>
+
+<p>반면 함수 컴포넌트는 count를 직접 사용할 수 있습니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>You clicked <span class="si">{</span><span class="nx">count</span><span class="si">}</span> times<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div></div>
+
+<h2 id="state-갱신하기">state 갱신하기</h2>
+
+<p>클래스 컴포넌트는 count를 갱신하기 위해 this.setState()를 호출합니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="na">count</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">count</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">})</span><span class="si">}</span><span class="p">&gt;</span>
+  Click me
+<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</code></pre></div></div>
+
+<p>반면 함수 컴포넌트는 setCount와 count 변수를 가지고 있으므로 this를 호출하지 않아도 됩니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">setCount</span><span class="p">(</span><span class="nx">count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="p">&gt;</span>
+  Click me
+<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>출처 : <a href="https://reactjs.org/docs/hooks-state.html" target="_blank">https://reactjs.org/docs/hooks-state.html</a></p>
+</div>
+  </div>
+</article>
+
+<!-- DISQUS 광고가 개쩔어서 주석처리
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function() {
+      this.page.url = 'https://shinyj1991.github.io/library/react/13';
+      this.page.identifier = '/library/react/13';
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://simplizm.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
+
+<script>
+  let arrHeaderPos = [];
+  let arrHeaderId = [];
+
+  const getHeaderAttr = () => {
+    arrHeaderPos = [];
+    arrHeaderId = [];
+
+    $('#post-content :header').each(function (i, o) {
+      arrHeaderPos.push(o.offsetTop - 10);
+      arrHeaderId.push(o.id);
+    });
+
+    arrHeaderPos.push(999999);
+    arrHeaderId.push('');
+  }
+
+  const resizeObserver = new ResizeObserver(entries => {
+    getHeaderAttr();
+  });
+
+  resizeObserver.observe(document.body);
+
+  $(document).ready(() => {
+    getHeaderAttr();
+  });
+
+  $(window).on('load scroll', function () {
+    for (let i = 0; i < arrHeaderPos.length; i++) {
+      if (window.scrollY < arrHeaderPos[i]) {
+        $('#post-aside').find('a').removeClass('active');
+        if (arrHeaderId[i - 1]) {
+          $(`a[href="#${arrHeaderId[i - 1]}"]`).addClass('active').focus();
+        }
+        break;
+      }
+    }
+  });
+</script>
+      </main>
+
+      <footer id="footer">
+        <ul class="sns">
+          <li><a href="https://github.com/shinyj1991" target="_blank">Github</a></li>
+          <li><a href="https://www.instagram.com/shinyj_/" target="_blank">Instagram</a></li>
+          <li><a href="https://simplizm.tistory.com/" target="_blank">Tistory</a></li>
+        </ul>
+        <p class="copyright">&copy; 2020. ShinyJ. Powered by Jekyll.</p>
+      </footer>
+    </div>
+  </body>
+</html>

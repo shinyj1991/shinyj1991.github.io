@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
+    <title>React</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="wrap">
+      <header id="header">
+        <h1 class="logo"><a href="/">SIMPLIZM</a></h1>
+        <button class="btn-menu-toggle" onclick="$('body').toggleClass('open-gnb');"><span>전체메뉴</span></button>
+        <nav class="gnb">
+          <ul>
+            <!--  -->
+            
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Language">Language
+                  
+                  <span class="count">(13)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Java/">Java
+                        
+                        <span>(6)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Javascript/">Javascript
+                        
+                        <span>(7)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Library">Library
+                  
+                  <span class="count">(16)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Etc/">Etc
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/React/">React
+                        
+                        <span>(15)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Framework">Framework
+                  
+                  <span class="count">(6)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Codeigniter/">Codeigniter
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Next.js/">Next.js
+                        
+                        <span>(5)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Web Standards">Web Standards
+                  
+                  <span class="count">(1)</span>
+                </a>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+          </ul>
+        </nav>
+      </header>
+
+      <main id="container">
+        <!-- home layout 은 category와 home 페이지를 공유합니다. -->
+
+
+
+
+  <!-- Category prev, next 페이지 링크 -->
+  
+  
+  
+
+
+<div class="page-head">
+  <h1>React (15)</h1>
+</div>
+
+<ul class="post-list">
+  
+    <li>
+      <a href="/library/react/5">
+        <div class="cate"><span>Library</span><span>React</span></div>
+        <div class="tit">[React] 이벤트 처리하기</div>
+        <div class="txt">React 엘리먼트에서 이벤트를 처리하는 방식은 DOM 엘리먼트에서 이벤트를 처리하는 방식과 매우 유사합니다. 몇 가지 문법 차이는 다음과 같습니다.
+
+
+  React의 이벤트는 소문자 대신 캐멀 케이스(camelCase)를 사용합니다.
+  JSX를 사용하여 문자열이 아닌 함수로 이벤트 핸들러를 전달합니다.
+
+
+예를 들어, HTML은 다음과 같습니다.
+
+&lt;button onclick="activateLasers()"&gt;
+  Activate Lasers
+&lt;/button&gt;
+
+
+React에서는 약간 다릅니다.
+
+&...</div>
+      </a>
+      <div class="date">2021-01-28 16:03</div>
+    </li>
+  
+    <li>
+      <a href="/library/react/4">
+        <div class="cate"><span>Library</span><span>React</span></div>
+        <div class="tit">[React] State and Lifecycle</div>
+        <div class="txt">이전에 나왔던 째깍거리는 시계 예시에서는 UI를 업데이트하는 한 가지 방법만을 다뤘으며, 렌더링 된 출력값을 변경하기 위해 ReactDOM.render()를 호출했습니다.
+
+function tick() {
+  const element = (
+    &lt;div&gt;
+      &lt;h1&gt;Hello, world!&lt;/h1&gt;
+      &lt;h2&gt;It is {new Date().toLocaleTimeString()}.&lt;/h2&gt;
+    &lt;/div&gt;
+  );
+  ReactDOM.rend...</div>
+      </a>
+      <div class="date">2021-01-28 15:09</div>
+    </li>
+  
+    <li>
+      <a href="/library/react/3">
+        <div class="cate"><span>Library</span><span>React</span></div>
+        <div class="tit">[React] Components and Props</div>
+        <div class="txt">컴포넌트를 통해 UI를 재사용 가능한 개별적인 여러 조각으로 나누고, 각 조각을 개별적으로 살펴볼 수 있습니다. 이 페이지에서는 컴포넌트의 개념을 소개합니다.
+자세한 컴포넌트 API 레퍼런스는 여기에서 확인할 수 있습니다.
+
+함수 컴포넌트와 클래스 컴포넌트
+
+컴포넌트를 정의하는 가장 간단한 방법은 Javascript 함수를 작성하는 것입니다.
+
+function Welcome(props) {
+  return &lt;h1&gt;Hello, {props.name}&lt;/h1&gt;;
+}
+
+
+이 함수는 데이터를 가진 하나의 “pro...</div>
+      </a>
+      <div class="date">2021-01-28 14:46</div>
+    </li>
+  
+    <li>
+      <a href="/library/react/2">
+        <div class="cate"><span>Library</span><span>React</span></div>
+        <div class="tit">[React] 엘리먼트 렌더링</div>
+        <div class="txt">엘리먼트는 React 앱의 가장 작은 단위입니다.
+
+엘리먼트는 화면에 표시할 내용을 기술합니다.
+
+const element = &lt;h1&gt;Hello, world&lt;/h1&gt;;
+
+
+브라우저 DOM 엘리먼트와 달리 React 엘리먼트는 일반 객체이며(plain object) 쉽게 생성할 수 있습니다.
+React DOM은 React 엘리먼트와 일치하도록 DOM을 업데이트합니다.
+
+DOM에 엘리먼트 렌더링하기
+HTML 파일 어딘가에 &lt;div&gt;가 있다고 가정해 봅시다.
+
+&lt;div id="root"&gt;&...</div>
+      </a>
+      <div class="date">2021-01-28 13:00</div>
+    </li>
+  
+    <li>
+      <a href="/library/react/1">
+        <div class="cate"><span>Library</span><span>React</span></div>
+        <div class="tit">[React] Hello World, JSX 소개</div>
+        <div class="txt">Hello World
+가장 단순한 React 예시는 다음과 같이 생겼습니다.
+
+ReactDOM.render(
+    &lt;h1&gt;Hello, world!&lt;/h1&gt;,
+    document.getElementById('root')
+);
+
+
+위 코드는 페이지에 “Hello, world!”라는 제목을 보여줍니다.
+
+JSX 소개
+아래 변수 선언을 살펴봅시다.
+
+const element = &lt;h1&gt;Hello, world!&lt;/h1&gt;;
+
+
+위에 희한한 태그 문법은 문자열도, HTML도 아닙니다.
+
+JS...</div>
+      </a>
+      <div class="date">2021-01-28 12:32</div>
+    </li>
+  
+</ul>
+
+<!-- Pagination links -->
+<div class="pagination">
+  
+    <a href="/category/React/" class="previous">Previous</a>
+  
+  <span class="page_number ">Page: 2 of 2</span>
+  
+    <span class="next">Next</span>
+  
+</div>
+      </main>
+
+      <footer id="footer">
+        <ul class="sns">
+          <li><a href="https://github.com/shinyj1991" target="_blank">Github</a></li>
+          <li><a href="https://www.instagram.com/shinyj_/" target="_blank">Instagram</a></li>
+          <li><a href="https://simplizm.tistory.com/" target="_blank">Tistory</a></li>
+        </ul>
+        <p class="copyright">&copy; 2020. ShinyJ. Powered by Jekyll.</p>
+      </footer>
+    </div>
+  </body>
+</html>

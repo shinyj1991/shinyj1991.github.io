@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
+    <title>[Next.js] src 폴더 생성</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="wrap">
+      <header id="header">
+        <h1 class="logo"><a href="/">SIMPLIZM</a></h1>
+        <button class="btn-menu-toggle" onclick="$('body').toggleClass('open-gnb');"><span>전체메뉴</span></button>
+        <nav class="gnb">
+          <ul>
+            <!--  -->
+            
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Language">Language
+                  
+                  <span class="count">(13)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Java/">Java
+                        
+                        <span>(6)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Javascript/">Javascript
+                        
+                        <span>(7)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Library">Library
+                  
+                  <span class="count">(16)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Etc/">Etc
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/React/">React
+                        
+                        <span>(15)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Framework">Framework
+                  
+                  <span class="count">(6)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Codeigniter/">Codeigniter
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Next.js/">Next.js
+                        
+                        <span>(5)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Web Standards">Web Standards
+                  
+                  <span class="count">(1)</span>
+                </a>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+          </ul>
+        </nav>
+      </header>
+
+      <main id="container">
+        <article class="post-wrap">
+  <aside id="post-aside" class="post-aside">
+    <div class="toc-outer">
+      <ul>
+        <li>
+          <a href="#[Next.js] src 폴더 생성">[Next.js] src 폴더 생성</a>
+          <ul id="toc" class="section-nav">
+</ul>
+        </li>
+      </ul>
+    </div>
+  </aside>
+  <div id="post-content" class="post-content">
+    <div class="post-head">
+      <h1 id="[Next.js] src 폴더 생성">[Next.js] src 폴더 생성</h1>
+    </div>
+    <div class="post-meta">
+      <div>
+        2021-02-22 15:04
+        ShinyJ
+      </div>
+    </div>
+    <div id="post-body" class="post-body"><p>next.js는 src 폴더를 만들면 기본적으로 root 경로로 인식하는 듯 하다.
+node_module 폴더 및 그 외 설정 파일들과 구분을 짓기 위해
+실제 개발 소스들을 src폴더로 묶어 관리하는게 좋아보인다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/63823237/108669049-9f2e9c00-751f-11eb-877f-8d7da7a4cef3.png" alt="image" /></p>
+
+<p>끝.</p>
+</div>
+  </div>
+</article>
+
+<!-- DISQUS 광고가 개쩔어서 주석처리
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function() {
+      this.page.url = 'https://shinyj1991.github.io/framework/next.js/2';
+      this.page.identifier = '/framework/next.js/2';
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://simplizm.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
+
+<script>
+  let arrHeaderPos = [];
+  let arrHeaderId = [];
+
+  const getHeaderAttr = () => {
+    arrHeaderPos = [];
+    arrHeaderId = [];
+
+    $('#post-content :header').each(function (i, o) {
+      arrHeaderPos.push(o.offsetTop - 10);
+      arrHeaderId.push(o.id);
+    });
+
+    arrHeaderPos.push(999999);
+    arrHeaderId.push('');
+  }
+
+  const resizeObserver = new ResizeObserver(entries => {
+    getHeaderAttr();
+  });
+
+  resizeObserver.observe(document.body);
+
+  $(document).ready(() => {
+    getHeaderAttr();
+  });
+
+  $(window).on('load scroll', function () {
+    for (let i = 0; i < arrHeaderPos.length; i++) {
+      if (window.scrollY < arrHeaderPos[i]) {
+        $('#post-aside').find('a').removeClass('active');
+        if (arrHeaderId[i - 1]) {
+          $(`a[href="#${arrHeaderId[i - 1]}"]`).addClass('active').focus();
+        }
+        break;
+      }
+    }
+  });
+</script>
+      </main>
+
+      <footer id="footer">
+        <ul class="sns">
+          <li><a href="https://github.com/shinyj1991" target="_blank">Github</a></li>
+          <li><a href="https://www.instagram.com/shinyj_/" target="_blank">Instagram</a></li>
+          <li><a href="https://simplizm.tistory.com/" target="_blank">Tistory</a></li>
+        </ul>
+        <p class="copyright">&copy; 2020. ShinyJ. Powered by Jekyll.</p>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
+    <title>[Next.js] Pages</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="wrap">
+      <header id="header">
+        <h1 class="logo"><a href="/">SIMPLIZM</a></h1>
+        <button class="btn-menu-toggle" onclick="$('body').toggleClass('open-gnb');"><span>전체메뉴</span></button>
+        <nav class="gnb">
+          <ul>
+            <!--  -->
+            
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Language">Language
+                  
+                  <span class="count">(13)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Java/">Java
+                        
+                        <span>(6)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Javascript/">Javascript
+                        
+                        <span>(7)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Library">Library
+                  
+                  <span class="count">(16)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Etc/">Etc
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/React/">React
+                        
+                        <span>(15)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Framework">Framework
+                  
+                  <span class="count">(6)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Codeigniter/">Codeigniter
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Next.js/">Next.js
+                        
+                        <span>(5)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Web Standards">Web Standards
+                  
+                  <span class="count">(1)</span>
+                </a>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+          </ul>
+        </nav>
+      </header>
+
+      <main id="container">
+        <article class="post-wrap">
+  <aside id="post-aside" class="post-aside">
+    <div class="toc-outer">
+      <ul>
+        <li>
+          <a href="#[Next.js] Pages">[Next.js] Pages</a>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#동적-라우팅-페이지">동적 라우팅 페이지</a></li>
+<li class="toc-entry toc-h2"><a href="#사전-렌더링">사전 렌더링</a></li>
+</ul>
+        </li>
+      </ul>
+    </div>
+  </aside>
+  <div id="post-content" class="post-content">
+    <div class="post-head">
+      <h1 id="[Next.js] Pages">[Next.js] Pages</h1>
+    </div>
+    <div class="post-meta">
+      <div>
+        2021-02-06 08:57
+        ShinyJ
+      </div>
+    </div>
+    <div id="post-body" class="post-body"><p>Next.js에서 페이지는 <em>/pages</em> 경로에서 내보낸 ‘.js’, ‘.jsx’, ‘.ts’, ‘.tsx’파일들입니다.
+<em>/pages/about.js</em> 파일을 생성한 경우 <em>/about</em> 경로에서 접속할 수 있습니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">About</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>About<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">About</span>
+</code></pre></div></div>
+
+<h2 id="동적-라우팅-페이지">동적 라우팅 페이지</h2>
+
+<p>Next.js의 <em>/pages</em> 폴더는 동적 라우팅 페이지를 지원합니다.
+<em>/pages/posts/[id].js</em> 라는 파일을 만들었다면 <em>/posts/1</em>, <em>/posts/2</em> 경로에서 접속할 수 있습니다.</p>
+
+<h2 id="사전-렌더링">사전 렌더링</h2>
+
+<p>기본적으로 Next.js는 모든 페이지를 미리 렌더링 합니다. 즉, Next.js는 클라이언트 측 Javascript에서 모든 작업을 수행하는 대신 각 페이지에 대해 미리 HTML을 생성합니다. 사전 렌더링은 더 나은 성능과 SEO를 가져올 수 있습니다.</p>
+
+<p>생성 된 각 HTML은 해당 페이지에 필요한 최소한의 Javascript 코드와 연결됩니다. 브라우저에서 페이지를로드하면 해당 Javascript 코드가 실행되고 페이지가 상호 작용하게됩니다.</p>
+</div>
+  </div>
+</article>
+
+<!-- DISQUS 광고가 개쩔어서 주석처리
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function() {
+      this.page.url = 'https://shinyj1991.github.io/framework/next.js/1';
+      this.page.identifier = '/framework/next.js/1';
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://simplizm.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
+
+<script>
+  let arrHeaderPos = [];
+  let arrHeaderId = [];
+
+  const getHeaderAttr = () => {
+    arrHeaderPos = [];
+    arrHeaderId = [];
+
+    $('#post-content :header').each(function (i, o) {
+      arrHeaderPos.push(o.offsetTop - 10);
+      arrHeaderId.push(o.id);
+    });
+
+    arrHeaderPos.push(999999);
+    arrHeaderId.push('');
+  }
+
+  const resizeObserver = new ResizeObserver(entries => {
+    getHeaderAttr();
+  });
+
+  resizeObserver.observe(document.body);
+
+  $(document).ready(() => {
+    getHeaderAttr();
+  });
+
+  $(window).on('load scroll', function () {
+    for (let i = 0; i < arrHeaderPos.length; i++) {
+      if (window.scrollY < arrHeaderPos[i]) {
+        $('#post-aside').find('a').removeClass('active');
+        if (arrHeaderId[i - 1]) {
+          $(`a[href="#${arrHeaderId[i - 1]}"]`).addClass('active').focus();
+        }
+        break;
+      }
+    }
+  });
+</script>
+      </main>
+
+      <footer id="footer">
+        <ul class="sns">
+          <li><a href="https://github.com/shinyj1991" target="_blank">Github</a></li>
+          <li><a href="https://www.instagram.com/shinyj_/" target="_blank">Instagram</a></li>
+          <li><a href="https://simplizm.tistory.com/" target="_blank">Tistory</a></li>
+        </ul>
+        <p class="copyright">&copy; 2020. ShinyJ. Powered by Jekyll.</p>
+      </footer>
+    </div>
+  </body>
+</html>

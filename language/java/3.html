@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
+    <title>[Java] 메소드의 구분</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="wrap">
+      <header id="header">
+        <h1 class="logo"><a href="/">SIMPLIZM</a></h1>
+        <button class="btn-menu-toggle" onclick="$('body').toggleClass('open-gnb');"><span>전체메뉴</span></button>
+        <nav class="gnb">
+          <ul>
+            <!--  -->
+            
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Language">Language
+                  
+                  <span class="count">(13)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Java/">Java
+                        
+                        <span>(6)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Javascript/">Javascript
+                        
+                        <span>(7)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Library">Library
+                  
+                  <span class="count">(16)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Etc/">Etc
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/React/">React
+                        
+                        <span>(15)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Framework">Framework
+                  
+                  <span class="count">(6)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Codeigniter/">Codeigniter
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Next.js/">Next.js
+                        
+                        <span>(5)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Web Standards">Web Standards
+                  
+                  <span class="count">(1)</span>
+                </a>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+          </ul>
+        </nav>
+      </header>
+
+      <main id="container">
+        <article class="post-wrap">
+  <aside id="post-aside" class="post-aside">
+    <div class="toc-outer">
+      <ul>
+        <li>
+          <a href="#[Java] 메소드의 구분">[Java] 메소드의 구분</a>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#메소드의-구분">메소드의 구분</a></li>
+<li class="toc-entry toc-h2"><a href="#클래스-메소드와-인스턴스-메소드">클래스 메소드와 인스턴스 메소드</a></li>
+</ul>
+        </li>
+      </ul>
+    </div>
+  </aside>
+  <div id="post-content" class="post-content">
+    <div class="post-head">
+      <h1 id="[Java] 메소드의 구분">[Java] 메소드의 구분</h1>
+    </div>
+    <div class="post-meta">
+      <div>
+        2021-01-27 16:53
+        ShinyJ
+      </div>
+    </div>
+    <div id="post-body" class="post-body"><h2 id="메소드의-구분">메소드의 구분</h2>
+
+<p>클래스의 메소드(method)란 어떠한 작업을 수행하기 위한 명령문의 집합이라 할 수 있습니다.
+클래스 내에서 메소드는 static 키워드의 여부에 따라 다음과 같이 구분됩니다.</p>
+
+<ol>
+  <li>클래스 메소드(static method)</li>
+  <li>인스턴스 메소드(instance method)</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Car</span> <span class="o">{</span>
+    <span class="kt">boolean</span> <span class="n">door</span><span class="o">;</span> <span class="c1">// 인스턴스 변수</span>
+    <span class="kt">void</span> <span class="nf">openDoor</span><span class="o">()</span> <span class="o">{</span> <span class="c1">// 인스턴스 메소드</span>
+        <span class="n">door</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">toggleDoor</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">d</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 클래스 메소드</span>
+        <span class="k">return</span> <span class="o">!</span><span class="n">d</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="클래스-메소드와-인스턴스-메소드">클래스 메소드와 인스턴스 메소드</h2>
+
+<p>위와 같이 static 키워드를 가지는 메소드를 클래스 메소드(static method)라고 합니다.
+또한, static 키워드를 가지지 않는 메소드는 인스턴스 메소드(instance method)라고 합니다.</p>
+
+<p>클래스 메소드는 클래스 변수와 마찬가지로 인스턴스를 생성하지 않고도 바로 사용할 수 있습니다.
+따라서 클래스 메소드는 메소드 내부에서 인스턴스 변수를 사용할 수 없습니다.
+그러므로 메소드 내부에서 인스턴스 변수나 인스턴스 메소드를 사용하지 않는 메소드를 클래스 메소드로 정의하는 것이 일반적입니다.</p>
+
+<p>다음 예제는 클래스의 메소드를 종류별로 생성하고 접근하는 예제입니다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Method</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="o">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">20</span><span class="o">;</span> <span class="c1">// 인스턴스 변수</span>
+    <span class="kt">int</span> <span class="nf">add</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">;</span> <span class="o">}</span> <span class="c1">// 인스턴스 메소드</span>
+    <span class="kd">static</span> <span class="kt">int</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="o">;}</span> <span class="c1">// 클래스 메소드</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member02</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">Method</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">20</span><span class="o">,</span> <span class="mi">30</span><span class="o">));</span> <span class="c1">// 클래스 메소드의 호출</span>
+        <span class="nc">Method</span> <span class="n">myMethod</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Method</span><span class="o">();</span> <span class="c1">// 인스턴스 생성</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">myMethod</span><span class="o">.</span><span class="na">add</span><span class="o">());</span> <span class="c1">// 인스턴스 메소드의 호출</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>실행 결과
+50
+30
+</code></pre></div></div>
+
+<p>위의 예제처럼 클래스 메소드는 인스턴스 변수를 사용하지 않고, 전달된 매개변수만으로 동작하는 메소드입니다.</p>
+
+<p><br /></p>
+
+<p>출처 : <a href="http://www.tcpschool.com/java/java_member_method" target="_blank">http://www.tcpschool.com/java/java_member_method</a></p>
+</div>
+  </div>
+</article>
+
+<!-- DISQUS 광고가 개쩔어서 주석처리
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function() {
+      this.page.url = 'https://shinyj1991.github.io/language/java/3';
+      this.page.identifier = '/language/java/3';
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://simplizm.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
+
+<script>
+  let arrHeaderPos = [];
+  let arrHeaderId = [];
+
+  const getHeaderAttr = () => {
+    arrHeaderPos = [];
+    arrHeaderId = [];
+
+    $('#post-content :header').each(function (i, o) {
+      arrHeaderPos.push(o.offsetTop - 10);
+      arrHeaderId.push(o.id);
+    });
+
+    arrHeaderPos.push(999999);
+    arrHeaderId.push('');
+  }
+
+  const resizeObserver = new ResizeObserver(entries => {
+    getHeaderAttr();
+  });
+
+  resizeObserver.observe(document.body);
+
+  $(document).ready(() => {
+    getHeaderAttr();
+  });
+
+  $(window).on('load scroll', function () {
+    for (let i = 0; i < arrHeaderPos.length; i++) {
+      if (window.scrollY < arrHeaderPos[i]) {
+        $('#post-aside').find('a').removeClass('active');
+        if (arrHeaderId[i - 1]) {
+          $(`a[href="#${arrHeaderId[i - 1]}"]`).addClass('active').focus();
+        }
+        break;
+      }
+    }
+  });
+</script>
+      </main>
+
+      <footer id="footer">
+        <ul class="sns">
+          <li><a href="https://github.com/shinyj1991" target="_blank">Github</a></li>
+          <li><a href="https://www.instagram.com/shinyj_/" target="_blank">Instagram</a></li>
+          <li><a href="https://simplizm.tistory.com/" target="_blank">Tistory</a></li>
+        </ul>
+        <p class="copyright">&copy; 2020. ShinyJ. Powered by Jekyll.</p>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
+    <title>[Java] 기타제어자</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="wrap">
+      <header id="header">
+        <h1 class="logo"><a href="/">SIMPLIZM</a></h1>
+        <button class="btn-menu-toggle" onclick="$('body').toggleClass('open-gnb');"><span>전체메뉴</span></button>
+        <nav class="gnb">
+          <ul>
+            <!--  -->
+            
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Language">Language
+                  
+                  <span class="count">(13)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Java/">Java
+                        
+                        <span>(6)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Javascript/">Javascript
+                        
+                        <span>(7)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Library">Library
+                  
+                  <span class="count">(16)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Etc/">Etc
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/React/">React
+                        
+                        <span>(15)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Framework">Framework
+                  
+                  <span class="count">(6)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Codeigniter/">Codeigniter
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Next.js/">Next.js
+                        
+                        <span>(5)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Web Standards">Web Standards
+                  
+                  <span class="count">(1)</span>
+                </a>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+          </ul>
+        </nav>
+      </header>
+
+      <main id="container">
+        <article class="post-wrap">
+  <aside id="post-aside" class="post-aside">
+    <div class="toc-outer">
+      <ul>
+        <li>
+          <a href="#[Java] 기타제어자">[Java] 기타제어자</a>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#final-제어자">final 제어자</a></li>
+<li class="toc-entry toc-h2"><a href="#static-제어자">static 제어자</a></li>
+<li class="toc-entry toc-h2"><a href="#abstract-제어자">abstract 제어자</a></li>
+<li class="toc-entry toc-h2"><a href="#제어자의-조합">제어자의 조합</a></li>
+</ul>
+        </li>
+      </ul>
+    </div>
+  </aside>
+  <div id="post-content" class="post-content">
+    <div class="post-head">
+      <h1 id="[Java] 기타제어자">[Java] 기타제어자</h1>
+    </div>
+    <div class="post-meta">
+      <div>
+        2021-01-25 22:06
+        ShinyJ
+      </div>
+    </div>
+    <div id="post-body" class="post-body"><h2 id="final-제어자">final 제어자</h2>
+
+<p>자바에서 final 제어자는 ‘변경할 수 없다’는 의미로 사용됩니다.</p>
+
+<p>즉, 필드나 지역 변수에 사용하면 값을 변경할 수 없는 상수(constant)가 됩니다.
+또한, 클래스에 사용하면 해당 클래스는 다른 클래스가 상속받을 수 없게 됩니다.
+메소드에 사용하면 해당 메소드는 오버라이딩(overriding)을 통해 재정의를 할 수 없게 됩니다.</p>
+
+<p><br /></p>
+
+<blockquote>
+  <p>자바에서는 상속이라는 것을 통해 다른 클래스의 private 멤버를 제외한 모든 메소드를 상속받을 수 있습니다.
+이렇게 상속받은 메소드는 그대로 사용해도 되고, 필요한 동작을 위해 재정의하여 사용할 수도 있습니다.
+메소드 오버라이딩(method overriding)이란 상속받은 부모 클래스의 메소드를 재정의하여 사용하는 것을 의미합니다.</p>
+</blockquote>
+
+<p><br /></p>
+
+<p>자바에서 final 제어자를 사용할 수 있는 대상은 다음과 같습니다.</p>
+<ul>
+  <li>클래스, 메소드, 필드, 지역 변수</li>
+</ul>
+
+<p><br /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">final</span> <span class="kd">class</span> <span class="nc">Car</span> <span class="o">{</span>
+    <span class="kd">final</span> <span class="kt">int</span> <span class="no">VAR</span><span class="o">;</span>
+    <span class="kd">final</span> <span class="kt">void</span> <span class="nf">brake</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="kt">double</span> <span class="no">MAX_NUM</span> <span class="o">=</span> <span class="mf">10.2</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="static-제어자">static 제어자</h2>
+
+<p>자바에서 static 제어자는 ‘공통적인’이라는 의미로 사용됩니다.</p>
+
+<p>즉, static 제어자를 변수에 사용하면 해당 변수를 클래스 변수로 만들어 줍니다.
+또한, 메소드에 사용하면 해당 메소드를 클래스 메소드로 만들어 줍니다.
+이러한 static 제어자는 초기화 블록에도 사용할 수 있습니다.</p>
+
+<p><br /></p>
+
+<p>static 제어자를 가지는 멤버는 다음과 같은 특징을 가지게 됩니다.</p>
+
+<ol>
+  <li>프로그램 시작시 최초에 단 한 번만 생성되고 초기화됩니다.</li>
+  <li>인스턴스를 생성하지 않고도 바로 사용할 수 있게 됩니다.</li>
+  <li>해당 클래스의 모든 인스턴스가 공유합니다.</li>
+</ol>
+
+<p><br /></p>
+
+<p>자바에서 static 제어자를 사용할 수 있는 대상은 다음과 같습니다.</p>
+
+<ul>
+  <li>메소드, 필드, 초기화 블록</li>
+</ul>
+
+<p><br /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Car</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="kt">int</span> <span class="kt">var</span><span class="o">;</span> <span class="c1">// 클래스 필드(static 변수)</span>
+    <span class="kd">static</span> <span class="o">{</span> <span class="c1">// static 초기화 블록</span>
+        <span class="c1">// 보통 클래스 필드의 초기화를 진행함</span>
+    <span class="o">}</span>
+    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">brake</span><span class="o">()</span> <span class="o">{</span> <span class="c1">// 클래스 메소드(static 메소드)</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="abstract-제어자">abstract 제어자</h2>
+
+<p>자바에서 abstract 제어자는 ‘추상적인’이라는 의미로 사용됩니다.</p>
+
+<p>선언부만 있고 구현부가 없는 메소드를 추상 메소드라 하며, 반드시 abstract 제어자를 붙여야 합니다.
+또한, 하나 이상의 추상 메소드가 포함하고 있는 추상 클래스도 반드시 abstract 제어자를 붙여야 합니다.</p>
+
+<p><br /></p>
+
+<p>자바에서 abstract 제어자를 사용할 수 있는 대상은 다음과 같습니다.</p>
+<ul>
+  <li>클래스, 메소드</li>
+</ul>
+
+<p><br /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Car</span> <span class="o">{</span> <span class="c1">// 추상 클래스</span>
+    <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">brake</span><span class="o">();</span> <span class="c1">// 추상 메소드</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="제어자의-조합">제어자의 조합</h2>
+
+<p>자바에서는 접근 제어자와 기타 제어자를 한 대상에 함께 사용할 수 있습니다.
+하지만 모든 경우가 가능한 것은 아니며, 대상에 따라 사용할 수 있는 조합은 다음과 같습니다.</p>
+
+<p><br /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">대상</th>
+      <th style="text-align: left">함께 사용할 수 있는 제어자</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">클래스</td>
+      <td style="text-align: left">public, (default), final, abstract</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">메소드</td>
+      <td style="text-align: left">모든 접근 제어자, final, static, abstract</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">필드</td>
+      <td style="text-align: left">모든 접근 제어자, final, static</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">지역 변수</td>
+      <td style="text-align: left">final</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">초기화 블록</td>
+      <td style="text-align: left">static</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<p>또한, 자바에서는 제어자의 특성상 몇몇 제어자는 함께 사용할 수 없습니다.</p>
+
+<ol>
+  <li>클래스에 final과 abstract는 함께 사용할 수 없습니다.
+final 제어자를 가지는 클래스는 다른 클래스가 상속받을 수 없게 되며, abstract 제어자를 가지는 클래스는 다른 클래스가 상속해서 오버라이딩해야만 사용할 수 있으므로, 이 두 제어자는 클래스에 함께 사용할 수 없습니다.</li>
+  <li>메소드에 static과 abstract는 함께 사용할 수 없습니다.
+abstract 제어자를 가지는 메소드는 선언부만 있고 구현부가 없는 메소드인데, static 제어자를 가지는 메소드는 인스턴스를 생성하지 않고도 바로 사용할 수 있어야 하므로, 이 두 제어자는 메소드에 함께 사용할 수 없습니다.</li>
+  <li>메소드에 private과 abstract는 함께 사용할 수 없습니다.
+abstract 제어자를 가지는 메소드는 다른 클래스가 상속하여 오버라이딩해야만 사용할 수 있는데, private 제어자를 가지는 메소드는 자식 클래스에서 접근할 수 없게 되므로, 이 두 제어자는 메소드에 함께 사용할 수 없습니다.</li>
+  <li>메소드에 private과 final은 함께 사용할 필요가 없습니다.
+메소드에 사용된 final 제어자와 private 제어자는 모두 해당 메소드가 오버라이딩을 통한 재정의를 할 수 없다는 의미를 가지므로, 둘 중에 하나만 사용해도 의미가 충분히 전달될 수 있습니다.</li>
+</ol>
+
+<p><br /></p>
+
+<p>출처 : <a href="http://www.tcpschool.com/java/java_modifier_ectModifier" target="_blank">http://www.tcpschool.com/java/java_modifier_ectModifier</a></p>
+</div>
+  </div>
+</article>
+
+<!-- DISQUS 광고가 개쩔어서 주석처리
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function() {
+      this.page.url = 'https://shinyj1991.github.io/language/java/1';
+      this.page.identifier = '/language/java/1';
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://simplizm.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
+
+<script>
+  let arrHeaderPos = [];
+  let arrHeaderId = [];
+
+  const getHeaderAttr = () => {
+    arrHeaderPos = [];
+    arrHeaderId = [];
+
+    $('#post-content :header').each(function (i, o) {
+      arrHeaderPos.push(o.offsetTop - 10);
+      arrHeaderId.push(o.id);
+    });
+
+    arrHeaderPos.push(999999);
+    arrHeaderId.push('');
+  }
+
+  const resizeObserver = new ResizeObserver(entries => {
+    getHeaderAttr();
+  });
+
+  resizeObserver.observe(document.body);
+
+  $(document).ready(() => {
+    getHeaderAttr();
+  });
+
+  $(window).on('load scroll', function () {
+    for (let i = 0; i < arrHeaderPos.length; i++) {
+      if (window.scrollY < arrHeaderPos[i]) {
+        $('#post-aside').find('a').removeClass('active');
+        if (arrHeaderId[i - 1]) {
+          $(`a[href="#${arrHeaderId[i - 1]}"]`).addClass('active').focus();
+        }
+        break;
+      }
+    }
+  });
+</script>
+      </main>
+
+      <footer id="footer">
+        <ul class="sns">
+          <li><a href="https://github.com/shinyj1991" target="_blank">Github</a></li>
+          <li><a href="https://www.instagram.com/shinyj_/" target="_blank">Instagram</a></li>
+          <li><a href="https://simplizm.tistory.com/" target="_blank">Tistory</a></li>
+        </ul>
+        <p class="copyright">&copy; 2020. ShinyJ. Powered by Jekyll.</p>
+      </footer>
+    </div>
+  </body>
+</html>

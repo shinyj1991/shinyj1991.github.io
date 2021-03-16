@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
+    <title>SIMPLIZM</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="wrap">
+      <header id="header">
+        <h1 class="logo"><a href="/">SIMPLIZM</a></h1>
+        <button class="btn-menu-toggle" onclick="$('body').toggleClass('open-gnb');"><span>전체메뉴</span></button>
+        <nav class="gnb">
+          <ul>
+            <!--  -->
+            
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Language">Language
+                  
+                  <span class="count">(13)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Java/">Java
+                        
+                        <span>(6)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Javascript/">Javascript
+                        
+                        <span>(7)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Library">Library
+                  
+                  <span class="count">(16)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Etc/">Etc
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/React/">React
+                        
+                        <span>(15)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Framework">Framework
+                  
+                  <span class="count">(6)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Codeigniter/">Codeigniter
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Next.js/">Next.js
+                        
+                        <span>(5)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Web Standards">Web Standards
+                  
+                  <span class="count">(1)</span>
+                </a>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+          </ul>
+        </nav>
+      </header>
+
+      <main id="container">
+        <!-- home layout 은 category와 home 페이지를 공유합니다. -->
+
+
+
+
+  <!-- Home prev, next 페이지 링크 -->
+  
+  
+  
+
+
+<div class="page-head">
+  <h1>Home (36)</h1>
+</div>
+
+<ul class="post-list">
+  
+    <li>
+      <a href="/library/react/10">
+        <div class="cate"><span>Library</span><span>React</span></div>
+        <div class="tit">[React] 합성 (Composition) vs 상속 (Inheritance)</div>
+        <div class="txt">React는 강력한 합성 모델을 가지고 있으며, 상속 대신 합성을 사용하여 컴포넌트 간에 코드를 재사용하는 것이 좋습니다.
+
+이번 문서에서는 React를 처음 접한 개발자들이 종종 상속으로 인해 부딪히는 몇 가지 문제들과 합성을 통해 이러한 문제를 해결하는 방법을 살펴볼 것입니다.
+
+컴포넌트에서 다른 컴포넌트를 담기
+
+어떤 컴포넌트들은 어떤 자식 엘리먼트가 들어올 지 미리 예상할 수 없는 경우가 있습니다. 범용적인 ‘박스’ 역할을 하는 Sidebar 혹은 Dialog 와 같은 컴포넌트에서 특히 자주 볼 수 있습니다.
+
+이러한 ...</div>
+      </a>
+      <div class="date">2021-01-29 16:43</div>
+    </li>
+  
+    <li>
+      <a href="/library/react/9">
+        <div class="cate"><span>Library</span><span>React</span></div>
+        <div class="tit">[React] State 끌어올리기</div>
+        <div class="txt">종종 동일한 데이터에 대한 변경사항을 여러 컴포넌트에 반영해야 할 필요가 있습니다. 이럴 때는 가장 가까운 공통 조상으로 state를 끌어올리는 것이 좋습니다. 이런 일을 어떻게 할 수 있을지 지금부터 살펴봅시다.
+
+이번 섹션에서는 주어진 온도에서 물의 끓는 여부를 추정하는 온도 계산기를 만들어볼 것입니다.
+
+먼저 BoilingVerdict라는 이름의 컴포넌트부터 만들어봅시다. 이 컴포넌트는 섭씨온도를 의미하는 celsius prop을 받아서 이 온도가 물이 끓기에 충분한지 여부를 출력합니다.
+
+function BoilingV...</div>
+      </a>
+      <div class="date">2021-01-29 12:39</div>
+    </li>
+  
+    <li>
+      <a href="/library/react/8">
+        <div class="cate"><span>Library</span><span>React</span></div>
+        <div class="tit">[React] Forms</div>
+        <div class="txt">HTML 폼 엘리먼트는 폼 엘리먼트 자체가 내부 상태를 가지기 때문에, React의 다른 DOM 엘리먼트와 조금 다르게 동작합니다. 예를 들어, 순수한 HTML에서 이 폼은 name을 입력받습니다.
+
+&lt;form&gt;
+  &lt;label&gt;
+    Name:
+    &lt;input type="text" name="name" /&gt;
+  &lt;/label&gt;
+  &lt;input type="submit" value="Submit" /&gt;
+&lt;/form&gt;
+
+
+이 폼은 사용자가 폼을 제출하면 새로운 ...</div>
+      </a>
+      <div class="date">2021-01-29 12:00</div>
+    </li>
+  
+    <li>
+      <a href="/library/react/7">
+        <div class="cate"><span>Library</span><span>React</span></div>
+        <div class="tit">[React] Lists and Keys</div>
+        <div class="txt">List
+
+먼저 Javascript에서 리스트를 어떻게 변환하는지 살펴봅시다.
+
+아래는 map() 함수를 이용하여 numbers 배열의 값을 두배로 만든 후 map() 에서 반환하는 새 배열을 doubled 변수에 할당하고 로그를 확인하는 코드입니다.
+
+const numbers = [1, 2, 3, 4, 5];
+const doubled = numbers.map((number) =&gt; number * 2);
+console.log(doubled);
+
+
+이 코드는 콘솔에 [2, 4, 6, 8, 10] 을 출력합니다.
+
+React...</div>
+      </a>
+      <div class="date">2021-01-29 10:39</div>
+    </li>
+  
+    <li>
+      <a href="/library/react/6">
+        <div class="cate"><span>Library</span><span>React</span></div>
+        <div class="tit">[React] 조건부 렌더링</div>
+        <div class="txt">React에서는 원하는 동작을 캡슐화하는 컴포넌트를 만들 수 있습니다. 이렇게 하면 애플리케이션의 상태에 따라서 컴포넌트 중 몇 개만을 렌더링할 수 있습니다.
+
+React에서 조건부 렌더링은 Javascript에서의 조건 처리와 같이 동작합니다. if나 조건부 연산자와 같은 Javascript 연산자를 현재 상태를 나타내는 엘리먼트를 만드는 데에 사용하세요. 그러면 React는 현재 상태에 맞게 UI를 업데이트할 것 입니다.
+
+아래 두 컴포넌트가 있다고 가정해 봅시다.
+
+function UserGreeting(props) {
+...</div>
+      </a>
+      <div class="date">2021-01-29 08:01</div>
+    </li>
+  
+    <li>
+      <a href="/library/react/5">
+        <div class="cate"><span>Library</span><span>React</span></div>
+        <div class="tit">[React] 이벤트 처리하기</div>
+        <div class="txt">React 엘리먼트에서 이벤트를 처리하는 방식은 DOM 엘리먼트에서 이벤트를 처리하는 방식과 매우 유사합니다. 몇 가지 문법 차이는 다음과 같습니다.
+
+
+  React의 이벤트는 소문자 대신 캐멀 케이스(camelCase)를 사용합니다.
+  JSX를 사용하여 문자열이 아닌 함수로 이벤트 핸들러를 전달합니다.
+
+
+예를 들어, HTML은 다음과 같습니다.
+
+&lt;button onclick="activateLasers()"&gt;
+  Activate Lasers
+&lt;/button&gt;
+
+
+React에서는 약간 다릅니다.
+
+&...</div>
+      </a>
+      <div class="date">2021-01-28 16:03</div>
+    </li>
+  
+    <li>
+      <a href="/library/react/4">
+        <div class="cate"><span>Library</span><span>React</span></div>
+        <div class="tit">[React] State and Lifecycle</div>
+        <div class="txt">이전에 나왔던 째깍거리는 시계 예시에서는 UI를 업데이트하는 한 가지 방법만을 다뤘으며, 렌더링 된 출력값을 변경하기 위해 ReactDOM.render()를 호출했습니다.
+
+function tick() {
+  const element = (
+    &lt;div&gt;
+      &lt;h1&gt;Hello, world!&lt;/h1&gt;
+      &lt;h2&gt;It is {new Date().toLocaleTimeString()}.&lt;/h2&gt;
+    &lt;/div&gt;
+  );
+  ReactDOM.rend...</div>
+      </a>
+      <div class="date">2021-01-28 15:09</div>
+    </li>
+  
+    <li>
+      <a href="/library/react/3">
+        <div class="cate"><span>Library</span><span>React</span></div>
+        <div class="tit">[React] Components and Props</div>
+        <div class="txt">컴포넌트를 통해 UI를 재사용 가능한 개별적인 여러 조각으로 나누고, 각 조각을 개별적으로 살펴볼 수 있습니다. 이 페이지에서는 컴포넌트의 개념을 소개합니다.
+자세한 컴포넌트 API 레퍼런스는 여기에서 확인할 수 있습니다.
+
+함수 컴포넌트와 클래스 컴포넌트
+
+컴포넌트를 정의하는 가장 간단한 방법은 Javascript 함수를 작성하는 것입니다.
+
+function Welcome(props) {
+  return &lt;h1&gt;Hello, {props.name}&lt;/h1&gt;;
+}
+
+
+이 함수는 데이터를 가진 하나의 “pro...</div>
+      </a>
+      <div class="date">2021-01-28 14:46</div>
+    </li>
+  
+    <li>
+      <a href="/library/react/2">
+        <div class="cate"><span>Library</span><span>React</span></div>
+        <div class="tit">[React] 엘리먼트 렌더링</div>
+        <div class="txt">엘리먼트는 React 앱의 가장 작은 단위입니다.
+
+엘리먼트는 화면에 표시할 내용을 기술합니다.
+
+const element = &lt;h1&gt;Hello, world&lt;/h1&gt;;
+
+
+브라우저 DOM 엘리먼트와 달리 React 엘리먼트는 일반 객체이며(plain object) 쉽게 생성할 수 있습니다.
+React DOM은 React 엘리먼트와 일치하도록 DOM을 업데이트합니다.
+
+DOM에 엘리먼트 렌더링하기
+HTML 파일 어딘가에 &lt;div&gt;가 있다고 가정해 봅시다.
+
+&lt;div id="root"&gt;&...</div>
+      </a>
+      <div class="date">2021-01-28 13:00</div>
+    </li>
+  
+    <li>
+      <a href="/library/react/1">
+        <div class="cate"><span>Library</span><span>React</span></div>
+        <div class="tit">[React] Hello World, JSX 소개</div>
+        <div class="txt">Hello World
+가장 단순한 React 예시는 다음과 같이 생겼습니다.
+
+ReactDOM.render(
+    &lt;h1&gt;Hello, world!&lt;/h1&gt;,
+    document.getElementById('root')
+);
+
+
+위 코드는 페이지에 “Hello, world!”라는 제목을 보여줍니다.
+
+JSX 소개
+아래 변수 선언을 살펴봅시다.
+
+const element = &lt;h1&gt;Hello, world!&lt;/h1&gt;;
+
+
+위에 희한한 태그 문법은 문자열도, HTML도 아닙니다.
+
+JS...</div>
+      </a>
+      <div class="date">2021-01-28 12:32</div>
+    </li>
+  
+</ul>
+
+<!-- Pagination links -->
+<div class="pagination">
+  
+    <a href="/page2" class="previous">Previous</a>
+  
+  <span class="page_number ">Page: 3 of 4</span>
+  
+    <a href="/page4" class="next">Next</a>
+  
+</div>
+      </main>
+
+      <footer id="footer">
+        <ul class="sns">
+          <li><a href="https://github.com/shinyj1991" target="_blank">Github</a></li>
+          <li><a href="https://www.instagram.com/shinyj_/" target="_blank">Instagram</a></li>
+          <li><a href="https://simplizm.tistory.com/" target="_blank">Tistory</a></li>
+        </ul>
+        <p class="copyright">&copy; 2020. ShinyJ. Powered by Jekyll.</p>
+      </footer>
+    </div>
+  </body>
+</html>

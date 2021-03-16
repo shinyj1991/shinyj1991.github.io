@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
+    <title>[Next.js] Typescript 적용 + 절대경로 설정</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="wrap">
+      <header id="header">
+        <h1 class="logo"><a href="/">SIMPLIZM</a></h1>
+        <button class="btn-menu-toggle" onclick="$('body').toggleClass('open-gnb');"><span>전체메뉴</span></button>
+        <nav class="gnb">
+          <ul>
+            <!--  -->
+            
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Language">Language
+                  
+                  <span class="count">(13)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Java/">Java
+                        
+                        <span>(6)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Javascript/">Javascript
+                        
+                        <span>(7)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Library">Library
+                  
+                  <span class="count">(16)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Etc/">Etc
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/React/">React
+                        
+                        <span>(15)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Framework">Framework
+                  
+                  <span class="count">(6)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Codeigniter/">Codeigniter
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Next.js/">Next.js
+                        
+                        <span>(5)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Web Standards">Web Standards
+                  
+                  <span class="count">(1)</span>
+                </a>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+          </ul>
+        </nav>
+      </header>
+
+      <main id="container">
+        <article class="post-wrap">
+  <aside id="post-aside" class="post-aside">
+    <div class="toc-outer">
+      <ul>
+        <li>
+          <a href="#[Next.js] Typescript 적용 + 절대경로 설정">[Next.js] Typescript 적용 + 절대경로 설정</a>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#typescript란">Typescript란?</a></li>
+<li class="toc-entry toc-h2"><a href="#nextjs에-typescript-적용하기">Next.js에 Typescript 적용하기</a></li>
+<li class="toc-entry toc-h2"><a href="#절대경로-설정">절대경로 설정</a></li>
+</ul>
+        </li>
+      </ul>
+    </div>
+  </aside>
+  <div id="post-content" class="post-content">
+    <div class="post-head">
+      <h1 id="[Next.js] Typescript 적용 + 절대경로 설정">[Next.js] Typescript 적용 + 절대경로 설정</h1>
+    </div>
+    <div class="post-meta">
+      <div>
+        2021-02-22 15:28
+        ShinyJ
+      </div>
+    </div>
+    <div id="post-body" class="post-body"><h2 id="typescript란">Typescript란?</h2>
+
+<p>마이크로소프트에서 구현한 Javascript의 슈퍼셋(Superset) 프로그래밍 언어. 확장자로는 <em>.ts</em>를 사용하며, 컴파일의 결과물로 Javascript파일인 <em>.js</em>를 출력합니다. 최종적으로 런타임에서는 이렇게 출력된 Javascript 코드를 구동시키게 됩니다.</p>
+
+<p>Typescript라는 이름답게 정적 타입을 명시할 수 있다는 것이 순수한 Javascript와의 가장 큰 차이점입니다. 덕분에 개발 도구에게 개발자가 의도한 변수나 함수 등의 목적을 더욱 명확하게 전달할 수 있고, 그렇게 전달된 정보를 기반으로 코드 자동 완성이나 잘못된 변수/함수 사용에 대한 에러 알림 같은 풍부한 피드백을 받을 수 있게 되므로 순수 자바스크립트에 비해 어마어마한 생산성 향상을 꾀할 수 있습니다. 즉, ‘Javascript를 실제로 사용하기 전에 있을만한 타입 에러들을 미리 잡는 것’이 Typescript의 사용 목적입니다.</p>
+
+<p>개발자와 도구 간의 상호작용에서 뿐만 아니라 개발자 간의 상호작용에서도 상당한 이점이 있는데, API를 구현하고 사용함에 있어 해당 API의 인풋과 아웃풋이 무엇인지 명확하게 표현할 수 있으므로, API 하나 쓰는데에도 일일이 매뉴얼을 찾아봐야 하거나 심하면 해당 API의 코드까지 뒤적거려봐야 하는 Javascript에 비해 효율적입니다.</p>
+
+<h2 id="nextjs에-typescript-적용하기">Next.js에 Typescript 적용하기</h2>
+
+<p>Next.js는 9버전으로 올라오면서 부터 Typescript를 자체적으로 내장하고 있습니다.
+따라서 Next.js에 Typescript를 적용하는 방법은 아주 쉽습니다.</p>
+
+<ol>
+  <li>’/’ 경로에 tsconfig.json 파일 생성</li>
+  <li>typescript 설치 <code class="language-plaintext highlighter-rouge">npm install --save-dev typescript @types/react @types/node</code></li>
+  <li>실행 <code class="language-plaintext highlighter-rouge">npm run dev</code></li>
+</ol>
+
+<h2 id="절대경로-설정">절대경로 설정</h2>
+
+<p>프로젝트가 커지고 파일의 경로가 깊어질수록 다른 경로에 있는 컴포넌트나 파일등을 import하기가 힘들어 집니다.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">SomeComponent</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../../../../../someDirectory/SomeComponent</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>절대 경로가 있으면 이런 문제를 해결할 수 있습니다.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">SomeComponent</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@src/component/someDirectory/SomeComponent</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>위와 같은 절대경로를 사용하기 위해서는 아주 간단한 설정이 필요합니다.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// tsconfig.json</span>
+<span class="p">{</span>
+  <span class="dl">"</span><span class="s2">compilerOptions</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">baseUrl</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">.</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">paths</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">@src/*</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="dl">"</span><span class="s2">src/*</span><span class="dl">"</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>tsconfig.json 파일에 해당 옵션을 추가해 주면 절대경로를 사용할 수 있습니다.</p>
+
+<p>끝.</p>
+</div>
+  </div>
+</article>
+
+<!-- DISQUS 광고가 개쩔어서 주석처리
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function() {
+      this.page.url = 'https://shinyj1991.github.io/framework/next.js/3';
+      this.page.identifier = '/framework/next.js/3';
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://simplizm.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
+
+<script>
+  let arrHeaderPos = [];
+  let arrHeaderId = [];
+
+  const getHeaderAttr = () => {
+    arrHeaderPos = [];
+    arrHeaderId = [];
+
+    $('#post-content :header').each(function (i, o) {
+      arrHeaderPos.push(o.offsetTop - 10);
+      arrHeaderId.push(o.id);
+    });
+
+    arrHeaderPos.push(999999);
+    arrHeaderId.push('');
+  }
+
+  const resizeObserver = new ResizeObserver(entries => {
+    getHeaderAttr();
+  });
+
+  resizeObserver.observe(document.body);
+
+  $(document).ready(() => {
+    getHeaderAttr();
+  });
+
+  $(window).on('load scroll', function () {
+    for (let i = 0; i < arrHeaderPos.length; i++) {
+      if (window.scrollY < arrHeaderPos[i]) {
+        $('#post-aside').find('a').removeClass('active');
+        if (arrHeaderId[i - 1]) {
+          $(`a[href="#${arrHeaderId[i - 1]}"]`).addClass('active').focus();
+        }
+        break;
+      }
+    }
+  });
+</script>
+      </main>
+
+      <footer id="footer">
+        <ul class="sns">
+          <li><a href="https://github.com/shinyj1991" target="_blank">Github</a></li>
+          <li><a href="https://www.instagram.com/shinyj_/" target="_blank">Instagram</a></li>
+          <li><a href="https://simplizm.tistory.com/" target="_blank">Tistory</a></li>
+        </ul>
+        <p class="copyright">&copy; 2020. ShinyJ. Powered by Jekyll.</p>
+      </footer>
+    </div>
+  </body>
+</html>

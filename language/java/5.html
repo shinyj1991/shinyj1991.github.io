@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
+    <title>[Java] 상속의 개념</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="wrap">
+      <header id="header">
+        <h1 class="logo"><a href="/">SIMPLIZM</a></h1>
+        <button class="btn-menu-toggle" onclick="$('body').toggleClass('open-gnb');"><span>전체메뉴</span></button>
+        <nav class="gnb">
+          <ul>
+            <!--  -->
+            
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Language">Language
+                  
+                  <span class="count">(13)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Java/">Java
+                        
+                        <span>(6)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Javascript/">Javascript
+                        
+                        <span>(7)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Library">Library
+                  
+                  <span class="count">(16)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Etc/">Etc
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/React/">React
+                        
+                        <span>(15)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Framework">Framework
+                  
+                  <span class="count">(6)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Codeigniter/">Codeigniter
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Next.js/">Next.js
+                        
+                        <span>(5)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Web Standards">Web Standards
+                  
+                  <span class="count">(1)</span>
+                </a>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+          </ul>
+        </nav>
+      </header>
+
+      <main id="container">
+        <article class="post-wrap">
+  <aside id="post-aside" class="post-aside">
+    <div class="toc-outer">
+      <ul>
+        <li>
+          <a href="#[Java] 상속의 개념">[Java] 상속의 개념</a>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#상속inheritance이란">상속(inheritance)이란?</a></li>
+<li class="toc-entry toc-h2"><a href="#상속의-장점">상속의 장점</a></li>
+<li class="toc-entry toc-h2"><a href="#자식-클래스child-class">자식 클래스(child class)</a></li>
+<li class="toc-entry toc-h2"><a href="#object-클래스">Object 클래스</a></li>
+</ul>
+        </li>
+      </ul>
+    </div>
+  </aside>
+  <div id="post-content" class="post-content">
+    <div class="post-head">
+      <h1 id="[Java] 상속의 개념">[Java] 상속의 개념</h1>
+    </div>
+    <div class="post-meta">
+      <div>
+        2021-01-27 21:02
+        ShinyJ
+      </div>
+    </div>
+    <div id="post-body" class="post-body"><h2 id="상속inheritance이란">상속(inheritance)이란?</h2>
+<p>상속(inheritance)이란 기존의 클래스에 기능을 추가하거나 재정의하여 새로운 클래스를 정의하는 것을 의미합니다.
+이러한 상속은 캡슐화, 추상화와 더불어 객체 지향 프로그래밍을 구성하는 중요한 특징 중 하나입니다.</p>
+
+<p>상속을 이용하면 기존에 정의되어 있는 클래스의 모든 필드와 메소드를 물려받아, 새로운 클래스를 생성할 수 있습니다.
+이때 기존에 정의되어 있던 클래스를 부모 클래스(parent class) 또는 상위 클래스(super class), 기초 클래스(base class)라고도합니다.
+그리고 상속을 통해 새롭게 작성되는 클래스를 자식 클래스(child class) 또는 하위 클래스(sub class), 파생 클래스(derived class)라고도 합니다.</p>
+
+<h2 id="상속의-장점">상속의 장점</h2>
+<p>자바에서 클래스의 상속은 다음과 같은 장점을 가집니다.</p>
+
+<ol>
+  <li>기존에 작성된 클래스를 재활용할 수 있습니다.</li>
+  <li>자식 클래스 설계 시 중복되는 멤버를 미리 부모 클래스에 작성해 놓으면, 자식 클래스에서는 해당 멤버를 작성하지 않아도 됩니다.</li>
+  <li>클래스 간의 계층적 관계를 구성함으로써 다형성의 문법적 토대를 마련합니다.</li>
+</ol>
+
+<h2 id="자식-클래스child-class">자식 클래스(child class)</h2>
+<p>자식 클래스 (child class)란 부모 클래스의 모든 특성을 물려받아 새롭게 작성된 클래스를 의미합니다.</p>
+
+<p>자바에서 자식 클래스는 다음과 같은 문법을 통해 선언합니다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">자식클래스이름</span> <span class="n">extend</span> <span class="n">부모클래스이름</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+</code></pre></div></div>
+
+<p>다음 그림은 부모 클래스와 자식 클래스 간의 포함 관계를 나타낸 그림입니다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/63823237/105988973-cc845780-60e3-11eb-8565-38e1da62d28b.png" alt="image" /></p>
+
+<p>이처럼 부모 클래스는 자식 클래스에 포함된 것으로 볼 수 있습니다.
+따라서 부모 클래스에 새로운 필드를 하나 추가하면, 자식 클래스에도 자동으로 해당 필드가 추가된 것처럼 동작합니다.</p>
+
+<p>자식 클래스에는 부모 클래스의 필드와 메소드만이 상속되며, 생성자와 초기화 블록은 상속되지 않습니다.
+또한, 부모 클래스의 접근 제어가 private이나 default로 설정된 멤버는 자식 클래스에서 상속받지만 접근할 수는 없습니다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Parent</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span> <span class="c1">// private 필드</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">20</span><span class="o">;</span> <span class="c1">// public 필드</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Child</span> <span class="kd">extends</span> <span class="nc">Parent</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">30</span><span class="o">;</span> <span class="c1">// public 필드</span>
+    <span class="kt">void</span> <span class="nf">display</span><span class="o">()</span> <span class="o">{</span>
+       <span class="c1">// System.out.println(a); // Error</span>
+       <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">b</span><span class="o">);</span> <span class="c1">// 20</span>
+       <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">c</span><span class="o">).</span> <span class="c1">// 30</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Inheritance01</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Child</span> <span class="n">ch</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Child</span><span class="o">();</span>
+        <span class="n">ch</span><span class="o">.</span><span class="na">display</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>실행 결과
+20
+30
+</code></pre></div></div>
+
+<blockquote>
+  <p>자바에서 클래스는 단 한 개의 클래스만을 상속받는 단일 상속만이 가능합니다.</p>
+</blockquote>
+
+<h2 id="object-클래스">Object 클래스</h2>
+<p>자바에서 Object 클래스는 모든 클래스의 부모 클래스가 되는 클래스입니다.
+따라서 자바의 모든 클래스는 자동으로 Object 클래스의 모든 필드와 메소드를 상속받게 됩니다.</p>
+
+<p>즉, 자바의 모든 클래스는 별도로 extends 키워드를 사용하여 Object 클래스의 상속을 명시하지 않아도 Object 클래스의 모든 멤버를 자유롭게 사용할 수 있습니다.
+자바의 모든 객체에서 toString()이나 clone()과 같은 메소드를 바로 사용할 수 있는 이유가 해당 메소드들이 Object 클래스의 메소드이기 때문입니다.</p>
+
+<p><br /></p>
+
+<p>출처 : <a href="http://www.tcpschool.com/java/java_inheritance_concept" target="_blank">http://www.tcpschool.com/java/java_inheritance_concept</a></p>
+</div>
+  </div>
+</article>
+
+<!-- DISQUS 광고가 개쩔어서 주석처리
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function() {
+      this.page.url = 'https://shinyj1991.github.io/language/java/5';
+      this.page.identifier = '/language/java/5';
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://simplizm.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
+
+<script>
+  let arrHeaderPos = [];
+  let arrHeaderId = [];
+
+  const getHeaderAttr = () => {
+    arrHeaderPos = [];
+    arrHeaderId = [];
+
+    $('#post-content :header').each(function (i, o) {
+      arrHeaderPos.push(o.offsetTop - 10);
+      arrHeaderId.push(o.id);
+    });
+
+    arrHeaderPos.push(999999);
+    arrHeaderId.push('');
+  }
+
+  const resizeObserver = new ResizeObserver(entries => {
+    getHeaderAttr();
+  });
+
+  resizeObserver.observe(document.body);
+
+  $(document).ready(() => {
+    getHeaderAttr();
+  });
+
+  $(window).on('load scroll', function () {
+    for (let i = 0; i < arrHeaderPos.length; i++) {
+      if (window.scrollY < arrHeaderPos[i]) {
+        $('#post-aside').find('a').removeClass('active');
+        if (arrHeaderId[i - 1]) {
+          $(`a[href="#${arrHeaderId[i - 1]}"]`).addClass('active').focus();
+        }
+        break;
+      }
+    }
+  });
+</script>
+      </main>
+
+      <footer id="footer">
+        <ul class="sns">
+          <li><a href="https://github.com/shinyj1991" target="_blank">Github</a></li>
+          <li><a href="https://www.instagram.com/shinyj_/" target="_blank">Instagram</a></li>
+          <li><a href="https://simplizm.tistory.com/" target="_blank">Tistory</a></li>
+        </ul>
+        <p class="copyright">&copy; 2020. ShinyJ. Powered by Jekyll.</p>
+      </footer>
+    </div>
+  </body>
+</html>

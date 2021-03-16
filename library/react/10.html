@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
+    <title>[React] 합성 (Composition) vs 상속 (Inheritance)</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="wrap">
+      <header id="header">
+        <h1 class="logo"><a href="/">SIMPLIZM</a></h1>
+        <button class="btn-menu-toggle" onclick="$('body').toggleClass('open-gnb');"><span>전체메뉴</span></button>
+        <nav class="gnb">
+          <ul>
+            <!--  -->
+            
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Language">Language
+                  
+                  <span class="count">(13)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Java/">Java
+                        
+                        <span>(6)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Javascript/">Javascript
+                        
+                        <span>(7)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Library">Library
+                  
+                  <span class="count">(16)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Etc/">Etc
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/React/">React
+                        
+                        <span>(15)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Framework">Framework
+                  
+                  <span class="count">(6)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Codeigniter/">Codeigniter
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Next.js/">Next.js
+                        
+                        <span>(5)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Web Standards">Web Standards
+                  
+                  <span class="count">(1)</span>
+                </a>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+          </ul>
+        </nav>
+      </header>
+
+      <main id="container">
+        <article class="post-wrap">
+  <aside id="post-aside" class="post-aside">
+    <div class="toc-outer">
+      <ul>
+        <li>
+          <a href="#[React] 합성 (Composition) vs 상속 (Inheritance)">[React] 합성 (Composition) vs 상속 (Inheritance)</a>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#컴포넌트에서-다른-컴포넌트를-담기">컴포넌트에서 다른 컴포넌트를 담기</a></li>
+<li class="toc-entry toc-h2"><a href="#특수화">특수화</a></li>
+<li class="toc-entry toc-h2"><a href="#그렇다면-상속은">그렇다면 상속은?</a></li>
+</ul>
+        </li>
+      </ul>
+    </div>
+  </aside>
+  <div id="post-content" class="post-content">
+    <div class="post-head">
+      <h1 id="[React] 합성 (Composition) vs 상속 (Inheritance)">[React] 합성 (Composition) vs 상속 (Inheritance)</h1>
+    </div>
+    <div class="post-meta">
+      <div>
+        2021-01-29 16:43
+        ShinyJ
+      </div>
+    </div>
+    <div id="post-body" class="post-body"><p>React는 강력한 합성 모델을 가지고 있으며, 상속 대신 합성을 사용하여 컴포넌트 간에 코드를 재사용하는 것이 좋습니다.</p>
+
+<p>이번 문서에서는 React를 처음 접한 개발자들이 종종 상속으로 인해 부딪히는 몇 가지 문제들과 합성을 통해 이러한 문제를 해결하는 방법을 살펴볼 것입니다.</p>
+
+<h2 id="컴포넌트에서-다른-컴포넌트를-담기">컴포넌트에서 다른 컴포넌트를 담기</h2>
+
+<p>어떤 컴포넌트들은 어떤 자식 엘리먼트가 들어올 지 미리 예상할 수 없는 경우가 있습니다. 범용적인 ‘박스’ 역할을 하는 Sidebar 혹은 Dialog 와 같은 컴포넌트에서 특히 자주 볼 수 있습니다.</p>
+
+<p>이러한 컴포넌트에서는 특수한 children prop을 사용하여 자식 엘리먼트를 출력에 그대로 전달하는 것이 좋습니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">FancyBorder</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="dl">'</span><span class="s1">FancyBorder FancyBorder-</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">props</span><span class="p">.</span><span class="nx">color</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="si">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="si">}</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이러한 방식으로 다른 컴포넌트에서 JSX를 중첩하여 임의의 자식을 전달할 수 있습니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">WelcomeDialog</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">FancyBorder</span> <span class="na">color</span><span class="p">=</span><span class="s">"blue"</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">className</span><span class="p">=</span><span class="err">"</span><span class="na">Dialog</span><span class="err">-</span><span class="na">title</span><span class="p">&gt;</span>
+        Welcome
+      <span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+        Thank you for visiting our spacecraft!
+      <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">FancyBorder</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><em>&lt;FancyBorder&gt;</em> JSX 태그 안에 있는 것들이 <em>FancyBorder</em> 컴포넌트의 <em>children</em> prop으로 전달됩니다. <em>FancyBorder</em>는 <em>{props.children}</em>을 <em>&lt;div&gt;</em> 안에 렌더링하므로 전달된 엘리먼트들이 최종 출력됩니다.</p>
+
+<p>흔하진 않지만 종종 컴포넌트에 여러 개의 “구멍”이 필요할 수도 있습니다. 이런 경우에는 <em>children</em>대신 자신만의 고유한 방식을 적용할 수도 있습니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">SplitPane</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"SplitPane"</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"SplitPane-left"</span><span class="p">&gt;</span>
+        <span class="si">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">left</span><span class="si">}</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"SplitPane-right"</span><span class="p">&gt;</span>
+        <span class="si">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">right</span><span class="si">}</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">SplitPane</span>
+      <span class="na">left</span><span class="p">=</span><span class="si">{</span>
+        <span class="p">&lt;</span><span class="nc">Contents</span> <span class="p">/&gt;</span>
+      <span class="si">}</span>
+      <span class="na">right</span><span class="p">=</span><span class="si">{</span>
+        <span class="p">&lt;</span><span class="nc">Chat</span> <span class="p">/&gt;</span>
+      <span class="si">}</span> <span class="p">/&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><em><Contents></Contents></em>와 <em><Chat></Chat></em>같은 React 엘리먼트는 단지 객체이기 때문에 다른 데이터처럼 prop으로 전달할 수 있습니다. 이러한 접근은 다른 라이브러리의 “슬롯 (slots)”과 비슷해보이지만 React에서 prop으로 전달할 수 있는 것에는 제한이 없습니다.</p>
+
+<h2 id="특수화">특수화</h2>
+
+<p>때로는 어떤 컴포넌트의 “특수한 경우”인 컴포넌트를 고려해야 하는 경우가 있습니다. 예를 들어, <em>WelcomeDialog</em>는 <em>Dialog</em>의 특수한 경우라고 할 수 있습니다.</p>
+
+<p>React에서는 이 역시 합성을 통해 해결할 수 있습니다. 더 “구체적인” 컴포넌트가 “일반적인” 컴포넌트를 렌더링하고 props를 통해 내용을 구성합니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">Dialog</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">FancyBorder</span> <span class="na">color</span><span class="p">=</span><span class="s">"blue"</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">className</span><span class="p">=</span><span class="s">"Dialog-title"</span><span class="p">&gt;</span>
+        <span class="si">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">title</span><span class="si">}</span>
+      <span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">p</span> <span class="na">className</span><span class="p">=</span><span class="s">"Dialog-message"</span><span class="p">&gt;</span>
+        <span class="si">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span>
+      <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">FancyBorder</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">WelcomeDialog</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">Dialog</span>
+      <span class="na">title</span><span class="p">=</span><span class="s">"Welcome"</span> <span class="na">message</span><span class="p">=</span><span class="s">"Thank you for visiting our spacecraft!"</span> <span class="p">/&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>합성은 클래스로 정의된 컴포넌트에서도 도일하게 적용됩니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">Dialog</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">FancyBorder</span> <span class="na">color</span><span class="p">=</span><span class="s">"blue"</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">className</span><span class="p">=</span><span class="s">"Dialog-title"</span><span class="p">&gt;</span>
+        <span class="si">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">title</span><span class="si">}</span>
+      <span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">p</span> <span class="na">className</span><span class="p">=</span><span class="s">"Dialog-message"</span><span class="p">&gt;</span>
+        <span class="si">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span>
+      <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="si">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="si">}</span>
+    <span class="p">&lt;/</span><span class="nc">FancyBorder</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nx">SignUpDialog</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">handleSignUp</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleSignUp</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span><span class="na">login</span><span class="p">:</span> <span class="dl">''</span><span class="p">};</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nc">Dialog</span> <span class="na">title</span><span class="p">=</span><span class="s">"Mars Exploration Program"</span>
+              <span class="na">message</span><span class="p">=</span><span class="s">"How should we refer to you?"</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">value</span><span class="p">=</span><span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">login</span><span class="si">}</span>
+               <span class="na">onChange</span><span class="p">=</span><span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="si">}</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleSignUp</span><span class="si">}</span><span class="p">&gt;</span>
+          Sign Me Up!
+        <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nc">Dialog</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">handleChange</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="na">login</span><span class="p">:</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">handleSignUp</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">`Welcome aboard, </span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">login</span><span class="p">}</span><span class="s2">!`</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="그렇다면-상속은">그렇다면 상속은?</h2>
+
+<p>Facebook에서는 수천 개의 React 컴포넌트를 사용하지만, 컴포넌트를 상속 계층 구조로 작성을 권장할만한 사례를 아직 찾지 못했습니다.</p>
+
+<p>props와 합성은 명시적이고 안전한 방법으로 컴포넌트의 모양과 동작을 커스터마이징하는데 필요한 모든 유연성을 제공합니다. 컴포넌트가 원시 타입의 값, React 엘리먼트 혹은 함수 등 어떠한 props도 받을 수 있다는 것을 기억하세요.</p>
+
+<p>UI가 아닌 기능을 여러 컴포넌트에서 재사용하기를 원하다면, 별도의 Javascript 모듈로 분리하는 것이 좋습니다. 컴포넌트에서 해당 함수, 객체, 클래스 등을 import 하여 사용할 수 있습니다. 상속받을 필요 없이 말이죠.</p>
+
+<p><br /></p>
+
+<p>출처 : <a href="https://reactjs.org/docs/composition-vs-inheritance.html" target="_blank">https://reactjs.org/docs/composition-vs-inheritance.html</a></p>
+</div>
+  </div>
+</article>
+
+<!-- DISQUS 광고가 개쩔어서 주석처리
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function() {
+      this.page.url = 'https://shinyj1991.github.io/library/react/10';
+      this.page.identifier = '/library/react/10';
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://simplizm.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
+
+<script>
+  let arrHeaderPos = [];
+  let arrHeaderId = [];
+
+  const getHeaderAttr = () => {
+    arrHeaderPos = [];
+    arrHeaderId = [];
+
+    $('#post-content :header').each(function (i, o) {
+      arrHeaderPos.push(o.offsetTop - 10);
+      arrHeaderId.push(o.id);
+    });
+
+    arrHeaderPos.push(999999);
+    arrHeaderId.push('');
+  }
+
+  const resizeObserver = new ResizeObserver(entries => {
+    getHeaderAttr();
+  });
+
+  resizeObserver.observe(document.body);
+
+  $(document).ready(() => {
+    getHeaderAttr();
+  });
+
+  $(window).on('load scroll', function () {
+    for (let i = 0; i < arrHeaderPos.length; i++) {
+      if (window.scrollY < arrHeaderPos[i]) {
+        $('#post-aside').find('a').removeClass('active');
+        if (arrHeaderId[i - 1]) {
+          $(`a[href="#${arrHeaderId[i - 1]}"]`).addClass('active').focus();
+        }
+        break;
+      }
+    }
+  });
+</script>
+      </main>
+
+      <footer id="footer">
+        <ul class="sns">
+          <li><a href="https://github.com/shinyj1991" target="_blank">Github</a></li>
+          <li><a href="https://www.instagram.com/shinyj_/" target="_blank">Instagram</a></li>
+          <li><a href="https://simplizm.tistory.com/" target="_blank">Tistory</a></li>
+        </ul>
+        <p class="copyright">&copy; 2020. ShinyJ. Powered by Jekyll.</p>
+      </footer>
+    </div>
+  </body>
+</html>

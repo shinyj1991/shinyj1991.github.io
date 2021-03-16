@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
+    <title>[React] State 끌어올리기</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="wrap">
+      <header id="header">
+        <h1 class="logo"><a href="/">SIMPLIZM</a></h1>
+        <button class="btn-menu-toggle" onclick="$('body').toggleClass('open-gnb');"><span>전체메뉴</span></button>
+        <nav class="gnb">
+          <ul>
+            <!--  -->
+            
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Language">Language
+                  
+                  <span class="count">(13)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Java/">Java
+                        
+                        <span>(6)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Javascript/">Javascript
+                        
+                        <span>(7)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Library">Library
+                  
+                  <span class="count">(16)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Etc/">Etc
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/React/">React
+                        
+                        <span>(15)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Framework">Framework
+                  
+                  <span class="count">(6)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Codeigniter/">Codeigniter
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Next.js/">Next.js
+                        
+                        <span>(5)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Web Standards">Web Standards
+                  
+                  <span class="count">(1)</span>
+                </a>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+          </ul>
+        </nav>
+      </header>
+
+      <main id="container">
+        <article class="post-wrap">
+  <aside id="post-aside" class="post-aside">
+    <div class="toc-outer">
+      <ul>
+        <li>
+          <a href="#[React] State 끌어올리기">[React] State 끌어올리기</a>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#두-번째-input-추가하기">두 번째 Input 추가하기</a></li>
+<li class="toc-entry toc-h2"><a href="#변환-함수-작성하기">변환 함수 작성하기</a></li>
+<li class="toc-entry toc-h2"><a href="#state-끌어올리기">State 끌어올리기</a></li>
+<li class="toc-entry toc-h2"><a href="#교훈">교훈</a></li>
+</ul>
+        </li>
+      </ul>
+    </div>
+  </aside>
+  <div id="post-content" class="post-content">
+    <div class="post-head">
+      <h1 id="[React] State 끌어올리기">[React] State 끌어올리기</h1>
+    </div>
+    <div class="post-meta">
+      <div>
+        2021-01-29 12:39
+        ShinyJ
+      </div>
+    </div>
+    <div id="post-body" class="post-body"><p>종종 동일한 데이터에 대한 변경사항을 여러 컴포넌트에 반영해야 할 필요가 있습니다. 이럴 때는 가장 가까운 공통 조상으로 state를 끌어올리는 것이 좋습니다. 이런 일을 어떻게 할 수 있을지 지금부터 살펴봅시다.</p>
+
+<p>이번 섹션에서는 주어진 온도에서 물의 끓는 여부를 추정하는 온도 계산기를 만들어볼 것입니다.</p>
+
+<p>먼저 <em>BoilingVerdict</em>라는 이름의 컴포넌트부터 만들어봅시다. 이 컴포넌트는 섭씨온도를 의미하는 <em>celsius</em> prop을 받아서 이 온도가 물이 끓기에 충분한지 여부를 출력합니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">BoilingVerdict</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">props</span><span class="p">.</span><span class="nx">celsius</span> <span class="o">&gt;=</span> <span class="mi">100</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>The water would boil.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>The water would not boil.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>그 다음으로 Calculator라는 컴포넌트를 만들어보겠습니다. 이 컴포넌트는 온도를 입력할 수 있는 <em>input</em>을 렌더링하고 그 값을 this.state.temperature에 저장합니다.</p>
+
+<p>또한 현재 입력값에 대한 <em>BoilingVerdict</em> 컴포넌트를 렌더링합니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Calculator</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span><span class="na">temperature</span><span class="p">:</span> <span class="dl">''</span><span class="p">};</span>
+  <span class="p">}</span>
+
+  <span class="nx">handleChange</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="na">temperature</span><span class="p">:</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">temperature</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">temperature</span><span class="p">;</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nt">fieldset</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">legend</span><span class="p">&gt;</span>Enter temperature in Celsius:<span class="p">&lt;/</span><span class="nt">legend</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span>
+          <span class="na">value</span><span class="p">=</span><span class="si">{</span><span class="nx">temperature</span><span class="si">}</span>
+          <span class="na">onChange</span><span class="p">=</span><span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="si">}</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;</span><span class="nc">BoilingVerdict</span>
+          <span class="na">celsius</span><span class="p">=</span><span class="si">{</span><span class="nb">parseFloat</span><span class="p">(</span><span class="nx">temperature</span><span class="p">)</span><span class="si">}</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">fieldset</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="두-번째-input-추가하기">두 번째 Input 추가하기</h2>
+
+<p>새 요구사항으로써 섭씨 입력 필드뿐만 아니라 화씨 입력 필드를 추가하고 두 필드 간에 동기화 상태를 유지하도록 해보겠습니다.</p>
+
+<p><em>Calculator</em>에서 <em>TemperatureInput</em> 컴포넌트를 빼내는 작업부터 시작해봅시다. 또한 “c”또는 “f”의 값을 가질 수 있는 <em>scale</em> prop을 추가할 것입니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">scaleNames</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">c</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Celsius</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">f</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Fahrenheit</span><span class="dl">'</span>
+<span class="p">};</span>
+
+<span class="kd">class</span> <span class="nx">TemperatureInput</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span><span class="na">temperature</span><span class="p">:</span> <span class="dl">''</span><span class="p">};</span>
+  <span class="p">}</span>
+
+  <span class="nx">handleChange</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="na">temperature</span><span class="p">:</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">})</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">temperature</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">temperature</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="nx">scale</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">scale</span><span class="p">;</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nt">fieldset</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">legend</span><span class="p">&gt;</span>Enter temperature in <span class="si">{</span><span class="nx">scaleNames</span><span class="p">[</span><span class="nx">scale</span><span class="p">]</span><span class="si">}</span>:<span class="p">&lt;/</span><span class="nt">legend</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">value</span><span class="p">=</span><span class="si">{</span><span class="nx">temperature</span><span class="si">}</span>
+          <span class="na">onChange</span><span class="p">=</span><span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="si">}</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">fieldset</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이제 <em>Calculator</em>가 분리된 두 개의 온도 입력 필드를 렌더링하도록 변경할 수 있습니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Calculator</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nc">TemperatureInput</span> <span class="na">scale</span><span class="p">=</span><span class="s">"c"</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;</span><span class="nc">TemperatureInput</span> <span class="na">scale</span><span class="p">=</span><span class="s">"f"</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이제 두 개의 입력 필드를 갖게 되었습니다. 그러나 둘 중 하나의 온도를 입력하더라도 다른 하나는 갱신되지 않는 문제가 있습니다. 이것은 두 입력 필드 간에 동기화 상태를 유지하고자 했던 원래 요구사항과는 맞지 않습니다.</p>
+
+<p>또한 <em>Calculator</em>에서 <em>BoilingVerdict</em>도 역시 보여줄 수 없는 상황입니다. 현재 입력된 온도 정보가 <em>TemperatureInput</em> 안에 숨겨져 있으므로 <em>Calculator</em>는 그 값을 알 수 없기 때문입니다.</p>
+
+<h2 id="변환-함수-작성하기">변환 함수 작성하기</h2>
+
+<p>먼저, 섭씨를 화씨로, 또는 그 반대로 변환해주는 함수를 작성해보겠습니다.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">toCelsius</span><span class="p">(</span><span class="nx">fahrenheit</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span><span class="nx">fahrenheit</span> <span class="o">-</span> <span class="mi">32</span><span class="p">)</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">/</span> <span class="mi">9</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">toFahrenheit</span><span class="p">(</span><span class="nx">celsius</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span><span class="nx">celsius</span> <span class="o">*</span> <span class="mi">9</span> <span class="o">/</span> <span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="mi">32</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이 두 함수는 숫자를 변환합니다. 이제 <em>temperature</em> 문자열과 변환 함수를 인수로 취해서 문자열을 반환하는 또 다른 함수를 작성해보겠습니다. 그리고 그것을 한 입력값에 기반해 나머지 입력값을 계산하는 용도로 사용할 것입니다.</p>
+
+<p>이 함수는 올바르지 않은 <em>temperature</em> 값에 대해서는 빈 문자열을 반환하고 값을 소수점 세 번째 자리로 반올림하여 출력합니다.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">tryConvert</span><span class="p">(</span><span class="nx">temperature</span><span class="p">,</span> <span class="nx">convert</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">input</span> <span class="o">=</span> <span class="nb">parseFloat</span><span class="p">(</span><span class="nx">temperature</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">input</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="dl">''</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="kd">const</span> <span class="nx">output</span> <span class="o">=</span> <span class="nx">convert</span><span class="p">(</span><span class="nx">input</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">rounded</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">output</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">rounded</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>예를 들어 tryConvert(‘abc’, toCelsius)는 빈 문자열을 반환하고 tryConvert(‘10.22’, toFahrenheit)는 ‘50.396’을 반환합니다.</p>
+
+<h2 id="state-끌어올리기">State 끌어올리기</h2>
+
+<p>현재는 두 <em>TemperatureInput</em> 컴포넌트가 각각의 입력값을 각자의 state에 독립적으로 저장하고 있습니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">TemperatureInput</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span><span class="na">temperature</span><span class="p">:</span> <span class="dl">''</span><span class="p">};</span>
+  <span class="p">}</span>
+
+  <span class="nx">handleChange</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="na">temperature</span><span class="p">:</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">});</span>
+  <span class="p">}</span>
+  
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">temperature</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">temperature</span><span class="p">;</span>
+    <span class="c1">// ...</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>그러나 우리는 두 입력값이 서로의 것과 동기화된 상태로 있길 원합니다. 섭씨온도 입력값을 변경할 경우 화씨온도 입력값 역시 변환된 온도를 반영할 수 있어야 하며, 그 반대의 경우에도 마찬가지여야 합니다.</p>
+
+<p>React에서 state를 공유하는 일은 그 값을 필요로 하는 컴포넌트 간의 가장 가까운 공통 조상으로 state를 끌어올림으로써 이뤄낼 수 있습니다. 이렇게 하는 방법을 “state 끌어올리기”(lifting state up)라고 부릅니다. 이제 <em>TemperatureInput</em>이 개별적으로 가지고 있던 지역 state를 지우는 대신 <em>Calculator</em>로 그 값을 옮겨놓을 것입니다.</p>
+
+<p><em>Calculator</em>가 공유될 state를 소유하고 있으면 이 컴포넌트는 두 입력 필드의 현재 온도에 대한 “진리의 원천(source of truth)”이 됩니다. 이를 통해 두 입력 필드가 서로 간에 일관된 값을 유지하도록 만들 수 있습니다. 두 <em>TemperatureInput</em> 컴포넌트의 props가 같은 부모인 <em>Calculator</em>로부터 전달되기 때문에, 두 입력 필드는 항상 동기화된 상태를 유지할 수 있게 됩니다.</p>
+
+<p>어떻게 동작하는지 차근차근 살펴봅시다.</p>
+
+<p>우선, <em>TemperatureInput</em> 컴포넌트에서 <em>this.state.temperature</em>를 <em>this.props.TemperatureInput</em>로 대체할 것입니다. 지금은 <em>this.props.TemperatureInput</em>가 이미 존재한다고 가정해봅시다. 나중에는 이 값을 <em>Calculator</em>로부터 건네야 할 것입니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// Before: const temperature = this.state.TemperatureInput;</span>
+  <span class="kd">const</span> <span class="nx">temperatureInput</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">temperatureInput</span><span class="p">;</span>
+  <span class="c1">// ...</span>
+</code></pre></div></div>
+
+<p>props는 읽기 전용입니다. <em>temperature</em>가 지역 state였을 때는 그 값을 변경하기 위해서 그저 <em>TemperatureInput</em>의 <em>this.setState()</em>를 호출하는 걸로 충분했습니다. 그러나 이제 <em>temperature</em>가 부모로부터 prop으로 전달되기 때문에 <em>TemperatureInput</em>은 그 값을 제어할 능력이 없습니다.</p>
+
+<p>React에서는 보통 이 문제를 컴포넌트를 “제어”가능하게 만드는 방식으로 해결합니다. DOM <em>&lt;input&gt;</em>이 <em>value</em>와 <em>onChange</em> prop를 건네받는 것과 비슷한 방식으로, 사용자 정의된 <em>TemperatureInput</em> 역시 <em>temperature</em>와 <em>onTemperatureChange</em> props를 자신의 부모인 <em>Calculator</em>로부터 건네받을 수 있습니다.</p>
+
+<p>이제 <em>TemperatureInput</em>에서 온도를 갱신하고 싶으면 <em>this.props.onTemperatureChange</em>를 호출하면 됩니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">handleChange</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Before: this.setState({temperature: e.target.value});</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">onTemperatureChange</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+  <span class="c1">// ...</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>주의
+사용자 정의 컴포넌트에서 temperature와 onTemperatureChange prop의 이름이 특별한 의미를 갖진 않습니다. 일관된 컨벤션으로 value와 onChange을 사용할 수도 있으며, 여러분이 원하는 그 어떤 이름이든지 사용할 수 있습니다.</p>
+</blockquote>
+
+<p><em>onTemperatureChange</em> prop는 부모 컴포넌트인 <em>Calculator</em>로 부터 <em>temperature</em> prop와 함께 제공될 것입니다. 이를 이용해 자신의 지역 state를 수정해서 변경사항을 처리하므로, 변경된 새 값을 전달받은 두 입력 필드는 모두 리렌더링될 것입니다. <em>Calculator</em>의 새로운 구현체는 조금 뒤에 살펴보겠습니다.</p>
+
+<p><em>Calculator</em>의 변경사항을 들여다보기 전에 <em>TemperatureInput</em> 컴포넌트에 대한 변경사항부터 요약해보겠습니다. 이 컴포넌트의 지역 state를 제거했으며 <em>this.state.temperature</em> 대신에 <em>this.props.temperature</em>를 읽어오도록 변경했습니다. state를 변경하고 싶을 경우 <em>this.setState()</em> 대신에 <em>Calculator</em>로부터 건네받은 <em>this.props.onTemperatureChange()</em>를 호출하도록 만들었습니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">TemperatureInpuit</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">handleChange</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">onTemperatureChange</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">temperature</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">temperature</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="nx">scale</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">scale</span><span class="p">;</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nt">fieldset</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">legend</span><span class="p">&gt;</span>Enter temperature in <span class="si">{</span><span class="nx">scaleNames</span><span class="p">[</span><span class="nx">scale</span><span class="p">]</span><span class="si">}</span>:<span class="p">&lt;/</span><span class="nt">legend</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">value</span><span class="p">=</span><span class="si">{</span><span class="nx">temperature</span><span class="si">}</span>
+          <span class="na">onChange</span><span class="p">=</span><span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="si">}</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">fieldset</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이제 다시 Calculator 컴포넌트로 와 봅시다.</p>
+
+<p><em>temperature</em>와 <em>scale</em>의 현재 입력값을 이 컴포넌트의 지역 state에 저장합니다. 이것은 우리가 입력 필드로부터 “끌어올린” state이며 그들에 대한 “진리의 원천(source of truth)”으로 작용할 것입니다. 또한 두 입력 필드를 렌더링하기 위해서 알아야 하는 모든 데이터를 최소한으로 표현한 것이기도 합니다.</p>
+
+<p>예를 들어서 섭씨 입력 필드에 37을 입력하면 Calculator 컴포넌트의 state는 다음과 같을 것입니다.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">teperature</span><span class="p">:</span> <span class="dl">'</span><span class="s1">37</span><span class="dl">'</span><span class="p">,</span>
+  <span class="nx">scale</span><span class="p">:</span> <span class="dl">'</span><span class="s1">c</span><span class="dl">'</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이후에 화씨 입력 필드의 값을 212로 수정하면 <em>Calculator</em>의 state는 다음과 같은 모습일 것입니다.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">temperature</span><span class="p">:</span> <span class="dl">'</span><span class="s1">212</span><span class="dl">'</span><span class="p">,</span>
+  <span class="nx">scale</span><span class="p">:</span> <span class="dl">'</span><span class="s1">f</span><span class="dl">'</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>두 입력 필드에 모두 값을 저장하는 일도 가능했지만 결국은 불필요한 작업이었던 것입니다. 가장 최근에 변경된 입력값과 그 값이 나타내는 단위를 저장하는 것만으로도 충분합니다. 그러고 나면 현재의 <em>temperature</em>와 <em>scale</em>에 기반해 다른 입력 필드의 값을 추론할 수 있습니다.</p>
+
+<p>두 입력 필드의 값이 동일한 state로부터 계산되기 때문에 이 둘은 항상 동기화된 상태를 유지하게 됩니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Calculator</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">handleCelsiusChange</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleCelsiusChange</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">handleFahrenheitChange</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleFahrenheitChange</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span><span class="na">temperature</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span> <span class="na">scale</span><span class="p">:</span> <span class="dl">'</span><span class="s1">c</span><span class="dl">'</span><span class="p">};</span>
+  <span class="p">}</span>
+
+  <span class="nx">handleCelsiusChange</span><span class="p">(</span><span class="nx">temperature</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="na">scale</span><span class="p">:</span> <span class="dl">'</span><span class="s1">c</span><span class="dl">'</span><span class="p">,</span> <span class="nx">temperature</span><span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">handleFahrenheitChange</span><span class="p">(</span><span class="nx">temperature</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="na">scale</span><span class="p">:</span> <span class="dl">'</span><span class="s1">f</span><span class="dl">'</span><span class="p">,</span> <span class="nx">temperature</span><span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">scale</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">scale</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="nx">temperature</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">temperature</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="nx">celsius</span> <span class="o">=</span> <span class="nx">scale</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">f</span><span class="dl">'</span> <span class="p">?</span> <span class="nx">tryConvert</span><span class="p">(</span><span class="nx">temperature</span><span class="p">,</span> <span class="nx">toCelsius</span><span class="p">)</span> <span class="p">:</span> <span class="nx">temperature</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="nx">fahrenheit</span> <span class="o">=</span> <span class="nx">scale</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">c</span><span class="dl">'</span> <span class="p">?</span> <span class="nx">tryConvert</span><span class="p">(</span><span class="nx">temperature</span><span class="p">,</span> <span class="nx">toFahrenheit</span><span class="p">)</span> <span class="p">:</span> <span class="nx">temperature</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nc">TemperatureInput</span>
+          <span class="na">scale</span><span class="p">=</span><span class="s">"c"</span>
+          <span class="na">temperature</span><span class="p">=</span><span class="si">{</span><span class="nx">celsius</span><span class="si">}</span>
+          <span class="na">onTemperatureChange</span><span class="p">=</span><span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleCelsiusChange</span><span class="si">}</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;</span><span class="nc">TemperatureInput</span>
+          <span class="na">scale</span><span class="p">=</span><span class="s">"f"</span>
+          <span class="na">temperature</span><span class="p">=</span><span class="si">{</span><span class="nx">fahrenheit</span><span class="si">}</span>
+          <span class="na">onTemperatureChange</span><span class="p">=</span><span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleFahrenheitChange</span><span class="si">}</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;</span><span class="nc">BoilingVerdict</span>
+          <span class="na">celsius</span><span class="p">=</span><span class="si">{</span><span class="nb">parseFloat</span><span class="p">(</span><span class="nx">celsius</span><span class="p">)</span><span class="si">}</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이제 어떤 입력 필드를 수정하든 간에 <em>Calculator</em>의 <em>this.state.temperature</em>와 <em>this.state.scale</em>이 갱신됩니다. 입력 필드 중 하나는 있는 그대로의 값을 받으므로 사용자가 입력한 값이 보존되고, 다른 입력 필드의 값은 항상 다른 하나에 기반해 재계산됩니다.</p>
+
+<p>입력값을 변경할 때 일어나는 일들을 정리해보겠습니다.</p>
+
+<ul>
+  <li>React는 DOM <em>&lt;input&gt;</em>의 <em>onChange</em>에 지정된 함수를 호출합니다. 위 예시의 경우 <em>TemperatureInput</em>의 <em>handleChange</em> 메서드에 해당합니다.</li>
+  <li><em>TemperatureInput</em> 컴포넌트의 <em>handleChange</em> 메서드는 새로 입력된 값과 함께 <em>this.props.onTemperatureChange()</em> 를 호출합니다. <em>onTemperatureChange</em>를 포함한 이 컴포넌트의 props는 부모 컴포넌트인 <em>Calculator</em>로부터 제공받은 것입니다.</li>
+  <li>이전 렌더링 단계에서, <em>Calculator</em>는 섭씨 <em>TemperatureInput</em>의 <em>onTemperatureChange</em>를 <em>Calculator</em>의 <em>handleCelsiusChange</em> 메서드로, 화씨 <em>TemperatureInput</em>의 <em>onTemperatureChange</em>를 <em>Calculator</em>의 <em>handleFahrenheitChange</em> 메서드로 지정해놓았습니다. 따라서 우리가 둘 중에 어떤 입력 필드를 수정하느냐에 따라서 <em>Calculator</em>의 두 메서드 중 하나가 호출됩니다.</li>
+  <li>이들 메서드는 내부적으로 <em>Calculator</em> 컴포넌트가 새 입력값, 그리고 현재 수정한 입력 필드의 입력 단위와 함께 <em>this.setState()</em>를 호출하게 함으로써 React에게 자신을 다시 렌더링하도록 요청합니다.</li>
+  <li>React는 UI가 어떻게 보여야 하는지 알아내기 위해 <em>Calculator</em> 컴포넌트의 <em>render</em> 메서드를 호출합니다. 두 입력 필드의 값은 현재 온도와 활성화된 단위를 기반으로 재계산됩니다. 온도의 변환이 이 단계에서 수행됩니다.</li>
+  <li>React는 <em>Calculator</em>가 전달한 새 props와 함께 각 <em>TemperatureInput</em> 컴포넌트의 <em>render</em> 메서드를 호출합니다. 그러면서 UI가 어떻게 보여야 할지를 파악합니다.</li>
+  <li>React는 <em>BoilingVerdict</em> 컴포넌트에게 섭씨온도를 props로 건네면서 그 컴포넌트의 render 메서드를 호출합니다.</li>
+  <li>React DOM은 물의 끓는 여부와 올바른 입력값을 일치시키는 작업과 함께 DOM을 갱신합니다. 값을 변경한 입력 필드는 현재 입력값을 그대로 받고, 다른 입력 필드는 변환된 온도 값으로 갱신됩니다.</li>
+</ul>
+
+<p>입력 필드의 값을 변경할 때마다 동일한 절차를 거치고 두 입력 필드는 동기화된 상태로 유지됩니다.</p>
+
+<h2 id="교훈">교훈</h2>
+
+<p>React 애플리케이션 안에서 변경이 일어나는 데이터에 대해서는 “진리의 원천(source of truth)”을 하나만 두어야 합니다. 보통의 경우, state는 렌더링에 그 값을 필요로 하는 컴포넌트에 먼저 추가됩니다. 그러고 나서 다른 컴포넌트도 역시 그 값이 필요하게 되면 그 값을 그들의 가장 가까운 공통 조상으로 끌어올리면 됩니다. 다른 컴포넌트 간에 존재하는 state를 동기화시키려고 노력하는 대신 하향식 데이터 흐름에 기대는 걸 추천합니다.</p>
+
+<p>state를 끌어올리는 작업은 양방향 바인딩 접근 방식보다 더 많은 “보일러 플레이트” 코드를 유발하지만, 버그를 찾고 격리하기 더 쉽게 만든다는 장점이 있습니다. 어떤 state든 간에 특정 컴포넌트 안에서 존재하기 마련이고 그 컴포넌트가 자신의 state를 스스로 변경할 수 있으므로 버그가 존재할 수 있는 범위가 크게 줄어듭니다. 또한 사용자의 입력을 거부하거나 변형하는 자체로직을 구현할 수도 있습니다.</p>
+
+<p>어떤 값이 props 또는 state로부터 계산될 수 있다면, 아마도 그 값을 state에 두어서는 안 됩니다. 예를 들어 <em>celsiusValue</em>와 <em>fahrenheitValue</em>를 둘 다 저장하는 대신, 단지 최근에 변경된 <em>temperature</em>와 <em>scale</em>만 저장하면 됩니다. 다른 입력 필드의 값은 항상 그 값들에 기반해서 <em>render()</em> 메서드 안에서 계산될 수 있습니다. 이를 통해 사용자 입력값의 정밀도를 유지한 채 다른 필드의 입력값에 반올림을 지우거나 적용할 수 있게 됩니다.</p>
+
+<p>UI에서 무언가 잘못된 부분이 있을 경우, React Developer Tools를 이용하여 props를 검사하고 state를 갱신할 책임이 있는 컴포넌트를 찾을 때까지 트리를 따라 탐색해보세요. 이렇게 함으로써 소스 코드에서 버그를 추적할 수 있습니다.</p>
+
+<p><img src="https://ko.reactjs.org/ef94afc3447d75cdc245c77efb0d63be/react-devtools-state.gif" alt="" /></p>
+
+<p><br /></p>
+
+<p>출처 : <a href="https://reactjs.org/docs/lifting-state-up.html" target="_blank">https://reactjs.org/docs/lifting-state-up.html</a></p>
+</div>
+  </div>
+</article>
+
+<!-- DISQUS 광고가 개쩔어서 주석처리
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function() {
+      this.page.url = 'https://shinyj1991.github.io/library/react/9';
+      this.page.identifier = '/library/react/9';
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://simplizm.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
+
+<script>
+  let arrHeaderPos = [];
+  let arrHeaderId = [];
+
+  const getHeaderAttr = () => {
+    arrHeaderPos = [];
+    arrHeaderId = [];
+
+    $('#post-content :header').each(function (i, o) {
+      arrHeaderPos.push(o.offsetTop - 10);
+      arrHeaderId.push(o.id);
+    });
+
+    arrHeaderPos.push(999999);
+    arrHeaderId.push('');
+  }
+
+  const resizeObserver = new ResizeObserver(entries => {
+    getHeaderAttr();
+  });
+
+  resizeObserver.observe(document.body);
+
+  $(document).ready(() => {
+    getHeaderAttr();
+  });
+
+  $(window).on('load scroll', function () {
+    for (let i = 0; i < arrHeaderPos.length; i++) {
+      if (window.scrollY < arrHeaderPos[i]) {
+        $('#post-aside').find('a').removeClass('active');
+        if (arrHeaderId[i - 1]) {
+          $(`a[href="#${arrHeaderId[i - 1]}"]`).addClass('active').focus();
+        }
+        break;
+      }
+    }
+  });
+</script>
+      </main>
+
+      <footer id="footer">
+        <ul class="sns">
+          <li><a href="https://github.com/shinyj1991" target="_blank">Github</a></li>
+          <li><a href="https://www.instagram.com/shinyj_/" target="_blank">Instagram</a></li>
+          <li><a href="https://simplizm.tistory.com/" target="_blank">Tistory</a></li>
+        </ul>
+        <p class="copyright">&copy; 2020. ShinyJ. Powered by Jekyll.</p>
+      </footer>
+    </div>
+  </body>
+</html>

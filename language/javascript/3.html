@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
+    <title>[Javascript] 화살표 함수 심화</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="wrap">
+      <header id="header">
+        <h1 class="logo"><a href="/">SIMPLIZM</a></h1>
+        <button class="btn-menu-toggle" onclick="$('body').toggleClass('open-gnb');"><span>전체메뉴</span></button>
+        <nav class="gnb">
+          <ul>
+            <!--  -->
+            
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Language">Language
+                  
+                  <span class="count">(13)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Java/">Java
+                        
+                        <span>(6)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Javascript/">Javascript
+                        
+                        <span>(7)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Library">Library
+                  
+                  <span class="count">(16)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Etc/">Etc
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/React/">React
+                        
+                        <span>(15)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Framework">Framework
+                  
+                  <span class="count">(6)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Codeigniter/">Codeigniter
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Next.js/">Next.js
+                        
+                        <span>(5)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Web Standards">Web Standards
+                  
+                  <span class="count">(1)</span>
+                </a>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+          </ul>
+        </nav>
+      </header>
+
+      <main id="container">
+        <article class="post-wrap">
+  <aside id="post-aside" class="post-aside">
+    <div class="toc-outer">
+      <ul>
+        <li>
+          <a href="#[Javascript] 화살표 함수 심화">[Javascript] 화살표 함수 심화</a>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#화살표-함수에는-this가-없습니다">화살표 함수에는 ‘this’가 없습니다</a></li>
+<li class="toc-entry toc-h2"><a href="#화살표-함수엔-arguments가-없습니다">화살표 함수엔 ‘arguments’가 없습니다</a></li>
+<li class="toc-entry toc-h2"><a href="#화살표-함수가-일반-함수와-다른-점은-다음과-같습니다">화살표 함수가 일반 함수와 다른 점은 다음과 같습니다.</a></li>
+</ul>
+        </li>
+      </ul>
+    </div>
+  </aside>
+  <div id="post-content" class="post-content">
+    <div class="post-head">
+      <h1 id="[Javascript] 화살표 함수 심화">[Javascript] 화살표 함수 심화</h1>
+    </div>
+    <div class="post-meta">
+      <div>
+        2021-02-02 11:16
+        ShinyJ
+      </div>
+    </div>
+    <div id="post-body" class="post-body"><p>화살표 함수는 단순히 함수를 ‘짧게’쓰기 위한 용도로 사용되지 않습니다. 화살표 함수는 몇 가지 독특하고 유용한 기능을 제공합니다.</p>
+
+<p>자바스크립트를 사용하다 보면 저 멀리 동떨어진 곳에서 실행될 작은 함수를 작성해야 하는 상황을 자주 만나게 됩니다.</p>
+
+<p>예시 :</p>
+<ul>
+  <li>arr.forEach(func) : func는 forEach가 호출될 때 배열 arr의 요소 전체를 대상으로 실행됩니다.</li>
+  <li>setTimeout(func) : func는 내장 스케줄러에 의해 실행됩니다.</li>
+</ul>
+
+<p>이처럼 자바스크립트에선 함수를 생성하고 그 함수를 어딘가에 전달하는 것이 아주 자연스럽습니다.</p>
+
+<p>그런데 어딘가에 함수를 전달하게 되면 함수으 ㅣ컨텍스트를 잃을 수 있습니다. 이럴 때 화살표 함수를 사용하면 현재 컨텍스트를 잃지 않아 편리합니다.</p>
+
+<h2 id="화살표-함수에는-this가-없습니다">화살표 함수에는 ‘this’가 없습니다</h2>
+
+<p>화살표 함수 본문에서 this에 접근하면, 외부에서 값을 가져옵니다.</p>
+
+<p>이런 특징은 객체의 메서드(showList()) 안에서 동일 객체의 프로퍼티(students)를 대상으로 순회를 하는 데 사용할 수 있습니다.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">group</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">1모둠</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">students</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">보라</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">호진</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">지민</span><span class="dl">'</span><span class="p">],</span>
+    <span class="nx">showList</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">students</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span>
+            <span class="nx">student</span> <span class="o">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">student</span><span class="p">)</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">group</span><span class="p">.</span><span class="nx">showList</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>예시의 forEach에서 화살표 함수를 사용했기 때문에 화살표 함수 본문에 있는 this.title은 화살표 함수 바깥에 있는 메서드인 showList가 가리키는 대상과 동일해집니다. 즉 this.title은 group.title과 같습니다.</p>
+
+<p>위 예시에서 화살표 함수 대신 ‘일반’함수를 사용했다면 에러가 발생했을 겁니다.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 잘못된 케이스 예시입니다.</span>
+<span class="kd">let</span> <span class="nx">group</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">1모둠</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">students</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">보라</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">호진</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">지민</span><span class="dl">'</span><span class="p">],</span>
+    <span class="nx">showList</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">students</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">student</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">alert</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">student</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">group</span><span class="p">.</span><span class="nx">showList</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>에러는 forEach에 전달하는 함수의 this가 undefined 이어서 발생했습니다. alert 함수에서 undefined.title에 접근하려 했기 때문에 얼럿 창엔 에러가 출력됩니다.</p>
+
+<p>그런데 화살표 함수는 this 자체가 없기 때문에 이런 에러가 발생하지 않습니다.</p>
+
+<blockquote>
+  <p>화살표 함수는 new와 함께 실행할 수 없습니다.
+this가 없기 때문에 화살표 함수는 생성자 함수로 사용할 수 없다는 제약이 있습니다. 화살표 함수는 new와 함께 호출할 수 없습니다.</p>
+</blockquote>
+
+<blockquote>
+  <p>화살표 함수 vs. bind
+화살표 함수와 일반 함수를 .bind(this)를 사용해서 호출하는 것 사이에는 미묘한 차이가 있습니다.</p>
+  <ul>
+    <li>.bind(this)는 함수의 ‘한정된 버전(bound version)’을 만듭니다.</li>
+    <li>화살표 함수는 어떤 것도 바인딩시키지 않습니다. 화살표 함수엔 단지 this가 없을 뿐입니다. 화살표 함수에서 this를 사용하면 일반 변수 서칭과 마찬가지로 this의 값을 외부 렉시컬 환경에서 찾습니다.</li>
+  </ul>
+</blockquote>
+
+<h2 id="화살표-함수엔-arguments가-없습니다">화살표 함수엔 ‘arguments’가 없습니다</h2>
+
+<p>화살표 함수는 일반 함수와는 다르게 모든 인수에 접근할 수 있게 해주는 유사 배열 객체 arguments를 지원하지 않습니다.</p>
+
+<p>이런 특징은 현재 this 값과 arguments 정보를 함께 실어 호출을 포워딩해 주는 데코레이터를 만들 때 유용하게 사용됩니다.</p>
+
+<p>아래 예시에서 데코레이터 defer(f, ms)는 함수를 인자로 받고 이 함수를 래퍼로 감싸 반환하는데, 함수 f는 ms 밀리초 후에 호출됩니다.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">defer</span><span class="p">(</span><span class="nx">f</span><span class="p">,</span> <span class="nx">ms</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">f</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">),</span> <span class="nx">ms</span><span class="p">)</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">sayHi</span><span class="p">(</span><span class="nx">who</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">안녕, </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">who</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">sayHiDeferred</span> <span class="o">=</span> <span class="nx">defer</span><span class="p">(</span><span class="nx">sayHi</span><span class="p">,</span> <span class="mi">2000</span><span class="p">);</span>
+<span class="nx">sayHiDeferred</span><span class="p">(</span><span class="dl">"</span><span class="s2">철수</span><span class="dl">"</span><span class="p">);</span> <span class="c1">// 2초 후 "안녕, 철수"가 출력됩니다.</span>
+</code></pre></div></div>
+
+<p>화살표 함수를 사용하지 않고 동일한 기능을 하는 데코레이터 함수를 만들면 다음과 같습니다.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">defer</span><span class="p">(</span><span class="nx">f</span><span class="p">,</span> <span class="nx">ms</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">functon</span><span class="p">(...</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">ctx</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">f</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+        <span class="p">},</span> <span class="nx">ms</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>일반 함수에선 setTimeout에 넘겨주는 콜백 함수에서 사용할ㅇ 변수 ctx와 args를 반드시 만들어줘야 합니다.</p>
+
+<h2 id="화살표-함수가-일반-함수와-다른-점은-다음과-같습니다">화살표 함수가 일반 함수와 다른 점은 다음과 같습니다.</h2>
+
+<ul>
+  <li>this를 가지지 않습니다.</li>
+  <li>arguments를 지원하지 않습니다.</li>
+  <li>new와 함께 호출할 수 없습니다.</li>
+</ul>
+
+<p>화살표 함수는 컨텍스트가 있는 긴 코드보다는 자체 ‘컨텍스트’가 없는 짧은 코드를 담을 용도로 만들어졌습니다. 그리고 이 목적에 잘 들어맞는 특징을 보입니다.</p>
+
+<p>출처 : <a href="https://ko.javascript.info/arrow-functions" target="_blank">https://ko.javascript.info/arrow-functions</a></p>
+</div>
+  </div>
+</article>
+
+<!-- DISQUS 광고가 개쩔어서 주석처리
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function() {
+      this.page.url = 'https://shinyj1991.github.io/language/javascript/3';
+      this.page.identifier = '/language/javascript/3';
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://simplizm.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
+
+<script>
+  let arrHeaderPos = [];
+  let arrHeaderId = [];
+
+  const getHeaderAttr = () => {
+    arrHeaderPos = [];
+    arrHeaderId = [];
+
+    $('#post-content :header').each(function (i, o) {
+      arrHeaderPos.push(o.offsetTop - 10);
+      arrHeaderId.push(o.id);
+    });
+
+    arrHeaderPos.push(999999);
+    arrHeaderId.push('');
+  }
+
+  const resizeObserver = new ResizeObserver(entries => {
+    getHeaderAttr();
+  });
+
+  resizeObserver.observe(document.body);
+
+  $(document).ready(() => {
+    getHeaderAttr();
+  });
+
+  $(window).on('load scroll', function () {
+    for (let i = 0; i < arrHeaderPos.length; i++) {
+      if (window.scrollY < arrHeaderPos[i]) {
+        $('#post-aside').find('a').removeClass('active');
+        if (arrHeaderId[i - 1]) {
+          $(`a[href="#${arrHeaderId[i - 1]}"]`).addClass('active').focus();
+        }
+        break;
+      }
+    }
+  });
+</script>
+      </main>
+
+      <footer id="footer">
+        <ul class="sns">
+          <li><a href="https://github.com/shinyj1991" target="_blank">Github</a></li>
+          <li><a href="https://www.instagram.com/shinyj_/" target="_blank">Instagram</a></li>
+          <li><a href="https://simplizm.tistory.com/" target="_blank">Tistory</a></li>
+        </ul>
+        <p class="copyright">&copy; 2020. ShinyJ. Powered by Jekyll.</p>
+      </footer>
+    </div>
+  </body>
+</html>

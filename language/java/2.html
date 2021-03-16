@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
+    <title>[Java] 필드의 구분</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="wrap">
+      <header id="header">
+        <h1 class="logo"><a href="/">SIMPLIZM</a></h1>
+        <button class="btn-menu-toggle" onclick="$('body').toggleClass('open-gnb');"><span>전체메뉴</span></button>
+        <nav class="gnb">
+          <ul>
+            <!--  -->
+            
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Language">Language
+                  
+                  <span class="count">(13)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Java/">Java
+                        
+                        <span>(6)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Javascript/">Javascript
+                        
+                        <span>(7)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Library">Library
+                  
+                  <span class="count">(16)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Etc/">Etc
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/React/">React
+                        
+                        <span>(15)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Framework">Framework
+                  
+                  <span class="count">(6)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Codeigniter/">Codeigniter
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Next.js/">Next.js
+                        
+                        <span>(5)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Web Standards">Web Standards
+                  
+                  <span class="count">(1)</span>
+                </a>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+          </ul>
+        </nav>
+      </header>
+
+      <main id="container">
+        <article class="post-wrap">
+  <aside id="post-aside" class="post-aside">
+    <div class="toc-outer">
+      <ul>
+        <li>
+          <a href="#[Java] 필드의 구분">[Java] 필드의 구분</a>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#필드의-구분">필드의 구분</a></li>
+<li class="toc-entry toc-h2"><a href="#클래스-변수와-인스턴스-변수">클래스 변수와 인스턴스 변수</a></li>
+</ul>
+        </li>
+      </ul>
+    </div>
+  </aside>
+  <div id="post-content" class="post-content">
+    <div class="post-head">
+      <h1 id="[Java] 필드의 구분">[Java] 필드의 구분</h1>
+    </div>
+    <div class="post-meta">
+      <div>
+        2021-01-27 12:26
+        ShinyJ
+      </div>
+    </div>
+    <div id="post-body" class="post-body"><h2 id="필드의-구분">필드의 구분</h2>
+
+<p>클래스의 필드(field)란 클래스에 포함된 변수(variable)를 의미합니다.
+클래스 내에서 필드는 선언된 위치에 따라 다음과 같이 구분됩니다.</p>
+
+<ol>
+  <li>클래스 변수(static variable)</li>
+  <li>인스턴스 변수(instance variable)</li>
+  <li>지역 변수(local variable)</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Car</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="kt">int</span> <span class="n">modelOutput</span><span class="o">;</span> <span class="c1">// 클래스 변수</span>
+    <span class="nc">String</span> <span class="n">modelName</span><span class="o">;</span> <span class="c1">// 인스턴스 변수</span>
+
+    <span class="kt">void</span> <span class="nf">method</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">comething</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span> <span class="c1">// 지역 변수</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>클래스 변수와 인스턴스 변수는 초기화를 하지 않아도 변수의 타입에 맞게 자동으로 초기화됩니다.
+하지만 지역 변수는 사용하기 전에 초기화하지 않으면, 자바 컴파일러가 오류를 발생시킵니다.</p>
+
+<p>자바에서 클래스 변수와 인스턴스 변수의 초깃값은 다음과 같습니다.</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>변수의 타입</th>
+            <th>초깃값</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>char</td>
+            <td>'\u0000'</td>
+        </tr>
+        <tr>
+            <td>byte, short, int</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>long</td>
+            <td>0L</td>
+        </tr>
+        <tr>
+            <td>float</td>
+            <td>0.0F</td>
+        </tr>
+        <tr>
+            <td>double</td>
+            <td>0.0 또는 0.0D</td>
+        </tr>
+        <tr>
+            <td>boolean</td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td>배열, 인스턴스 등</td>
+            <td>null</td>
+        </tr>
+    </tbody>
+</table>
+
+<p><br /></p>
+
+<h2 id="클래스-변수와-인스턴스-변수">클래스 변수와 인스턴스 변수</h2>
+
+<p>클래스 영역에 위치한 변수 중에서 static 키워드를 가지는 변수를 클래스 변수(static variable)라고 합니다.
+그리고 클래스 영역에 위치한 변수 중 static 키워드를 가지지 않는 변수는 인스턴스 변수(instance variable)라고 합니다.
+또한, 메소드나 생성자, 초기화 블록 내에 위치한 변수를 지역 변수(local variable)라고 합니다.</p>
+
+<p>이렇게 선언된 위치에 따라 구분되는 변수는 생성 및 소멸 시기, 저장되는 메모리 공간과 사용 방법까지도 서로 다릅니다.</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>변수</th>
+            <th>생성 시기</th>
+            <th>소멸 시기</th>
+            <th>저장 메모리</th>
+            <th>사용 방벙</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>클래스 변수</td>
+            <td>클래스 메모리에 올라갈 때</td>
+            <td>프로그램이 종료될 때</td>
+            <td>메소드 영역</td>
+            <td>클래스이름.변수이름</td>
+        </tr>
+        <tr>
+            <td>인스턴스 변수</td>
+            <td>인스턴스가 생성될 때</td>
+            <td>인스턴스가 소멸할 때</td>
+            <td>힙 영역</td>
+            <td>인스턴스이름.변수이름</td>
+        </tr>
+        <tr>
+            <td>지역 변수</td>
+            <td>블록 내에서 변수의 선언문이 실행될 때</td>
+            <td>블록을 벗어날 때</td>
+            <td>스택 영역</td>
+            <td>변수이름</td>
+        </tr>
+    </tbody>
+</table>
+
+<p>클래스 변수는 인스턴스를 생성하지 않고도 바로 사용할 수 있습니다.
+따라서 이러한 클래스 변수를 공유 변수(shared variable)라고도 합니다.</p>
+
+<p>이러한 클래스 변수는 해당 클래스의 모든 인스턴스가 공유해야 하는 값을 유지하기 위해 사용됩니다.
+반면에 인스턴스 변수는 인스턴스마다 가져야 하는 고유한 값을 유지하기 위해 사용됩니다.</p>
+
+<p>다음 예제는 클래스에 여러 가지 종류의 변수를 생성하고 참조하는 예제입니다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Field</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="kt">int</span> <span class="n">classVar</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span> <span class="c1">// 클래스 변수 선언</span>
+    <span class="kt">int</span> <span class="n">instanceVar</span> <span class="o">=</span> <span class="mi">20</span><span class="o">;</span> <span class="c1">// 인스턴스 변수 선언</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member01</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 지역 변수 선언</span>
+        <span class="kt">int</span> <span class="kt">var</span> <span class="o">=</span> <span class="mi">30</span><span class="o">;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="kt">var</span> <span class="o">+</span> <span class="s">"\n"</span><span class="o">);</span>
+
+        <span class="c1">// 인스턴스 생성</span>
+        <span class="nc">Field</span> <span class="n">myField1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Field</span><span class="o">();</span>
+        <span class="nc">Field</span> <span class="n">myField2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Filed</span><span class="o">();</span> 
+
+        <span class="c1">// 클래스 변수 참조</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">Field</span><span class="o">.</span><span class="na">classVar</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">myField1</span><span class="o">.</span><span class="na">classVar</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">myField2</span><span class="o">.</span><span class="na">classVar</span> <span class="o">+</span> <span class="s">"\n"</span><span class="o">);</span>
+
+        <span class="c1">// 클래스 변수의 값을 변경</span>
+        <span class="n">myField1</span><span class="o">.</span><span class="na">classVar</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>
+
+        <span class="c1">// 클래스 변수 참조</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">Field</span><span class="o">.</span><span class="na">classVar</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">myField1</span><span class="o">.</span><span class="na">classVar</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">myField2</span><span class="o">.</span><span class="na">classVar</span> <span class="o">+</span> <span class="s">"\n"</span><span class="o">);</span>
+
+        <span class="c1">// 인스턴스 변수 참조</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">myField1</span><span class="o">.</span><span class="na">instanceVar</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">myField2</span><span class="o">.</span><span class="na">instanceVar</span> <span class="o">+</span> <span class="s">"\n"</span><span class="o">);</span>
+
+        <span class="n">myField1</span><span class="o">.</span><span class="na">instanceVar</span> <span class="o">=</span> <span class="mi">200</span><span class="o">;</span>
+
+        <span class="c1">// 인스턴스 변수 참조</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">myField1</span><span class="o">.</span><span class="na">instanceVar</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">myField2</span><span class="o">.</span><span class="na">instanceVar</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>실행결과
+30
+
+10
+10
+10
+
+100
+100
+100
+
+20
+20
+
+200
+20
+</code></pre></div></div>
+
+<p>위의 예제를 통해 클래스 변수는 생성된 모든 인스턴스가 같은 값을 공유하는 것을 확인할 수 있습니다.
+하지만 인스턴스 변수는 각 인스턴스마다 고유한 값을 가지는 것을 확인할 수 있습니다.</p>
+
+<p><br /></p>
+
+<p>출처 : <a href="http://www.tcpschool.com/java/java_member_field" target="_blank">http://www.tcpschool.com/java/java_member_field</a></p>
+</div>
+  </div>
+</article>
+
+<!-- DISQUS 광고가 개쩔어서 주석처리
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function() {
+      this.page.url = 'https://shinyj1991.github.io/language/java/2';
+      this.page.identifier = '/language/java/2';
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://simplizm.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
+
+<script>
+  let arrHeaderPos = [];
+  let arrHeaderId = [];
+
+  const getHeaderAttr = () => {
+    arrHeaderPos = [];
+    arrHeaderId = [];
+
+    $('#post-content :header').each(function (i, o) {
+      arrHeaderPos.push(o.offsetTop - 10);
+      arrHeaderId.push(o.id);
+    });
+
+    arrHeaderPos.push(999999);
+    arrHeaderId.push('');
+  }
+
+  const resizeObserver = new ResizeObserver(entries => {
+    getHeaderAttr();
+  });
+
+  resizeObserver.observe(document.body);
+
+  $(document).ready(() => {
+    getHeaderAttr();
+  });
+
+  $(window).on('load scroll', function () {
+    for (let i = 0; i < arrHeaderPos.length; i++) {
+      if (window.scrollY < arrHeaderPos[i]) {
+        $('#post-aside').find('a').removeClass('active');
+        if (arrHeaderId[i - 1]) {
+          $(`a[href="#${arrHeaderId[i - 1]}"]`).addClass('active').focus();
+        }
+        break;
+      }
+    }
+  });
+</script>
+      </main>
+
+      <footer id="footer">
+        <ul class="sns">
+          <li><a href="https://github.com/shinyj1991" target="_blank">Github</a></li>
+          <li><a href="https://www.instagram.com/shinyj_/" target="_blank">Instagram</a></li>
+          <li><a href="https://simplizm.tistory.com/" target="_blank">Tistory</a></li>
+        </ul>
+        <p class="copyright">&copy; 2020. ShinyJ. Powered by Jekyll.</p>
+      </footer>
+    </div>
+  </body>
+</html>

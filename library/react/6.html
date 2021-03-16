@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
+    <title>[React] 조건부 렌더링</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="wrap">
+      <header id="header">
+        <h1 class="logo"><a href="/">SIMPLIZM</a></h1>
+        <button class="btn-menu-toggle" onclick="$('body').toggleClass('open-gnb');"><span>전체메뉴</span></button>
+        <nav class="gnb">
+          <ul>
+            <!--  -->
+            
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Language">Language
+                  
+                  <span class="count">(13)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Java/">Java
+                        
+                        <span>(6)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Javascript/">Javascript
+                        
+                        <span>(7)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Library">Library
+                  
+                  <span class="count">(16)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Etc/">Etc
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/React/">React
+                        
+                        <span>(15)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Framework">Framework
+                  
+                  <span class="count">(6)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Codeigniter/">Codeigniter
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Next.js/">Next.js
+                        
+                        <span>(5)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Web Standards">Web Standards
+                  
+                  <span class="count">(1)</span>
+                </a>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+          </ul>
+        </nav>
+      </header>
+
+      <main id="container">
+        <article class="post-wrap">
+  <aside id="post-aside" class="post-aside">
+    <div class="toc-outer">
+      <ul>
+        <li>
+          <a href="#[React] 조건부 렌더링">[React] 조건부 렌더링</a>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#엘리먼트-변수">엘리먼트 변수</a></li>
+<li class="toc-entry toc-h2"><a href="#논리--연산자로-if를-인라인으로-표현하기">논리 &amp;&amp; 연산자로 If를 인라인으로 표현하기</a></li>
+<li class="toc-entry toc-h2"><a href="#조건부-연산자로-if-else구문-인라인으로-표현하기">조건부 연산자로 If-Else구문 인라인으로 표현하기</a></li>
+<li class="toc-entry toc-h2"><a href="#컴포넌트가-렌더링하는-것을-막기">컴포넌트가 렌더링하는 것을 막기</a></li>
+</ul>
+        </li>
+      </ul>
+    </div>
+  </aside>
+  <div id="post-content" class="post-content">
+    <div class="post-head">
+      <h1 id="[React] 조건부 렌더링">[React] 조건부 렌더링</h1>
+    </div>
+    <div class="post-meta">
+      <div>
+        2021-01-29 08:01
+        ShinyJ
+      </div>
+    </div>
+    <div id="post-body" class="post-body"><p>React에서는 원하는 동작을 캡슐화하는 컴포넌트를 만들 수 있습니다. 이렇게 하면 애플리케이션의 상태에 따라서 컴포넌트 중 몇 개만을 렌더링할 수 있습니다.</p>
+
+<p>React에서 조건부 렌더링은 Javascript에서의 조건 처리와 같이 동작합니다. if나 조건부 연산자와 같은 Javascript 연산자를 현재 상태를 나타내는 엘리먼트를 만드는 데에 사용하세요. 그러면 React는 현재 상태에 맞게 UI를 업데이트할 것 입니다.</p>
+
+<p>아래 두 컴포넌트가 있다고 가정해 봅시다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">UserGreeting</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Welcome back!<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">GuestGreeting</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Please sign up.<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이제 사용자의 로그인 상태에 맞게 위 컴포넌트 중 하나를 보여주는 Greeting 컴포넌트를 만듭니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">Greeting</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">isLoggedIn</span> <span class="o">=</span> <span class="nx">props</span><span class="p">.</span><span class="nx">isLoggedIn</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">isLoggedIn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">&lt;</span><span class="nc">UserGreeting</span> <span class="p">/&gt;;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nc">GuestGreeting</span> <span class="p">/&gt;;</span>
+<span class="p">}</span>
+
+<span class="nx">React</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">Greeting</span> <span class="na">isLoggedIn</span><span class="p">=</span><span class="si">{</span><span class="kc">false</span><span class="si">}</span> <span class="p">/&gt;,</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">root</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>이 예시는 isLoggedIn prop에 따라서 다른 인사말을 렌더링 합니다.</p>
+
+<h2 id="엘리먼트-변수">엘리먼트 변수</h2>
+
+<p>엘리먼트를 저장하기 위해 변수를 사용할 수 있습니다. 출력의 다른 부분은 변하지 않은 채로 컴포넌트의 일부를 조건부로 렌더링 할 수 있습니다.</p>
+
+<p>로그아웃과 로그인 버튼을 나타내는 두 컴포넌트가 있다고 가정해 보세요.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">LoginButton</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">onClick</span><span class="si">}</span><span class="p">&gt;</span>
+      Login
+    <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">LogoutButton</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">onClick</span><span class="si">}</span><span class="p">&gt;</span>
+      Logout
+    <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>아래의 예시에서는 LoginControl 이라는 유상태 컴포넌트를 만들 것입니다.</p>
+
+<p>이 컴포넌트는 현재 상태에 맞게 LoginButton 이나 LogoutButton 을 렌더링합니다.
+또한 이전 예시에서의 Greeting 도 함께 렌더링합니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">LoginControl</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">handleLoginClick</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleLoginClick</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">handleLogoutClick</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleLogoutClick</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span><span class="na">isLoggedIn</span><span class="p">:</span> <span class="kc">false</span><span class="p">};</span>
+  <span class="p">}</span>
+
+  <span class="nx">handleLoginClick</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="na">isLoggedIn</span><span class="p">:</span> <span class="kc">true</span><span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">handleLogoutClick</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="na">isLoggedIn</span><span class="p">:</span> <span class="kc">false</span><span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">isLoggedIn</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">isLoggedIn</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">button</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">isLoggedIn</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">button</span> <span class="o">=</span> <span class="p">&lt;</span><span class="nc">LogoutButton</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleLogoutClick</span><span class="si">}</span> <span class="p">/&gt;;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">button</span> <span class="o">=</span> <span class="p">&lt;</span><span class="nc">LoginButton</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleLoginClick</span><span class="si">}</span> <span class="p">/&gt;;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nc">Greeting</span> <span class="na">isLoggedIn</span><span class="p">=</span><span class="si">{</span><span class="nx">isLoggedIn</span><span class="si">}</span> <span class="p">/&gt;</span>
+        <span class="si">{</span><span class="nx">button</span><span class="si">}</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">LoginControl</span> <span class="p">/&gt;,</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElemenetById</span><span class="p">(</span><span class="dl">'</span><span class="s1">root</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>변수를 선언하고 if를 사용해서 조건부로 렌더링 하는 것은 좋은 방법이지만 더 짧은 구문을 사용하고 싶을 때가 있을 수 있습니다. 여러 조건을 JSX 안에서 인라인(inline)으로 처리할 방법 몇가지를 아래에서 소개하겠습니다.</p>
+
+<h2 id="논리--연산자로-if를-인라인으로-표현하기">논리 &amp;&amp; 연산자로 If를 인라인으로 표현하기</h2>
+
+<p>JSX 안에는 중괄호를 이용해서 표현식을 포함할 수 있습니다. 그 안에 Javascript의 논리 연산자 &amp;&amp;를 사용하면 쉽게 엘리먼트를 조건부로 넣을 수 있습니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">Mailbox</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">unreadMessages</span> <span class="o">=</span> <span class="nx">props</span><span class="p">.</span><span class="nx">unreadMessages</span><span class="p">;</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Hello!<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+      <span class="si">{</span><span class="nx">unreadMessages</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span>
+        <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>
+          You have <span class="si">{</span><span class="nx">unreadMessages</span><span class="p">.</span><span class="nx">length</span><span class="si">}</span> unread messages.
+        <span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+      <span class="si">}</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">messages</span> <span class="o">=</span> <span class="p">[</span><span class="dl">'</span><span class="s1">React</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Re: React</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Re:Re: React</span><span class="dl">'</span><span class="p">];</span>
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">Mailbox</span> <span class="na">unreadMessages</span><span class="p">=</span><span class="si">{</span><span class="nx">messages</span><span class="si">}</span> <span class="p">/&gt;,</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">root</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>Javascript에서 true &amp;&amp; expression은 항상 expression으로 평가되고 false &amp;&amp; expression은 항상 false로 평가됩니다.</p>
+
+<p>따라서 &amp;&amp;뒤의 엘리먼트는 조건이 true일때 출력이 됩니다. 조건이 false라면 React는 무시합니다.</p>
+
+<p>false로 평가될 수 있는 표현식을 반환하면 &amp;&amp; 뒤에 있는 표현식은 건너뛰지만 false로 평가될 수 있는 표현식이 반환된다는 것에 주의해주세요. 아래 예시에서, &lt;div&gt;0&lt;/div&gt;이 render 메서드에서 반환됩니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="si">{</span> <span class="nx">count</span> <span class="o">&amp;&amp;</span> <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Messages: <span class="si">{</span><span class="nx">count</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span> <span class="si">}</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="조건부-연산자로-if-else구문-인라인으로-표현하기">조건부 연산자로 If-Else구문 인라인으로 표현하기</h2>
+
+<p>엘리먼트를 조건부로 렌더링하는 다른 방법은 조건부 연산자인 <em>condition ? true : false</em> 를 사용하는 것입니다.</p>
+
+<p>아래의 예시에서는 짧은 구문을 조건부로 렌더링합니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">isLoggedIn</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">isLoggedIn</span><span class="p">;</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+      The user is <span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">isLoggedIn</span> <span class="p">?</span> <span class="dl">'</span><span class="s1">currently</span><span class="dl">'</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">not</span><span class="dl">'</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span> logged in.
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>가독성은 좀 떨어지지만, 더 큰 표현식에도 이 구문을 사용할 수 있습니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">isLoggedIn</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">isLoggedIn</span><span class="p">;</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="si">{</span><span class="nx">isLoggedIn</span>
+        <span class="p">?</span> <span class="p">&lt;</span><span class="nc">LogoutButton</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleLogoutClick</span><span class="si">}</span> <span class="p">/&gt;</span>
+        <span class="p">:</span> <span class="p">&lt;</span><span class="nc">LoginButton</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleLoginClick</span><span class="si">}</span> <span class="p">/&gt;</span>
+      <span class="si">}</span>
+  );
+}
+</code></pre></div></div>
+
+<p>Javascript와 마찬가지로, 가독성이 좋다고 생각하는 방식을 선택하면 됩니다. 또한 조건이 너무 복잡하다면 컴포넌트를 분리하기 좋을 때 일 수도 있다는 것을 기억하세요.</p>
+
+<h2 id="컴포넌트가-렌더링하는-것을-막기">컴포넌트가 렌더링하는 것을 막기</h2>
+
+<p>가끔 다른 컴포넌트에 의해 렌더링될 때 컴포넌트 자체를 숨기고 싶을 때가 있을 수 있습니다.
+이때는 렌더링 결과를 출력하는 대신 null을 반환하면 해결할 수 있습니다.</p>
+
+<p>아래의 예시에서는 WarningBanner 가 warn prop의 값에 의해서 렌더링됩니다. prop이 false라면 컴포넌트는 렌더링하지 않게 됩니다.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">WarningBanner</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">props</span><span class="p">.</span><span class="nx">warn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"warning"</span><span class="p">&gt;</span>
+      Warning!
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nx">Page</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span><span class="na">showWarning</span><span class="p">:</span> <span class="kc">true</span><span class="p">};</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">handleToggleClick</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleToggleClick</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">handleToggleClick</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(</span><span class="nx">state</span> <span class="o">=&gt;</span> <span class="p">({</span>
+      <span class="na">showWarning</span><span class="p">:</span> <span class="o">!</span><span class="nx">state</span><span class="p">.</span><span class="nx">showWarning</span>
+    <span class="p">}));</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nc">WarningBanner</span> <span class="na">warn</span><span class="p">=</span><span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">showWarning</span><span class="si">}</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleToggleClick</span><span class="si">}</span><span class="p">&gt;</span>
+          <span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">showWarning</span> <span class="p">?</span> <span class="dl">'</span><span class="s1">Hide</span><span class="dl">'</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">Show</span><span class="dl">'</span><span class="si">}</span>
+        <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">Page</span> <span class="p">/&gt;,</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">root</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>컴포넌트의 render 메서드로부터 null을 반환하는 것은 생명주기 메서드 호출에 영향을 주지 않습니다. 그 예로 componentDidUpdate는 계속해서 호출되게 됩니다.</p>
+
+<p><br /></p>
+
+<p>출처 : <a href="https://reactjs.org/docs/conditional-rendering.html" target="_blank">https://reactjs.org/docs/conditional-rendering.html</a></p>
+</div>
+  </div>
+</article>
+
+<!-- DISQUS 광고가 개쩔어서 주석처리
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function() {
+      this.page.url = 'https://shinyj1991.github.io/library/react/6';
+      this.page.identifier = '/library/react/6';
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://simplizm.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
+
+<script>
+  let arrHeaderPos = [];
+  let arrHeaderId = [];
+
+  const getHeaderAttr = () => {
+    arrHeaderPos = [];
+    arrHeaderId = [];
+
+    $('#post-content :header').each(function (i, o) {
+      arrHeaderPos.push(o.offsetTop - 10);
+      arrHeaderId.push(o.id);
+    });
+
+    arrHeaderPos.push(999999);
+    arrHeaderId.push('');
+  }
+
+  const resizeObserver = new ResizeObserver(entries => {
+    getHeaderAttr();
+  });
+
+  resizeObserver.observe(document.body);
+
+  $(document).ready(() => {
+    getHeaderAttr();
+  });
+
+  $(window).on('load scroll', function () {
+    for (let i = 0; i < arrHeaderPos.length; i++) {
+      if (window.scrollY < arrHeaderPos[i]) {
+        $('#post-aside').find('a').removeClass('active');
+        if (arrHeaderId[i - 1]) {
+          $(`a[href="#${arrHeaderId[i - 1]}"]`).addClass('active').focus();
+        }
+        break;
+      }
+    }
+  });
+</script>
+      </main>
+
+      <footer id="footer">
+        <ul class="sns">
+          <li><a href="https://github.com/shinyj1991" target="_blank">Github</a></li>
+          <li><a href="https://www.instagram.com/shinyj_/" target="_blank">Instagram</a></li>
+          <li><a href="https://simplizm.tistory.com/" target="_blank">Tistory</a></li>
+        </ul>
+        <p class="copyright">&copy; 2020. ShinyJ. Powered by Jekyll.</p>
+      </footer>
+    </div>
+  </body>
+</html>

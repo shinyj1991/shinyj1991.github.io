@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
+    <title>[Javascript] 네트워크 요청 (fetch)</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="wrap">
+      <header id="header">
+        <h1 class="logo"><a href="/">SIMPLIZM</a></h1>
+        <button class="btn-menu-toggle" onclick="$('body').toggleClass('open-gnb');"><span>전체메뉴</span></button>
+        <nav class="gnb">
+          <ul>
+            <!--  -->
+            
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Language">Language
+                  
+                  <span class="count">(13)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Java/">Java
+                        
+                        <span>(6)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Javascript/">Javascript
+                        
+                        <span>(7)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Library">Library
+                  
+                  <span class="count">(16)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Etc/">Etc
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/React/">React
+                        
+                        <span>(15)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Framework">Framework
+                  
+                  <span class="count">(6)</span>
+                </a>
+                  
+                  <ul>
+                    
+                    <li>
+                      <a href="/category/Codeigniter/">Codeigniter
+                        
+                        <span>(1)</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="/category/Next.js/">Next.js
+                        
+                        <span>(5)</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+            
+              
+              
+              
+              
+                
+                
+                
+                
+                <li><a href="/category/Web Standards">Web Standards
+                  
+                  <span class="count">(1)</span>
+                </a>
+                  
+                </li>
+              
+            
+              
+              
+              
+              
+            
+          </ul>
+        </nav>
+      </header>
+
+      <main id="container">
+        <article class="post-wrap">
+  <aside id="post-aside" class="post-aside">
+    <div class="toc-outer">
+      <ul>
+        <li>
+          <a href="#[Javascript] 네트워크 요청 (fetch)">[Javascript] 네트워크 요청 (fetch)</a>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#fetch">fetch</a></li>
+<li class="toc-entry toc-h2"><a href="#응답-헤더">응답 헤더</a></li>
+<li class="toc-entry toc-h2"><a href="#요청-헤더">요청 헤더</a></li>
+<li class="toc-entry toc-h2"><a href="#post-요청">POST 요청</a></li>
+<li class="toc-entry toc-h2"><a href="#이미지-전송하기">이미지 전송하기</a></li>
+<li class="toc-entry toc-h2"><a href="#요약">요약</a></li>
+</ul>
+        </li>
+      </ul>
+    </div>
+  </aside>
+  <div id="post-content" class="post-content">
+    <div class="post-head">
+      <h1 id="[Javascript] 네트워크 요청 (fetch)">[Javascript] 네트워크 요청 (fetch)</h1>
+    </div>
+    <div class="post-meta">
+      <div>
+        2021-02-02 14:11
+        ShinyJ
+      </div>
+    </div>
+    <div id="post-body" class="post-body"><h2 id="fetch">fetch</h2>
+
+<p>자바스크립트를 사용하면 필요할 때 서버에 네트워크 요청을 보내고 새로운 정보를 받아오는 일을 할 수 있습니다.</p>
+
+<p>네트워크 요청은 다음과 같은 경우에 이뤄집니다.</p>
+
+<ul>
+  <li>주문 전송</li>
+  <li>사용자 정보 읽기</li>
+  <li>서버에서 최신 변경분 가져오기</li>
+  <li>기타 등등</li>
+</ul>
+
+<p>그런데 이 모든 것들은 페이지 새로 고침 없이도 가능합니다.</p>
+
+<p>AJAX(Asynchronous Javascript And XML, 비동기적 Javascript와 XML)라는 용어를 들어보신 분이 있으실 겁니다. AJAX는 서버에서 추가 정보를 비동기적으로 가져올 수 있게 해주는 포괄적인 기술을 나타내는 용어로, 만들어진지 오래되었습니다. AJAX에 XML이 포함된 이유가 바로 이 때문이죠.</p>
+
+<p>AJAX 이외에도 서버에 네트워크 요청을 보내고 정보를 받아올 수 있는 방법은 다양합니다.</p>
+
+<p>그중에서 <em>fetch()</em>는 모던하면서 다재다능한 메서드입니다. <em>fecth()</em>는 구식 브라우저에선 지원하진 않지만(폴리필을 쓰면 사용 가능) 대부분의 모던 브라우저가 지원합니다.</p>
+
+<p>fetch() 기본 문법은 다음과 같습니다.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">promise</span> <span class="o">=</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">[</span><span class="nx">options</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>url : 접근하고자 하는 URL</li>
+  <li>options : 선택 매개변수, method나 header 등을 지정할 수 있음</li>
+</ul>
+
+<p>options에 아무것도 넘기지 않으면 요청은 GET 메서드로 진행되어 url로부터 콘텐츠가 다운로드 됩니다.</p>
+
+<p>fetch()를 호출하면 브라우저는 네트워크 요청을 보내고 프라미스가 반환됩니다. 반환되는 프라미스는 fetch()를 호출하는 코드에서 사용됩니다.</p>
+
+<p>응답은 대개 두 단계를 거쳐 진행됩니다.
+먼저, 서버에서 응답 헤더를 받자마자 fetch 호출 시 반환받은 promise가 내장 클래스 Response의 인스턴스와 함께 이행 상태가 됩니다.</p>
+
+<p>이 단계는 아직 본문(body)이 도착하기 전이지만, 개발자는 응답 헤더를 보고 요청이 성공적으로 처리되었는지 아닌지를 확인할 수 있습니다.</p>
+
+<p>네트워크 문제나 존재하지 않는 사이트에 접속하려는 경우같이 HTTP 요청을 보낼 수 없는 상태에선 프라미스는 거부상태가 됩니다.</p>
+
+<p>HTTP 상태는 응답 프로퍼티를 사용해 확인할 수 있습니다.</p>
+
+<ul>
+  <li>status : HTTP 상태 코드(예: 200)</li>
+  <li>ok : 불린 값. HTTP 상태 코드가 200과 299 사이일 경우 true</li>
+</ul>
+
+<p>예시 :</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">ok</span><span class="p">)</span> <span class="p">{</span><span class="c1">// HTTP 상태 코드가 200 ~ 299일 경우</span>
+    <span class="c1">// 응답 본문을 받습니다(관련 메서드는 아래에서 설명).</span>
+    <span class="kd">let</span> <span class="nx">json</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">HTTP-Error: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">response</span><span class="p">.</span><span class="nx">status</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>두 번째 단계에선 추가 메서드를 호출해 응답 본문을 받습니다.</p>
+
+<p>response 에는 프라미스를 기반으로 하는 다양한 메서드가 있습니다. 이 메서드들을 사용하면 다양한 형태의 응답 본문을 처리할 수 있습니다.</p>
+
+<ul>
+  <li>response.text() : 응답을 읽고 텍스트를 반환합니다.</li>
+  <li>response.json() : 응답을 JSON 형태로 파싱합니다.</li>
+  <li>response.formData() : 응답을 FormData 객체 형태로 반환합니다.</li>
+  <li>response.blob() : 응답을 Blob(타입이 있는 바이너리 데이터) 형태로 반환합니다.</li>
+  <li>response.arrayBuffer() : 응답을 ArrayBuffer(바이너리 데이터를 로우 레벨 형식으로 표현한 것) 형태로 반환합니다.</li>
+  <li>이 외에도 response.body 가 있는데, ReadableStream 객체인 response.body를 사용하면 응답ㅈ 본문을 청크단위로 읽을 수 있습니다.</li>
+</ul>
+
+<p>위의 내용을 토대로 Github에서 마지막 커밋을 JSON 객체 형태로 받아봅시다.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">url</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">https://api.github.com/repos/javascript-tutorial/ko.javascript.info/commits</span><span class="dl">'</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">commits</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span> <span class="c1">// 응답 본문을 읽고 JSON 형태로 파싱함</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="nx">commits</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">author</span><span class="p">.</span><span class="nx">login</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>위 예시를 await 없이 프라미스만 사용하면 다음과 같이 바꿀 수 있습니다.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">commits</span> <span class="o">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="nx">commits</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">author</span><span class="p">.</span><span class="nx">login</span><span class="p">));</span>
+</code></pre></div></div>
+
+<p>응답을 텍스트 형태로 얻으려면 .json() 대신 await response.text() 를 사용하면 됩니다.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">text</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">();</span> <span class="c1">// 응답 본문을 텍스트 형태로 읽습니다.</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="nx">text</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">...</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>중요
+본문을 읽을 때 사용되는 메서드는 딱 하나만 사용할 수 있습니다.
+response.text()를 사용해 응답을 얻었다면 본문의 콘텐츠는 모두 처리 된 상태이기 때문에
+response.json()은 동작하지 않습니다.</p>
+  <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">text</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">();</span> <span class="c1">// 응답 본문이 소비됩니다.</span>
+<span class="kd">let</span> <span class="nx">parsed</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span> <span class="c1">// 실패</span>
+</code></pre></div>  </div>
+</blockquote>
+
+<h2 id="응답-헤더">응답 헤더</h2>
+
+<p>응답 헤더는 response.headers에 맵과 유사한 형태로 저장됩니다.</p>
+
+<p>맵은 아닙니다. 하지만 맵과 유사한 메서드를 지원하죠. 이 메서드들을 사용하면 헤더 일부만 추출하거나 헤더 전체를 순회할 수 있습니다.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="c1">// 헤더 일부를 추출</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">));</span> <span class="c1">// application/json; charset=utf-8</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="p">[</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">]</span> <span class="k">of</span> <span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="nx">key</span><span class="p">}</span><span class="s2"> = </span><span class="p">${</span><span class="nx">value</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="요청-헤더">요청 헤더</h2>
+
+<p>headers 옵션을 사용하면 fetch에 요청 헤더를 설정할 수 있습니다. headers엔 아래와 같이 다양한 헤더 정보가 담긴 객체를 넘기게 됩니다.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">protectedUrl</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">Authentication</span><span class="p">:</span> <span class="dl">'</span><span class="s1">secret</span><span class="dl">'</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>그런데 headers를 사용해 설정할 수 없는 헤더도 있습니다. 금지된 헤더 전체 목록은 <a href="https://fetch.spec.whatwg.org/#forbidden-header-name" target="_blank">링크</a>에서 확인할 수 있습니다.</p>
+
+<p>이런 제약은 HTTP를 목적에 맞고 안전하게 사용할 수 있도록 하려고 만들어졌습니다. 금지 목록에 있는 헤더는 브라우저만 배타적으로 설정, 관리할 수 있습니다.</p>
+
+<h2 id="post-요청">POST 요청</h2>
+
+<p>GET 이외의 요청을 보내려면 추가 옵션을 사용해야 합니다.</p>
+
+<ul>
+  <li>method : HTTP 메서드 (예: POST)</li>
+  <li>body : 요청 본문으로 다음 항목중 하나이어야 합니다.
+    <ul>
+      <li>문자열(예: JSON 문자열)</li>
+      <li>FormData 객체 : form/multipart 형태로 데이터를 전송하기 위해 쓰입니다.</li>
+      <li>Blob나 BufferSource : 바이너리 데이터 전송을 위해 쓰입니다.</li>
+      <li>URLSearchParams : 데이터를 x-www-form-urlencoded 형태로 보내기 위해 쓰이는데, 요즘엔 잘 사용하지 않습니다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>대부분은 JSON을 요청 본문에 실어 보내게 됩니다.</p>
+
+<p>user 객체를 본문에 실어 보내는 예시를 살펴봅시다.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">user</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">John</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">surname</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Smith</span><span class="dl">'</span>
+<span class="p">};</span>
+
+<span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/article/fetch/post/user</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">POST</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">application/json;charset=utf-8</span><span class="dl">'</span>
+    <span class="p">},</span>
+    <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">user</span><span class="p">)</span>
+<span class="p">});</span>
+
+<span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>POST 요청을 보낼 때 주의할 점은 요청 본문이 문자열일 때 Content-Type 헤더가 text/plain;charset=UTF-8 로 기본 설정된다는 점입니다.</p>
+
+<p>하지만 위 예시에선 JSON을 전송하고 있기 때문에 headers 에 제대로 된 Content-Type 인 application/json을 설정해 주었습니다.</p>
+
+<h2 id="이미지-전송하기">이미지 전송하기</h2>
+
+<p>Blob 이나 Buffersource 객체를 사용하면 fetch로 바이너리 데이터를 전송할 수 있습니다.</p>
+
+<p>예시를 살펴봅시다. &lt;canvas&gt;에 마우스를 움직여 이미지를 만들고 ‘전송’버튼을 눌러 이미지를 서버에 전송해보겠습니다.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body</span> <span class="na">style=</span><span class="s">"margin:0"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;canvas</span> <span class="na">id=</span><span class="s">"canvasElem"</span> <span class="na">width=</span><span class="s">"100"</span> <span class="na">height=</span><span class="s">"80"</span> <span class="na">style=</span><span class="s">"border:1px solid"</span><span class="nt">&gt;&lt;/canvas&gt;</span>
+
+  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">value=</span><span class="s">"전송"</span> <span class="na">onclick=</span><span class="s">"submit()"</span><span class="nt">&gt;</span>
+
+  <span class="nt">&lt;script&gt;</span>
+    <span class="nx">canvasElem</span><span class="p">.</span><span class="nx">onmousemove</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="nx">ctx</span> <span class="o">=</span> <span class="nx">canvasElem</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="dl">'</span><span class="s1">2d</span><span class="dl">'</span><span class="p">);</span>
+      <span class="nx">ctx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">clientX</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">clientY</span><span class="p">);</span>
+      <span class="nx">ctx</span><span class="p">.</span><span class="nx">stroke</span><span class="p">();</span>
+    <span class="p">};</span>
+
+    <span class="k">async</span> <span class="kd">function</span> <span class="nx">submit</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="nx">blob</span> <span class="o">=</span> <span class="k">await</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="o">=&gt;</span> <span class="nx">canvasElem</span><span class="p">.</span><span class="nx">toBlob</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="dl">'</span><span class="s1">image/png</span><span class="dl">'</span><span class="p">));</span>
+      <span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/article/fetch/post/image</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+        <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">POST</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">body</span><span class="p">:</span> <span class="nx">blob</span>
+      <span class="p">});</span>
+
+      <span class="c1">// 전송이 잘 되었다는 응답이 오고 이미지 사이즈가 얼럿창에 출력됩니다.</span>
+      <span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+      <span class="nx">alert</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+
+<p>이번엔 Content-Type 헤더를 명시적으로 설정하지 않은 점에 주목해주시기 바랍니다. Blob 객체는 내장 타입을 갖기 때문에 특별히 Content-Type을 설정하지 않아도 됩니다. 예시는 이미지를 전송하기 때문에 toBlob에 의해 image/png가 자동으로 설정되었습니다. 이렇게 Blob 객체의 경우 해당 객체의 타입이 Content-Type 헤더의 값이 됩니다.</p>
+
+<p>위 예시의 함수 submit()을 async/await 없이 작성하면 아래와 같습니다.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">submit</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">canvasElem</span><span class="p">.</span><span class="nx">toBlob</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">blob</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/article/fetch/post/image</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+            <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">POST</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">body</span><span class="p">:</span> <span class="nx">blob</span>
+        <span class="p">})</span>
+        <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+        <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+    <span class="p">},</span> <span class="dl">'</span><span class="s1">image/png</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="요약">요약</h2>
+
+<p>일반적인 fetch 요청은 두 개의 await 호출로 구성됩니다.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span> <span class="c1">// 응답 헤더와 함께 이행됨</span>
+<span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span> <span class="c1">// json 본문을 읽음</span>
+</code></pre></div></div>
+
+<p>물론 await 없이도 요청을 보낼 수 있습니다.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span> <span class="cm">/* 결과 처리 */</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>응답 객체의 프로퍼티는 다음과 같습니다.</p>
+
+<ul>
+  <li>response.status : 응답의 HTTP 코드</li>
+  <li>response.ok : 응답 상태가 200과 299 사이에 있는 경우 true</li>
+  <li>response.headers : 맵과 유사한 형태의 HTTP 헤더</li>
+</ul>
+
+<p>응답 본문을 얻으려면 다음과 같은 메서드를 사용하면 됩니다.</p>
+
+<ul>
+  <li>response.text() : 응답을 텍스트 형태로 반환함</li>
+  <li>response.json() : 응답을 파싱해 JSON 객체로 변경함</li>
+  <li>response.formData() : 응답을 FormData 객체 형태로 반환(form/multipart 인코딩에 대한 내용은 다음 챕터에서 다룸)</li>
+  <li>response.blob() : 응답을 Blob(타입이 있는 바이너리 데이터) 형태로 반환</li>
+  <li>response.arrayBuffer() : 응답을 ArrayBuffer(바이너리 데이터를 로우 레벨로 표현한 것) 형태로 반환</li>
+</ul>
+
+<p>지금까지 배운 fetch 옵션은 다음과 같습니다.</p>
+
+<ul>
+  <li>method : HTTP 메서드</li>
+  <li>headers : 요청 헤드가 담긴 객체(제약 사항이 있음)</li>
+  <li>body : 보내려는 데이터(요청 본문)로 string 이나 FormData, BufferSource, Blob, UrlSearchParams 객체 형태</li>
+</ul>
+
+<p>출처 : <a href="https://ko.javascript.info/fetch" target="_blank">https://ko.javascript.info/fetch</a></p>
+</div>
+  </div>
+</article>
+
+<!-- DISQUS 광고가 개쩔어서 주석처리
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function() {
+      this.page.url = 'https://shinyj1991.github.io/language/javascript/4';
+      this.page.identifier = '/language/javascript/4';
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://simplizm.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
+
+<script>
+  let arrHeaderPos = [];
+  let arrHeaderId = [];
+
+  const getHeaderAttr = () => {
+    arrHeaderPos = [];
+    arrHeaderId = [];
+
+    $('#post-content :header').each(function (i, o) {
+      arrHeaderPos.push(o.offsetTop - 10);
+      arrHeaderId.push(o.id);
+    });
+
+    arrHeaderPos.push(999999);
+    arrHeaderId.push('');
+  }
+
+  const resizeObserver = new ResizeObserver(entries => {
+    getHeaderAttr();
+  });
+
+  resizeObserver.observe(document.body);
+
+  $(document).ready(() => {
+    getHeaderAttr();
+  });
+
+  $(window).on('load scroll', function () {
+    for (let i = 0; i < arrHeaderPos.length; i++) {
+      if (window.scrollY < arrHeaderPos[i]) {
+        $('#post-aside').find('a').removeClass('active');
+        if (arrHeaderId[i - 1]) {
+          $(`a[href="#${arrHeaderId[i - 1]}"]`).addClass('active').focus();
+        }
+        break;
+      }
+    }
+  });
+</script>
+      </main>
+
+      <footer id="footer">
+        <ul class="sns">
+          <li><a href="https://github.com/shinyj1991" target="_blank">Github</a></li>
+          <li><a href="https://www.instagram.com/shinyj_/" target="_blank">Instagram</a></li>
+          <li><a href="https://simplizm.tistory.com/" target="_blank">Tistory</a></li>
+        </ul>
+        <p class="copyright">&copy; 2020. ShinyJ. Powered by Jekyll.</p>
+      </footer>
+    </div>
+  </body>
+</html>
